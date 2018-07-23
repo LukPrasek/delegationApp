@@ -1,4 +1,4 @@
-package pl.lukaszprasek.delegationApp.models;
+package pl.lukaszprasek.delegationApp.domain.entities;
 
 import javax.persistence.Entity;
 import java.time.LocalDate;

@@ -1,13 +1,12 @@
-package pl.lukaszprasek.delegationApp.models;
+package pl.lukaszprasek.delegationApp.domain.entities;
 
 import javax.persistence.Entity;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "SUPERVISOR")
-@PrimaryKeyJoinColumn(name = "supervisor_id", referencedColumnName = "emp_id")
+//@PrimaryKeyJoinColumn(name = "supervisor_id", referencedColumnName = "emp_id")
 public class Supervisor extends EmployeeEntity {
 
 

@@ -1,4 +1,4 @@
-package pl.lukaszprasek.delegationapp.models;
+package pl.lukaszprasek.delegationApp.domain.entities;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;

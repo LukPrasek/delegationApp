@@ -1,12 +1,11 @@
-package pl.lukaszprasek.delegationApp.models;
+package pl.lukaszprasek.delegationApp.domain.entities;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
-
 @Entity
 @Table(name = "employees")
-@Inheritance(strategy = InheritanceType.JOINED)
+//@Inheritance(strategy = InheritanceType.JOINED)
 public class EmployeeEntity {
 
     @Id
@@ -15,18 +14,16 @@ public class EmployeeEntity {
     private int empId;
     private String name;
     private String surname;
-    //@Temporal(TemporalType.DATE)
-    private LocalDate birthday;
-    //@Temporal(TemporalType.DATE)
-    private LocalDate startWorkingDate;
 
+    private LocalDate birthday;
+
+    private LocalDate startWorkingDate;
 
 
     public EmployeeEntity(String name, String surname, LocalDate birthdate, LocalDate startWorkingDate) {
 
     }
     public EmployeeEntity(){}
-
 
     public int getEmpId() {
         return empId;
