@@ -8,7 +8,6 @@ public class EmployeeDto {
     private String name;
     private String surname;
     private String birthday;
-    private String startWorkingDay;
     private String startWorkingDate;
 
     public long getEmpId() {
@@ -27,10 +26,6 @@ public class EmployeeDto {
         return birthday;
     }
 
-    public String getStartWorkingDay() {
-        return startWorkingDay;
-    }
-
     public String getStartWorkingDate() {
         return startWorkingDate;
     }
@@ -39,8 +34,13 @@ public class EmployeeDto {
         return new Builder();
     }
 
+
     public static class Builder {
-        private EmployeeDto dto;
+        private final EmployeeDto dto;
+
+        public Builder() {
+            dto = new EmployeeDto();
+        }
 
         public Builder withEmpId(long id) {
             dto.empId = id;

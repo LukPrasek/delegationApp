@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.lukaszprasek.delegationApp.common.dto.EmployeeDto;
@@ -29,11 +30,18 @@ public class EmployeeController {
     }
 
 
-    @ApiOperation(value = "Get all persons")
+    @ApiOperation(value = "Get all employees")
     @GetMapping(path = "/employees", produces = "application/json")
-    public List<EmployeeDto> getEmployees(Model model) {
+    public List<EmployeeDto> getEmployees() {
         System.out.println("****************++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         return employeeService.getAllEmployees();
+
+    }
+
+    @ApiOperation(value = "Get one employee")
+    @GetMapping(path = "/employees/{id}", produces = "application/json")
+    public EmployeeDto getEmployeeById(@PathVariable("id") Long id) {
+              return employeeService.getEmployeeById(id);
 
     }
 }

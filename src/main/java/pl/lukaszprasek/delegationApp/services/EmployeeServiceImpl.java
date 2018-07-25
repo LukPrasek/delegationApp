@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import pl.lukaszprasek.delegationApp.common.dto.EmployeeDto;
+import pl.lukaszprasek.delegationApp.domain.entities.EmployeeEntity;
 import pl.lukaszprasek.delegationApp.domain.repositories.EmployeeRepository;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         this.employeeRepository = employeeRepository;
     }
 
-@Override
+    @Override
     public List<EmployeeDto> getAllEmployees() {
         return employeeRepository.findAll().stream().map(employeeEntity -> EmployeeDto.builder()
                 .withEmpId(employeeEntity.getEmpId())
@@ -32,7 +33,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public EmployeeDto getEmployeeById(Long id) {
-        return null;
+        EmployeeEntity employeeEntity = employeeRepository.getOne(id);
+        return EmployeeDto.builder().withEmpId(employeeEntity.getEmpId())
+                .withName(employeeEntity.getName()).withSurname(employeeEntity.getSurname())
+                .withBirthday(employeeEntity.getBirthday().toString())
+                .withStartWorkingDay(employeeEntity.getStartWorkingDate().toString()).build();
     }
 
     @Override
