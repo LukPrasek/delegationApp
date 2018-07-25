@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 import pl.lukaszprasek.delegationApp.domain.entities.EmployeeEntity;
 
 @Repository
-public interface EmployeeRepository extends JpaRepository<EmployeeEntity, Integer> {
+public interface EmployeeRepository extends JpaRepository<EmployeeEntity, Long> {
 
  }
 

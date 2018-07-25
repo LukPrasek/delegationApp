@@ -1,24 +1,13 @@
 package pl.lukaszprasek.delegationApp.services;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
-import org.springframework.stereotype.Service;
-
-import pl.lukaszprasek.delegationApp.domain.entities.EmployeeEntity;
-import pl.lukaszprasek.delegationApp.domain.repositories.EmployeeRepository;
+import pl.lukaszprasek.delegationApp.common.dto.EmployeeDto;
 
 import java.util.List;
 
+public interface EmployeeService {
 
-@Service
-public class EmployeeService {
-
-    @Autowired
-    EmployeeRepository employeeRepository;
-
-
-    public List<EmployeeEntity> getAllEmployees() {
-        return (List<EmployeeEntity>) employeeRepository.findAll();
-    }
+    List<EmployeeDto> getAllEmployees();
+    EmployeeDto getEmployeeById(Long id);
+    EmployeeDto createEmployee(EmployeeDto employeeDto);
 
 }

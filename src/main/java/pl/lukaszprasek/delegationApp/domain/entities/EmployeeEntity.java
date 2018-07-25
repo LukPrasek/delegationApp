@@ -9,14 +9,12 @@ import java.time.LocalDate;
 public class EmployeeEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "emp_id")
-    private int empId;
+    private long empId;
     private String name;
     private String surname;
-
     private LocalDate birthday;
-
     private LocalDate startWorkingDate;
 
 
@@ -25,7 +23,7 @@ public class EmployeeEntity {
     }
     public EmployeeEntity(){}
 
-    public int getEmpId() {
+    public long getEmpId() {
         return empId;
     }
 
