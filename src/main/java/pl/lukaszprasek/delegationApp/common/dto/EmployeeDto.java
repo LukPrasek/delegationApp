@@ -1,6 +1,7 @@
 package pl.lukaszprasek.delegationApp.common.dto;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
 public class EmployeeDto implements Serializable {
@@ -71,12 +72,12 @@ public class EmployeeDto implements Serializable {
             return this;
         }
 
-        public Builder withBirthday(Date birthday) {
+        public Builder withBirthday(LocalDate birthday) {
             this.birthday = birthday.toString();
             return this;
         }
 
-        public Builder withStartWorkingDay(Date startWorkingDate) {
+        public Builder withStartWorkingDay(LocalDate startWorkingDate) {
             System.out.println("**************************************"+startWorkingDate);
             this.startWorkingDate = startWorkingDate.toString();
             return this;

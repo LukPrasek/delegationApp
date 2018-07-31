@@ -9,13 +9,9 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import pl.lukaszprasek.delegationApp.domain.repositories.EmployeeRepository;
 
 
-@SpringBootApplication/*(scanBasePackages = {"pl.lukaszprasek.delegationApp",
-		"pl.lukaszprasek.delegationApp.domain.repositories"})*/
-
+@SpringBootApplication
 @ComponentScan(basePackages = "pl.lukaszprasek.delegationApp")
 @EntityScan(basePackages = "pl.lukaszprasek.delegationApp.domain.entities")
-//@EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class})
-//@EnableJpaRepositories("pl.lukaszprasek.delegationApp.domain.repositories")
 @EnableJpaRepositories(basePackageClasses = EmployeeRepository.class)
 public class DelegationAppApplication {
 

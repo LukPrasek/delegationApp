@@ -1,12 +1,14 @@
 package pl.lukaszprasek.delegationApp.domain.entities;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
+
 
 @Entity
 @Table(name = "employees")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class EmployeeEntity {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,15 +16,17 @@ public class EmployeeEntity {
     private long empId;
     private String name;
     private String surname;
-    private Date birthday;
+    private LocalDate birthday;
     @Column(name = "start_working_date")
-    private Date swd;
+    private LocalDate startWorkingDate;
 
 
-    public EmployeeEntity(String name, String surname,Date birthdate, Date swd) {
+    public EmployeeEntity(String name, String surname, LocalDate birthdate, LocalDate startWorkingDate) {
 
     }
-    public EmployeeEntity(){}
+
+    public EmployeeEntity() {
+    }
 
     public long getEmpId() {
         return empId;
@@ -39,16 +43,30 @@ public class EmployeeEntity {
     }
 
 
-    public Date getBirthday() {
+    public LocalDate getBirthday() {
         return birthday;
     }
 
 
-    public Date getSwd() {
-        return swd;
+    public LocalDate getStartWorkingDate() {
+        return startWorkingDate;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
 
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public void setBirthday(LocalDate birthday) {
+        this.birthday = birthday;
+    }
+
+    public void setStartWorkingDate(LocalDate startWorkingDate) {
+        this.startWorkingDate = startWorkingDate;
+    }
 
 
 }

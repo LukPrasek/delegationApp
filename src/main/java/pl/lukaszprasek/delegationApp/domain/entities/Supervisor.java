@@ -15,7 +15,7 @@ public class Supervisor extends EmployeeEntity {
     private boolean hasDrivingLicense;
 
 
-    public Supervisor(String name, String surname, Date birthdate, Date startWorkingDate, boolean hasDrivingLicense, int extraHours) {
+    public Supervisor(String name, String surname, LocalDate birthdate, LocalDate startWorkingDate, boolean hasDrivingLicense, int extraHours) {
         super(name, surname, birthdate, startWorkingDate);
         //super(name, surname, birthdate, startWorkingDate);
         this.hasDrivingLicense = hasDrivingLicense;
