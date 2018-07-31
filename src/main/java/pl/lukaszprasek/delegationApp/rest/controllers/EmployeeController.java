@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.lukaszprasek.delegationApp.common.dto.EmployeeDto;
+import pl.lukaszprasek.delegationApp.domain.entities.EmployeeEntity;
 import pl.lukaszprasek.delegationApp.domain.repositories.EmployeeRepository;
 import pl.lukaszprasek.delegationApp.services.EmployeeService;
 import pl.lukaszprasek.delegationApp.services.EmployeeServiceImpl;
@@ -34,6 +35,7 @@ public class EmployeeController {
     @GetMapping(path = "/employees", produces = "application/json")
     public List<EmployeeDto> getEmployees() {
         System.out.println("****************++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+
         return employeeService.getAllEmployees();
 
     }
@@ -41,7 +43,23 @@ public class EmployeeController {
     @ApiOperation(value = "Get one employee")
     @GetMapping(path = "/employees/{id}", produces = "application/json")
     public EmployeeDto getEmployeeById(@PathVariable("id") Long id) {
-              return employeeService.getEmployeeById(id);
+        return employeeService.getEmployeeById(id);
 
     }
+
+    @ApiOperation(value = "Get all guys")
+    @GetMapping(path = "/employeesGuy", produces = "application/json")
+    public List<EmployeeEntity> getGuys() {
+        System.out.println("****************++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+//        System.out.println(employeeService.getAllEmployees().get(2).getSwd());
+//        System.out.println(employeeService.getAllEmployees().get(2).getBirthday());
+        return employeeService.getAllGuys();
+
+    }
+
+    @GetMapping("/all")
+    public List<EmployeeDto> showAllEmployeesDto() {
+        return employeeService.getAllEmployees();
+    }
+
 }

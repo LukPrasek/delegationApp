@@ -2,10 +2,11 @@ package pl.lukaszprasek.delegationApp.domain.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.sql.Date;
 import java.time.LocalDate;
 
-@Entity
-@Table(name = "SUPERVISOR")
+//@Entity
+//@Table(name = "SUPERVISOR")
 //@PrimaryKeyJoinColumn(name = "supervisor_id", referencedColumnName = "emp_id")
 public class Supervisor extends EmployeeEntity {
 
@@ -14,7 +15,7 @@ public class Supervisor extends EmployeeEntity {
     private boolean hasDrivingLicense;
 
 
-    public Supervisor(String name, String surname, LocalDate birthdate, LocalDate startWorkingDate, boolean hasDrivingLicense, int extraHours) {
+    public Supervisor(String name, String surname, Date birthdate, Date startWorkingDate, boolean hasDrivingLicense, int extraHours) {
         super(name, surname, birthdate, startWorkingDate);
         //super(name, surname, birthdate, startWorkingDate);
         this.hasDrivingLicense = hasDrivingLicense;

@@ -1,11 +1,11 @@
 package pl.lukaszprasek.delegationApp.domain.entities;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
 @Table(name = "employees")
-//@Inheritance(strategy = InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.JOINED)
 public class EmployeeEntity {
 
     @Id
@@ -14,11 +14,12 @@ public class EmployeeEntity {
     private long empId;
     private String name;
     private String surname;
-    private LocalDate birthday;
-    private LocalDate startWorkingDate;
+    private Date birthday;
+    @Column(name = "start_working_date")
+    private Date swd;
 
 
-    public EmployeeEntity(String name, String surname, LocalDate birthdate, LocalDate startWorkingDate) {
+    public EmployeeEntity(String name, String surname,Date birthdate, Date swd) {
 
     }
     public EmployeeEntity(){}
@@ -27,41 +28,27 @@ public class EmployeeEntity {
         return empId;
     }
 
-    public void setEmpId(int empId) {
-        this.empId = empId;
-    }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public String getSurname() {
         return surname;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
 
-    public LocalDate getBirthday() {
+    public Date getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(LocalDate birthday) {
-        this.birthday = birthday;
+
+    public Date getSwd() {
+        return swd;
     }
 
-    public LocalDate getStartWorkingDate() {
-        return startWorkingDate;
-    }
 
-    public void setStartWorkingDate(LocalDate startWorkingDate) {
-        this.startWorkingDate = startWorkingDate;
-    }
 
 
 }
