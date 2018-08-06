@@ -9,6 +9,7 @@ import pl.lukaszprasek.delegationApp.domain.repositories.EmployeeRepository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -50,4 +51,18 @@ public class EmployeeServiceImpl implements EmployeeService {
         return new EmployeeDto.Builder().withEmpId(employeeEntity.getEmpId()).withName(employeeEntity.getSurname())
                 .withBirthday(employeeEntity.getBirthday()).withStartWorkingDay(employeeEntity.getStartWorkingDate()).build();
     }
+
+    @Override
+    public boolean deleteEmployeeById(Long id) {
+        Optional<EmployeeEntity> employeeEntity = employeeRepository.findById(id);
+        if (employeeEntity == null) {
+            return false;
+        } else {
+            employeeRepository.deleteById(id);
+            return true;
+        }
+
+    }
 }
+
+

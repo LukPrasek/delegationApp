@@ -30,4 +30,10 @@ public class EmployeeManagerImpl implements EmployeeManager {
     public EmployeeDto createEmployee(EmployeeDto employeeDto) {
         return employeeService.createEmployee(employeeDto);
     }
+
+    @Override
+    public Boolean deleteEmployee(Long id) {
+        return employeeService.deleteEmployeeById(id);
+    }
+
 }

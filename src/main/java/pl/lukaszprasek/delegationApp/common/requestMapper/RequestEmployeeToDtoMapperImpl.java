@@ -11,8 +11,8 @@ public class RequestEmployeeToDtoMapperImpl implements RequestEmployeeToDtoMappe
     @Override
     public EmployeeDto mapCreateRequestToDTO(CreateEmployeeRequest createEmployeeRequest) {
         LocalDate birthday = LocalDate.parse(createEmployeeRequest.getBirthday());
-
         LocalDate startWorkingDate = LocalDate.parse(createEmployeeRequest.getStartWorkingDate());
+
         return new EmployeeDto.Builder()
                 .withName(createEmployeeRequest.getName())
                 .withSurname(createEmployeeRequest.getSurname())

@@ -62,7 +62,7 @@ public class EmployeeDto implements Serializable {
             this.empId=empId;
             return this;
     }
-            public Builder withName(String nam) {
+            public Builder withName(String name) {
             this.name = name;
             return this;
         }
@@ -78,8 +78,7 @@ public class EmployeeDto implements Serializable {
         }
 
         public Builder withStartWorkingDay(LocalDate startWorkingDate) {
-            System.out.println("**************************************"+startWorkingDate);
-            this.startWorkingDate = startWorkingDate.toString();
+                this.startWorkingDate = startWorkingDate.toString();
             return this;
         }
         public EmployeeDto build() {

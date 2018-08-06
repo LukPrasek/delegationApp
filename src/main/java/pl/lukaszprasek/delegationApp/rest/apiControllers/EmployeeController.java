@@ -5,11 +5,13 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.lukaszprasek.delegationApp.application.EmployeeManager;
 import pl.lukaszprasek.delegationApp.common.dto.EmployeeDto;
 import pl.lukaszprasek.delegationApp.common.mapper.Mapper;
 import pl.lukaszprasek.delegationApp.common.requestMapper.RequestEmployeeToDtoMapper;
+import pl.lukaszprasek.delegationApp.domain.entities.EmployeeEntity;
 import pl.lukaszprasek.delegationApp.rest.request.CreateEmployeeRequest;
 import pl.lukaszprasek.delegationApp.rest.response.EmployeeRestModel;
 import pl.lukaszprasek.delegationApp.services.EmployeeService;
@@ -52,8 +54,22 @@ public class EmployeeController {
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
     public EmployeeRestModel createPerson(@Valid @RequestBody CreateEmployeeRequest createEmployeeRequest) {
-        EmployeeDto responseEmployeeDTO = employeeManager.createEmployee(requestEmployeeToDtoMapper.mapCreateRequestToDTO(createEmployeeRequest));
+        EmployeeDto responseEmployeeDTO = employeeManager.createEmployee(
+                requestEmployeeToDtoMapper.mapCreateRequestToDTO(createEmployeeRequest));
         return (EmployeeRestModel) mapper.map(responseEmployeeDTO);
     }
 
+    @ApiOperation(value = "Delete employee")
+    @DeleteMapping (path = "/employee/delete/{id}", produces = "application/json")
+    //@ResponseStatus(HttpStatus.ACCEPTED)
+    //@ResponseBody
+    public ResponseEntity<EmployeeEntity> deleteBook(@PathVariable ("id") Long id) {
+        // boolean isEmployeeDeleted = employeeManager.deleteEmployee(id);
+
+        if (employeeManager.deleteEmployee(id) == false) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        } else {
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+    }
 }
