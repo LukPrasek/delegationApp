@@ -1,4 +1,4 @@
-package pl.lukaszprasek.delegationApp.services;
+package pl.lukaszprasek.delegationApp.domain.services;
 
 import pl.lukaszprasek.delegationApp.common.dto.EmployeeDto;
 

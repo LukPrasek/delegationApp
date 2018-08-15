@@ -1,4 +1,4 @@
-package pl.lukaszprasek.delegationApp.services;
+package pl.lukaszprasek.delegationApp.domain.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,7 +29,9 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .withEmpId(employeeEntity.getEmpId())
                 .withName(employeeEntity.getName()).withSurname(employeeEntity.getSurname())
                 .withBirthday(employeeEntity.getBirthday())
-                .withStartWorkingDay(employeeEntity.getStartWorkingDate()).build()).collect(Collectors.toList());
+                .withStartWorkingDay(employeeEntity.getStartWorkingDate())
+                .withEmployeePosition(employeeEntity.getEmployeePosition().toString())
+                .build()).collect(Collectors.toList());
 
     }
 
@@ -39,17 +41,22 @@ public class EmployeeServiceImpl implements EmployeeService {
         return new EmployeeDto.Builder().withEmpId(employeeEntity.getEmpId())
                 .withName(employeeEntity.getName()).withSurname(employeeEntity.getSurname())
                 .withBirthday(employeeEntity.getBirthday())
-                .withStartWorkingDay(employeeEntity.getStartWorkingDate()).build();
+                .withStartWorkingDay(employeeEntity.getStartWorkingDate())
+                .withEmployeePosition(employeeEntity.getEmployeePosition().toString()).build();
     }
 
     @Override
     public EmployeeDto createEmployee(EmployeeDto employeeDto) {
         LocalDate birthday = LocalDate.parse(employeeDto.getBirthday());
         LocalDate startWorkingDate = LocalDate.parse(employeeDto.getStartWorkingDate());
-        EmployeeEntity employeeEntity = new EmployeeEntityBuilder(employeeDto.getName(), employeeDto.getSurname(), birthday, startWorkingDate).build();
+        EmployeeEntity employeeEntity = new EmployeeEntityBuilder(employeeDto.getName(),
+                employeeDto.getSurname(), birthday, startWorkingDate, employeeDto.getEmployeePosition()).build();
         employeeRepository.save(employeeEntity);
-        return new EmployeeDto.Builder().withEmpId(employeeEntity.getEmpId()).withName(employeeEntity.getSurname())
-                .withBirthday(employeeEntity.getBirthday()).withStartWorkingDay(employeeEntity.getStartWorkingDate()).build();
+        return new EmployeeDto.Builder().withEmpId(employeeEntity.getEmpId())
+                .withName(employeeEntity.getSurname())
+                .withBirthday(employeeEntity.getBirthday())
+                .withStartWorkingDay(employeeEntity.getStartWorkingDate())
+                .withEmployeePosition(employeeEntity.getEmployeePosition().toString()).build();
     }
 
     @Override

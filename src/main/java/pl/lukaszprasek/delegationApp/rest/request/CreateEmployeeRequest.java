@@ -22,6 +22,10 @@ public class CreateEmployeeRequest {
     @NotNull
     private String startWorkingDate;
 
+    @ApiModelProperty(name = "Position name: chhose from: WORKER, SUPERVISOR, EXECUTIVE MANAGER", required = true)
+    @NotNull
+    private String employeePosition;
+
     public String getName() {
         return name;
     }
@@ -52,5 +56,12 @@ public class CreateEmployeeRequest {
 
     public void setStartWorkingDate(String startWorkingDate) {
         this.startWorkingDate = startWorkingDate;
+    }
+    public String getEmployeePosition() {
+        return employeePosition;
+    }
+
+    public void setEmployeePosition(String employeePosition) {
+        this.employeePosition = employeePosition;
     }
 }

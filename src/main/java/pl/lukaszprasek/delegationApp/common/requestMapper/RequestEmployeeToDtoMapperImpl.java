@@ -17,6 +17,7 @@ public class RequestEmployeeToDtoMapperImpl implements RequestEmployeeToDtoMappe
                 .withName(createEmployeeRequest.getName())
                 .withSurname(createEmployeeRequest.getSurname())
                 .withBirthday(birthday)
-                .withStartWorkingDay(startWorkingDate).build();
+                .withStartWorkingDay(startWorkingDate)
+                .withEmployeePosition(createEmployeeRequest.getEmployeePosition()).build();
     }
 }

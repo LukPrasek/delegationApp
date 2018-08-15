@@ -8,6 +8,9 @@ public class EmployeeRestModel {
     private String birthday;
     private String startWorkingDate;
 
+
+    private String employeePosition;
+
     public long getEmpId() {
         return empId;
     }
@@ -48,5 +51,12 @@ public class EmployeeRestModel {
         this.startWorkingDate = startWorkingDate;
     }
 
+    public String getEmployeePosition() {
+        return employeePosition;
+    }
+
+    public void setEmployeePosition(String employeePosition) {
+        this.employeePosition = employeePosition;
+    }
 
 }

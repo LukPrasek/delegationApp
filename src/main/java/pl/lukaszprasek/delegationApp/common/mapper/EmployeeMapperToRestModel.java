@@ -18,6 +18,7 @@ public class EmployeeMapperToRestModel implements Mapper<EmployeeDto, EmployeeRe
         employeeRestModel.setSurname(from.getSurname());
         employeeRestModel.setBirthday(from.getBirthday());
         employeeRestModel.setStartWorkingDate(from.getStartWorkingDate());
+        employeeRestModel.setEmployeePosition(from.getEmployeePosition());
         return employeeRestModel;
     }
 

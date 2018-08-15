@@ -3,7 +3,7 @@ package pl.lukaszprasek.delegationApp.application;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.lukaszprasek.delegationApp.common.dto.EmployeeDto;
-import pl.lukaszprasek.delegationApp.services.EmployeeService;
+import pl.lukaszprasek.delegationApp.domain.services.EmployeeService;
 
 import java.util.List;
 

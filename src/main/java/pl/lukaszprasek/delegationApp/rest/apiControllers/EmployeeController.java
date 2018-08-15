@@ -12,9 +12,10 @@ import pl.lukaszprasek.delegationApp.common.dto.EmployeeDto;
 import pl.lukaszprasek.delegationApp.common.mapper.Mapper;
 import pl.lukaszprasek.delegationApp.common.requestMapper.RequestEmployeeToDtoMapper;
 import pl.lukaszprasek.delegationApp.domain.entities.EmployeeEntity;
+import pl.lukaszprasek.delegationApp.domain.repositories.EmployeeRepository;
 import pl.lukaszprasek.delegationApp.rest.request.CreateEmployeeRequest;
 import pl.lukaszprasek.delegationApp.rest.response.EmployeeRestModel;
-import pl.lukaszprasek.delegationApp.services.EmployeeService;
+
 
 import javax.validation.Valid;
 import java.util.List;
@@ -27,6 +28,8 @@ public class EmployeeController {
     private final EmployeeManager employeeManager;
     private final Mapper mapper;
     private final RequestEmployeeToDtoMapper requestEmployeeToDtoMapper;
+@Autowired
+private EmployeeRepository employeeRepository;
 
     @Autowired
     public EmployeeController(EmployeeManager employeeManager, Mapper mapper, RequestEmployeeToDtoMapper requestEmployeeToDtoMapper) {
@@ -61,15 +64,18 @@ public class EmployeeController {
 
     @ApiOperation(value = "Delete employee")
     @DeleteMapping (path = "/employee/delete/{id}", produces = "application/json")
-    //@ResponseStatus(HttpStatus.ACCEPTED)
-    //@ResponseBody
+
     public ResponseEntity<EmployeeEntity> deleteBook(@PathVariable ("id") Long id) {
-        // boolean isEmployeeDeleted = employeeManager.deleteEmployee(id);
 
         if (employeeManager.deleteEmployee(id) == false) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         } else {
             return new ResponseEntity<>(HttpStatus.OK);
         }
+    }
+    @ApiOperation(value = "Get employees")
+    @GetMapping(path = "/employees/rep", produces = "application/json")
+    public List<EmployeeEntity> showEmployees(){
+        return employeeRepository.findAll();
     }
 }

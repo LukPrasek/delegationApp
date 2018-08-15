@@ -10,10 +10,13 @@ public class EmployeeDto implements Serializable {
     private String name;
     private String surname;
     private String birthday;
+
+
     private String startWorkingDate;
+    private String employeePosition;
 
     private EmployeeDto(Builder builder) {
-        if (builder==null) {
+        if (builder == null) {
             return;
         }
         this.empId = builder.empId;
@@ -21,6 +24,8 @@ public class EmployeeDto implements Serializable {
         this.surname = builder.surname;
         this.birthday = builder.birthday;
         this.startWorkingDate = builder.startWorkingDate;
+        this.employeePosition = builder.employeePosition;
+
     }
 
     public EmployeeDto(long empId, String name, String surname) {
@@ -49,7 +54,17 @@ public class EmployeeDto implements Serializable {
         return startWorkingDate;
     }
 
-    private EmployeeDto(){};
+    public String getEmployeePosition() {
+        return employeePosition;
+    }
+
+    public void setEmployeePosition(String employeePosition) {
+        this.employeePosition = employeePosition;
+    }
+
+    private EmployeeDto() {
+    }
+
 
     public static class Builder {
         private long empId;
@@ -57,12 +72,14 @@ public class EmployeeDto implements Serializable {
         private String surname;
         private String birthday;
         private String startWorkingDate;
+        public String employeePosition;
 
-        public Builder withEmpId (long empId){
-            this.empId=empId;
+        public Builder withEmpId(long empId) {
+            this.empId = empId;
             return this;
-    }
-            public Builder withName(String name) {
+        }
+
+        public Builder withName(String name) {
             this.name = name;
             return this;
         }
@@ -78,9 +95,15 @@ public class EmployeeDto implements Serializable {
         }
 
         public Builder withStartWorkingDay(LocalDate startWorkingDate) {
-                this.startWorkingDate = startWorkingDate.toString();
+            this.startWorkingDate = startWorkingDate.toString();
             return this;
         }
+
+        public Builder withEmployeePosition(String position) {
+            this.employeePosition = position;
+            return this;
+        }
+
         public EmployeeDto build() {
 
             return new EmployeeDto(this);

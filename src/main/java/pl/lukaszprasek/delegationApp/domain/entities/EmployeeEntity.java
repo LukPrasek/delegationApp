@@ -1,5 +1,7 @@
 package pl.lukaszprasek.delegationApp.domain.entities;
 
+import pl.lukaszprasek.delegationApp.domain.entities.enums.EmployeePosition;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -7,6 +9,7 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "employees")
 @Inheritance(strategy = InheritanceType.JOINED)
+//@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class EmployeeEntity {
 
 
@@ -21,7 +24,11 @@ public class EmployeeEntity {
     private LocalDate startWorkingDate;
 
 
-    public EmployeeEntity(String name, String surname, LocalDate birthdate, LocalDate startWorkingDate) {
+    @Enumerated(EnumType.STRING)
+    @Column(name = "employee_position")
+    private EmployeePosition employeePosition;
+
+    public EmployeeEntity(String name, String surname, LocalDate birthdate, LocalDate startWorkingDate, EmployeePosition employeePosition) {
 
     }
 
@@ -68,5 +75,12 @@ public class EmployeeEntity {
         this.startWorkingDate = startWorkingDate;
     }
 
+    public EmployeePosition getEmployeePosition() {
+        return employeePosition;
+    }
+
+    public void setEmployeePosition(EmployeePosition employeePosition) {
+        this.employeePosition = employeePosition;
+    }
 
 }
