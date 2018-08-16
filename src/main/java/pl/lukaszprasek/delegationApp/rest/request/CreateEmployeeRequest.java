@@ -22,7 +22,7 @@ public class CreateEmployeeRequest {
     @NotNull
     private String startWorkingDate;
 
-    @ApiModelProperty(name = "Position name: chhose from: WORKER, SUPERVISOR, EXECUTIVE MANAGER", required = true)
+    @ApiModelProperty(name = "Position name: chhose from: WORKER, SUPERVISOR, DIRECTOR, EXECUTIVE_MANAGER", required = true)
     @NotNull
     private String employeePosition;
 

@@ -28,8 +28,8 @@ public class EmployeeController {
     private final EmployeeManager employeeManager;
     private final Mapper mapper;
     private final RequestEmployeeToDtoMapper requestEmployeeToDtoMapper;
-@Autowired
-private EmployeeRepository employeeRepository;
+    @Autowired
+    private EmployeeRepository employeeRepository;
 
     @Autowired
     public EmployeeController(EmployeeManager employeeManager, Mapper mapper, RequestEmployeeToDtoMapper requestEmployeeToDtoMapper) {
@@ -56,26 +56,21 @@ private EmployeeRepository employeeRepository;
     @PostMapping(path = "/employee/create", produces = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
-    public EmployeeRestModel createPerson(@Valid @RequestBody CreateEmployeeRequest createEmployeeRequest) {
+    public EmployeeRestModel createEmployee(@Valid @RequestBody CreateEmployeeRequest createEmployeeRequest) {
         EmployeeDto responseEmployeeDTO = employeeManager.createEmployee(
                 requestEmployeeToDtoMapper.mapCreateRequestToDTO(createEmployeeRequest));
         return (EmployeeRestModel) mapper.map(responseEmployeeDTO);
     }
 
     @ApiOperation(value = "Delete employee")
-    @DeleteMapping (path = "/employee/delete/{id}", produces = "application/json")
+    @DeleteMapping(path = "/employee/delete/{id}", produces = "application/json")
 
-    public ResponseEntity<EmployeeEntity> deleteBook(@PathVariable ("id") Long id) {
+    public ResponseEntity<EmployeeEntity> deleteBook(@PathVariable("id") Long id) {
 
         if (employeeManager.deleteEmployee(id) == false) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         } else {
             return new ResponseEntity<>(HttpStatus.OK);
         }
-    }
-    @ApiOperation(value = "Get employees")
-    @GetMapping(path = "/employees/rep", produces = "application/json")
-    public List<EmployeeEntity> showEmployees(){
-        return employeeRepository.findAll();
     }
 }
