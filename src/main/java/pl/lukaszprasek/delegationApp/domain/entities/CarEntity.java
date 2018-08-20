@@ -16,10 +16,9 @@ public class CarEntity {
     @OneToOne(mappedBy = "empId", fetch = FetchType.LAZY)
     private EmployeeEntity owner;
 
+    @OneToMany(mappedBy = "passengerId")//,
+    private List<PassengerEntity> passengerEntities;
 
-
-    @OneToMany(mappedBy = "empId", fetch = FetchType.LAZY)
-    private List<EmployeeEntity> passangers;
 
     public CarEntity(String brand, String model, int seatsNumber) {
         this.brand = brand;
@@ -27,12 +26,12 @@ public class CarEntity {
         this.seatsNumber = seatsNumber;
     }
 
-    public CarEntity(String brand, String model, int seatsNumber, EmployeeEntity owner, List<EmployeeEntity> passangers) {
+    public CarEntity(String brand, String model, int seatsNumber, EmployeeEntity owner, List<PassengerEntity> passengerEntities) {
         this.brand = brand;
         this.model = model;
         this.seatsNumber = seatsNumber;
         this.owner = owner;
-        this.passangers = passangers;
+        this.passengerEntities = passengerEntities;
     }
 
     public CarEntity() {
@@ -78,11 +77,11 @@ public class CarEntity {
         this.owner = owner;
     }
 
-    public List<EmployeeEntity> getPassangers() {
-        return passangers;
+    public List<PassengerEntity> getPassengerEntities() {
+        return passengerEntities;
     }
 
-    public void setPassangers(List<EmployeeEntity> passangers) {
-        this.passangers = passangers;
+    public void setPassengerEntities(List<PassengerEntity> passengerEntities) {
+        this.passengerEntities = passengerEntities;
     }
 }

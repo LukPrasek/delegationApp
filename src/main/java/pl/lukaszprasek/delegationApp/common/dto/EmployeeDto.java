@@ -10,10 +10,9 @@ public class EmployeeDto implements Serializable {
     private String name;
     private String surname;
     private String birthday;
-
-
     private String startWorkingDate;
     private String employeePosition;
+    private CarDto carDto;
 
     private EmployeeDto(Builder builder) {
         if (builder == null) {
@@ -72,7 +71,8 @@ public class EmployeeDto implements Serializable {
         private String surname;
         private String birthday;
         private String startWorkingDate;
-        public String employeePosition;
+        private String employeePosition;
+        private String carDto;
 
         public Builder withEmpId(long empId) {
             this.empId = empId;
@@ -104,52 +104,30 @@ public class EmployeeDto implements Serializable {
             return this;
         }
 
+        public Builder withCarDto(String carDto) {
+            //todo change to ID instead object
+            this.carDto = carDto;
+            return this;
+        }
+
         public EmployeeDto build() {
 
             return new EmployeeDto(this);
         }
 
-//    public static Builder builder() {
-//        return new Builder();
-//    }
-//
-//
-//    public static class Builder {
-//        private final EmployeeDto employeeDto;
-//
-//        public Builder() {
-//            employeeDto = new EmployeeDto();
-//        }
-//
-//        public Builder withEmpId(long id) {
-//            employeeDto.empId = id;
-//            return this;
-//        }
-//
-//        public Builder withName(String name) {
-//            employeeDto.name = name;
-//            return this;
-//        }
-//
-//        public Builder withSurname(String surname) {
-//            employeeDto.surname = surname;
-//            return this;
-//        }
-//
-//        public Builder withBirthday(Date birthday) {
-//            employeeDto.birthday = birthday.toString();
-//            return this;
-//        }
-//
-//        public Builder withStartWorkingDay(Date startWorkingDate) {
-//            employeeDto.startWorkingDate = startWorkingDate.toString();
-//            return this;
-//        }
-//
-//        public EmployeeDto build() {
-//
-//            return employeeDto;
-//        }
+
+        @Override
+        public String toString() {
+            return "Builder{" +
+                    "empId=" + empId +
+                    ", name='" + name + '\'' +
+                    ", surname='" + surname + '\'' +
+                    ", birthday='" + birthday + '\'' +
+                    ", startWorkingDate='" + startWorkingDate + '\'' +
+                    ", employeePosition='" + employeePosition + '\'' +
+                    ", carDto='" + carDto + '\'' +
+                    '}';
+        }
     }
 
 }

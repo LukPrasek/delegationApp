@@ -21,14 +21,25 @@ public class EmployeeEntity {
     private LocalDate birthday;
     @Column(name = "start_working_date")
     private LocalDate startWorkingDate;
-
-
     @Enumerated(EnumType.STRING)
     @Column(name = "employee_position")
     private EmployeePosition employeePosition;
 
-    public EmployeeEntity(String name, String surname, LocalDate birthdate, LocalDate startWorkingDate, EmployeePosition employeePosition) {
+    @OneToOne(mappedBy = "carId")
+    @JoinColumn(name = "car_id")
+    private CarEntity carEntity;
 
+//      public EmployeeEntity(String name, String surname, LocalDate birthdate, LocalDate startWorkingDate, EmployeePosition employeePosition) {
+//
+//    }
+
+    public EmployeeEntity(String name, String surname, LocalDate birthday, LocalDate startWorkingDate, EmployeePosition employeePosition, CarEntity carEntity) {
+        this.name = name;
+        this.surname = surname;
+        this.birthday = birthday;
+        this.startWorkingDate = startWorkingDate;
+        this.employeePosition = employeePosition;
+        this.carEntity = carEntity;
     }
 
     public EmployeeEntity() {
@@ -81,5 +92,11 @@ public class EmployeeEntity {
     public void setEmployeePosition(EmployeePosition employeePosition) {
         this.employeePosition = employeePosition;
     }
+    public CarEntity getCarEntity() {
+        return carEntity;
+    }
 
+    public void setCarEntity(CarEntity carEntity) {
+        this.carEntity = carEntity;
+    }
 }
