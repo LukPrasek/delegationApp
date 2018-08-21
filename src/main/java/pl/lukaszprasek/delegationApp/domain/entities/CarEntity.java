@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Table(name = "cars")
 public class CarEntity {
 
     @Id
@@ -13,10 +14,10 @@ public class CarEntity {
     private String brand;
     private String model;
     private int seatsNumber = 5;
-    @OneToOne(mappedBy = "empId", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "carEntity", fetch = FetchType.LAZY)//,
     private EmployeeEntity owner;
 
-    @OneToMany(mappedBy = "passengerId")//,
+    @OneToMany(mappedBy = "car")//,
     private List<PassengerEntity> passengerEntities;
 
 

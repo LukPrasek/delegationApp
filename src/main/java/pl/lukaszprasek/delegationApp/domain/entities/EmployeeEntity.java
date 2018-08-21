@@ -25,7 +25,7 @@ public class EmployeeEntity {
     @Column(name = "employee_position")
     private EmployeePosition employeePosition;
 
-    @OneToOne(mappedBy = "carId")
+    @OneToOne//(mappedBy = "carId")
     @JoinColumn(name = "car_id")
     private CarEntity carEntity;
 
@@ -40,6 +40,7 @@ public class EmployeeEntity {
         this.startWorkingDate = startWorkingDate;
         this.employeePosition = employeePosition;
         this.carEntity = carEntity;
+
     }
 
     public EmployeeEntity() {
