@@ -2,14 +2,13 @@ package pl.lukaszprasek.delegationApp.common.mapper;
 
 import org.springframework.stereotype.Component;
 import pl.lukaszprasek.delegationApp.common.dto.EmployeeDto;
-import pl.lukaszprasek.delegationApp.domain.entities.EmployeeEntity;
 import pl.lukaszprasek.delegationApp.rest.response.EmployeeRestModel;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class EmployeeMapperToRestModel implements Mapper<EmployeeDto, EmployeeRestModel> {
+public class EmployeeMapperFromDTOToRestModel implements Mapper<EmployeeDto, EmployeeRestModel> {
     @Override
     public EmployeeRestModel map(EmployeeDto from) {
         EmployeeRestModel employeeRestModel = new EmployeeRestModel();
@@ -18,7 +17,8 @@ public class EmployeeMapperToRestModel implements Mapper<EmployeeDto, EmployeeRe
         employeeRestModel.setSurname(from.getSurname());
         employeeRestModel.setBirthday(from.getBirthday());
         employeeRestModel.setStartWorkingDate(from.getStartWorkingDate());
-        employeeRestModel.setEmployeePosition(from.getEmployeePosition());
+        employeeRestModel.setPosition(from.getEmployeePosition());
+        employeeRestModel.setCar(from.getCarDto());
         return employeeRestModel;
     }
 

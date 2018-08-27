@@ -12,7 +12,10 @@ public class EmployeeDto implements Serializable {
     private String birthday;
     private String startWorkingDate;
     private String employeePosition;
-    private CarDto carDto;
+
+
+
+    private String carDto;
 
     private EmployeeDto(Builder builder) {
         if (builder == null) {
@@ -24,15 +27,9 @@ public class EmployeeDto implements Serializable {
         this.birthday = builder.birthday;
         this.startWorkingDate = builder.startWorkingDate;
         this.employeePosition = builder.employeePosition;
+        this.carDto=builder.carDto;
 
     }
-
-    public EmployeeDto(long empId, String name, String surname) {
-        this.empId = empId;
-        this.name = name;
-        this.surname = surname;
-    }
-
     public long getEmpId() {
         return empId;
     }
@@ -55,6 +52,13 @@ public class EmployeeDto implements Serializable {
 
     public String getEmployeePosition() {
         return employeePosition;
+    }
+    public String getCarDto() {
+        return carDto;
+    }
+
+    public void setCarDto(String carDto) {
+        this.carDto = carDto;
     }
 
     public void setEmployeePosition(String employeePosition) {
@@ -105,7 +109,6 @@ public class EmployeeDto implements Serializable {
         }
 
         public Builder withCarDto(String carDto) {
-            //todo change to ID instead object
             this.carDto = carDto;
             return this;
         }

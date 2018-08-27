@@ -64,13 +64,24 @@ public class EmployeeController {
 
     @ApiOperation(value = "Delete employee")
     @DeleteMapping(path = "/employee/delete/{id}", produces = "application/json")
-
-    public ResponseEntity<EmployeeEntity> deleteBook(@PathVariable("id") Long id) {
+    //@ResponseStatus(HttpStatus.ACCEPTED)
+    public ResponseEntity<EmployeeEntity> deleteEmployee(@PathVariable("id") Long id) {
 
         if (employeeManager.deleteEmployee(id) == false) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         } else {
             return new ResponseEntity<>(HttpStatus.OK);
         }
+    }
+    @ApiOperation(value = "assign car to employee")
+    @PutMapping(path = "/employee{empId}/assignCar{carId}")
+    public EmployeeRestModel assignCarToEmployee(@PathVariable("empId") Long empId,@PathVariable("carId") Long carId ){
+        return (EmployeeRestModel) mapper.map(employeeManager.assignCarToEmployee(empId,carId));
+    }
+
+    @ApiOperation(value = "Unassign car from employee")
+    @PutMapping(path = "/unassignemployee{empId}")
+    public EmployeeRestModel unassignCarFromEmployee(@PathVariable("empId")long empId){
+        return (EmployeeRestModel) mapper.map(employeeManager.unassignCarFromEmployee(empId));
     }
 }

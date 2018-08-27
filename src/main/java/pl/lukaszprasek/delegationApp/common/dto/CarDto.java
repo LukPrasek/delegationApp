@@ -9,7 +9,6 @@ public class CarDto implements Serializable {
     private String model;
     private int seatsNumber;
     private String owner;
-    //    private List<PassengerDto> passengers;
     private String passengers;
 
     private CarDto(Builder builder) {
@@ -24,7 +23,58 @@ public class CarDto implements Serializable {
         this.passengers = builder.passengers;
     }
 
-    private static class Builder {
+    public CarDto() {
+    }
+
+    public Long getCarId() {
+        return carId;
+    }
+
+    public void setCarId(Long carId) {
+        this.carId = carId;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public int getSeatsNumber() {
+        return seatsNumber;
+    }
+
+    public void setSeatsNumber(int seatsNumber) {
+        this.seatsNumber = seatsNumber;
+    }
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
+
+    public String getPassengers() {
+        return passengers;
+    }
+
+    public void setPassengers(String passengers) {
+        this.passengers = passengers;
+    }
+
+    public static class Builder {
         private Long carId;
         private String brand;
         private String model;

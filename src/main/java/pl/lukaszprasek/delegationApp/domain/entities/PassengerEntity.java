@@ -42,4 +42,18 @@ public class PassengerEntity {
     public void setEmployeeEntity(EmployeeEntity employeeEntity) {
         this.employeeEntity = employeeEntity;
     }
+
+    @Override
+    public String toString() {
+        return
+        "Passenger{" +
+                "passenger Id=" + passengerId +
+                "+"+ employeeEntity.toString()+"'}'";
+    }
+    public String showPassengerData(){
+        return "PassengerEntity{" +
+                "passengerId=" + passengerId +
+                ", employeeEntity=" + employeeEntity.showNameSurnameAndPosition() +
+                '}';
+    }
 }

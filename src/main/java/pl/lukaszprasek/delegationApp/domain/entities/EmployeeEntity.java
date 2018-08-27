@@ -25,13 +25,12 @@ public class EmployeeEntity {
     @Column(name = "employee_position")
     private EmployeePosition employeePosition;
 
+
+
     @OneToOne//(mappedBy = "carId")
     @JoinColumn(name = "car_id")
     private CarEntity carEntity;
 
-//      public EmployeeEntity(String name, String surname, LocalDate birthdate, LocalDate startWorkingDate, EmployeePosition employeePosition) {
-//
-//    }
 
     public EmployeeEntity(String name, String surname, LocalDate birthday, LocalDate startWorkingDate, EmployeePosition employeePosition, CarEntity carEntity) {
         this.name = name;
@@ -99,5 +98,27 @@ public class EmployeeEntity {
 
     public void setCarEntity(CarEntity carEntity) {
         this.carEntity = carEntity;
+    }
+
+    @Override
+    public String toString() {
+        return "EmployeeEntity{" +
+                "empId=" + empId +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", birthday=" + birthday +
+                ", startWorkingDate=" + startWorkingDate +
+                ", employeePosition=" + employeePosition +
+                ", carEntity=" + carEntity +
+                '}';
+    }
+
+    public String showNameSurnameAndPosition(){
+        return "Employee{" +
+                "Id=" + empId +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", Position=" + employeePosition +
+                '}';
     }
 }

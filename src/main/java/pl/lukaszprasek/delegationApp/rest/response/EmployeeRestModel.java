@@ -7,9 +7,9 @@ public class EmployeeRestModel {
     private String surname;
     private String birthday;
     private String startWorkingDate;
+    private String position;
+    private String car;
 
-
-    private String employeePosition;
 
     public long getEmpId() {
         return empId;
@@ -51,12 +51,19 @@ public class EmployeeRestModel {
         this.startWorkingDate = startWorkingDate;
     }
 
-    public String getEmployeePosition() {
-        return employeePosition;
+    public String getPosition() {
+        return position;
     }
 
-    public void setEmployeePosition(String employeePosition) {
-        this.employeePosition = employeePosition;
+    public void setPosition(String position) {
+        this.position = position;
     }
 
+    public String getCar() {
+        return car;
+    }
+
+    public void setCar(String car) {
+        this.car = car;
+    }
 }

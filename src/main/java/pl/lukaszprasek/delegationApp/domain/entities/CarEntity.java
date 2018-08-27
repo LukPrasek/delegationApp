@@ -14,10 +14,10 @@ public class CarEntity {
     private String brand;
     private String model;
     private int seatsNumber = 5;
-    @OneToOne(mappedBy = "carEntity", fetch = FetchType.LAZY)//,
+    @OneToOne(mappedBy = "carEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)//,
     private EmployeeEntity owner;
 
-    @OneToMany(mappedBy = "car")//,
+    @OneToMany(mappedBy = "car")
     private List<PassengerEntity> passengerEntities;
 
 
@@ -84,5 +84,26 @@ public class CarEntity {
 
     public void setPassengerEntities(List<PassengerEntity> passengerEntities) {
         this.passengerEntities = passengerEntities;
+    }
+
+    @Override
+    public String toString() {
+        return "CarEntity{" +
+                "carId=" + carId +
+                ", brand='" + brand + '\'' +
+                ", model='" + model + '\'' +
+                ", seatsNumber=" + seatsNumber +
+                ", owner=" + owner +
+                ", passengerEntities=" + passengerEntities +
+                '}';
+    }
+
+    public String showBasicCarData() {
+        return "CarEntity{" +
+                "carId=" + carId +
+                ", brand='" + brand + '\'' +
+                ", model='" + model + '\'' +
+                ", seatsNumber=" + seatsNumber +
+                '}';
     }
 }

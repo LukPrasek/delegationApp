@@ -14,5 +14,9 @@ public interface EmployeeManager {
 
     Boolean deleteEmployee(Long id);
 
+    EmployeeDto assignCarToEmployee (long empId, long carId);
+
+    EmployeeDto unassignCarFromEmployee (long empId);
+
 
 }

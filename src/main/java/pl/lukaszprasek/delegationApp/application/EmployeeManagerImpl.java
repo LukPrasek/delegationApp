@@ -28,13 +28,22 @@ public class EmployeeManagerImpl implements EmployeeManager {
 
     @Override
     public EmployeeDto createEmployee(EmployeeDto employeeDto) {
-
         return employeeService.createEmployee(employeeDto);
     }
 
     @Override
     public Boolean deleteEmployee(Long id) {
         return employeeService.deleteEmployeeById(id);
+    }
+
+    @Override
+    public EmployeeDto assignCarToEmployee(long empId, long carId) {
+        return employeeService.assignCarToEmployee(empId,carId);
+    }
+
+    @Override
+    public EmployeeDto unassignCarFromEmployee(long empId) {
+        return employeeService.unassignCarFromEmployee(empId);
     }
 
 }
