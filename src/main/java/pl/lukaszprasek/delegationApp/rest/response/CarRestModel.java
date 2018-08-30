@@ -56,6 +56,4 @@ public class CarRestModel {
     public void setPassengers(String passengers) {
         this.passengers = passengers;
     }
-
-
 }

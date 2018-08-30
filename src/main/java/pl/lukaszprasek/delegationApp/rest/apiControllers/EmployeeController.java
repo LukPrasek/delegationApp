@@ -64,8 +64,7 @@ public class EmployeeController {
 
     @ApiOperation(value = "Delete employee")
     @DeleteMapping(path = "/employee/delete/{id}", produces = "application/json")
-    //@ResponseStatus(HttpStatus.ACCEPTED)
-    public ResponseEntity<EmployeeEntity> deleteEmployee(@PathVariable("id") Long id) {
+     public ResponseEntity<EmployeeEntity> deleteEmployee(@PathVariable("id") Long id) {
 
         if (employeeManager.deleteEmployee(id) == false) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);

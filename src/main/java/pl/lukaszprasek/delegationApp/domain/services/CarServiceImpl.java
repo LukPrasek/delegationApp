@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import pl.lukaszprasek.delegationApp.common.dto.CarDto;
 import pl.lukaszprasek.delegationApp.common.dto.PassengerDto;
 import pl.lukaszprasek.delegationApp.domain.entities.CarEntity;
+import pl.lukaszprasek.delegationApp.domain.entities.EmployeeEntity;
+import pl.lukaszprasek.delegationApp.domain.entities.builder.CarEntityBuilder;
 import pl.lukaszprasek.delegationApp.domain.repositories.CarRepository;
 
 import java.util.List;
@@ -22,43 +24,56 @@ public class CarServiceImpl implements CarService {
 
 
     @Override
-    public List<CarDto> getAlCars() {
+    public List<CarDto> getAllCars() {
         return carRepository.findAll().stream()
                 .map(carEntity -> new CarDto.Builder()
                         .withCarId(carEntity.getCarId())
                         .withBrand(carEntity.getBrand())
                         .withModel(carEntity.getModel())
                         .withSeatsNumber(carEntity.getSeatsNumber())
-                        .withOwner(carEntity.getOwner().showNameSurnameAndPosition())
+                        .withOwner((carEntity.getOwner() == null) ? "No owner" : carEntity.getOwner().showNameSurnameAndPosition())
                         .withPassengers(carEntity.getPassengerEntities().stream()
                                 .map(passengerEntity -> passengerEntity.showPassengerData())
                                 .collect(Collectors.joining(",")))
                         .build()).collect(Collectors.toList());
-
-
     }
 
     @Override
     public CarDto getCarById(Long id) {
         CarEntity carEntity = carRepository.getOne(id);
         return new CarDto.Builder()
+                .withCarId(carEntity.getCarId())
                 .withBrand(carEntity.getBrand())
                 .withModel(carEntity.getModel())
                 .withSeatsNumber(carEntity.getSeatsNumber())
-                .withOwner(carEntity.getOwner().showNameSurnameAndPosition())
-                .withPassengers(carEntity.getPassengerEntities().toString())
-                .withCarId(carEntity.getCarId()).build();
+                .withOwner((carEntity.getOwner() == null) ? "No owner" : carEntity.getOwner().showNameSurnameAndPosition())
+                .withPassengers(carEntity.getPassengerEntities().stream()
+                        .map(passengerEntity -> passengerEntity.showPassengerData())
+                        .collect(Collectors.joining(","))).build();
     }
 
     @Override
     public CarDto createCar(CarDto carDto) {
-
-        return null;
+        CarEntity carEntity = new CarEntityBuilder(carDto.getBrand(), carDto.getModel(), carDto.getSeatsNumber()).build();
+        carRepository.save(carEntity);
+        return new CarDto.Builder()
+                .withCarId(carEntity.getCarId())
+                .withBrand(carEntity.getBrand())
+                .withModel(carEntity.getModel())
+                .withSeatsNumber(carEntity.getSeatsNumber()).build();
     }
 
     @Override
     public boolean deleteCarById(Long id) {
-        return false;
+        CarEntity carEntity = carRepository.getOne(id);
+
+        if (carEntity == null) {
+            return false;
+        } else {
+            //carEntity.setOwner(null);
+            carRepository.deleteById(id);
+            return true;
+        }
     }
 
     @Override
@@ -70,8 +85,6 @@ public class CarServiceImpl implements CarService {
     public boolean addPassenger(PassengerDto passengerDto) {
         return false;
     }
-
-
 
 
 }

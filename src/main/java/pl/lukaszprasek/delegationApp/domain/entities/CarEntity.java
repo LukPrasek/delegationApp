@@ -13,8 +13,9 @@ public class CarEntity {
     private Long carId;
     private String brand;
     private String model;
+    @Column(name = "seats_number")
     private int seatsNumber = 5;
-    @OneToOne(mappedBy = "carEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)//,
+    @OneToOne(mappedBy = "carEntity", fetch = FetchType.LAZY)//,
     private EmployeeEntity owner;
 
     @OneToMany(mappedBy = "car")
@@ -27,13 +28,6 @@ public class CarEntity {
         this.seatsNumber = seatsNumber;
     }
 
-    public CarEntity(String brand, String model, int seatsNumber, EmployeeEntity owner, List<PassengerEntity> passengerEntities) {
-        this.brand = brand;
-        this.model = model;
-        this.seatsNumber = seatsNumber;
-        this.owner = owner;
-        this.passengerEntities = passengerEntities;
-    }
 
     public CarEntity() {
     }
@@ -71,7 +65,7 @@ public class CarEntity {
     }
 
     public EmployeeEntity getOwner() {
-        return owner;
+            return owner;
     }
 
     public void setOwner(EmployeeEntity owner) {
@@ -88,15 +82,16 @@ public class CarEntity {
 
     @Override
     public String toString() {
-        return "CarEntity{" +
-                "carId=" + carId +
-                ", brand='" + brand + '\'' +
-                ", model='" + model + '\'' +
-                ", seatsNumber=" + seatsNumber +
-                ", owner=" + owner +
-                ", passengerEntities=" + passengerEntities +
-                '}';
-    }
+            return "CarEntity{" +
+                    "carId=" + carId +
+                    ", brand='" + brand + '\'' +
+                    ", model='" + model + '\'' +
+                    ", seatsNumber=" + seatsNumber +
+                    ", owner=" + owner +
+                    ", passengerEntities=" + passengerEntities +
+                    '}';
+        }
+
 
     public String showBasicCarData() {
         return "CarEntity{" +

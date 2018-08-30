@@ -14,7 +14,7 @@ public interface CarManager {
 
     boolean deleteCarById(Long id);
 
-    boolean asignOwnerToCar(Long id);
+    boolean assignOwnerToCar(Long id);
 
     boolean addPassengerToSelectedCar(PassengerDto passengerDto);
 }

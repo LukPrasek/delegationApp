@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 public class PassengerDto implements Serializable {
 
-    private Long passangerId;
+    private Long passengerId;
     private String carDto;
     private String employeeDto;
 
@@ -13,17 +13,17 @@ public class PassengerDto implements Serializable {
         if (builder == null) {
             return;
         }
-        this.passangerId = builder.passangerId;
+        this.passengerId = builder.passengerId;
         this.carDto = builder.carDto;
         this.employeeDto = builder.employeeDto;
     }
 
-    public Long getPassangerId() {
-        return passangerId;
+    public Long getPassengerId() {
+        return passengerId;
     }
 
-    public void setPassangerId(Long passangerId) {
-        this.passangerId = passangerId;
+    public void setPassengerId(Long passengerId) {
+        this.passengerId = passengerId;
     }
 
     public String getCarDto() {
@@ -43,12 +43,12 @@ public class PassengerDto implements Serializable {
     }
 
     private static class Builder {
-        private Long passangerId;
+        private Long passengerId;
         private String carDto;
         private String employeeDto;
 
         public Builder withPassengerID(Long passangerId) {
-            this.passangerId = passangerId;
+            this.passengerId = passangerId;
             return this;
         }
 
@@ -70,7 +70,7 @@ public class PassengerDto implements Serializable {
     @Override
     public String toString() {
         return "PassengerDto{" +
-                "passangerId=" + passangerId +
+                "passengerId=" + passengerId +
                 ", carDto='" + carDto + '\'' +
                 ", employeeDto='" + employeeDto + '\'' +
                 '}';

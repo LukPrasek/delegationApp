@@ -18,10 +18,9 @@ public class CarManagerImpl implements CarManager {
         this.carService = carService;
     }
 
-
     @Override
     public List<CarDto> getAlCars() {
-        return carService.getAlCars();
+        return carService.getAllCars();
     }
 
     @Override
@@ -31,16 +30,16 @@ public class CarManagerImpl implements CarManager {
 
     @Override
     public CarDto createCar(CarDto carDto) {
-        return null;
+        return carService.createCar(carDto);
     }
 
     @Override
     public boolean deleteCarById(Long id) {
-        return false;
+        return carService.deleteCarById(id);
     }
 
     @Override
-    public boolean asignOwnerToCar(Long id) {
+    public boolean assignOwnerToCar(Long id) {
         return false;
     }
 
