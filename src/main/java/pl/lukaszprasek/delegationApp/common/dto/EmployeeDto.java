@@ -12,9 +12,6 @@ public class EmployeeDto implements Serializable {
     private String birthday;
     private String startWorkingDate;
     private String employeePosition;
-
-
-
     private String carDto;
 
     private EmployeeDto(Builder builder) {
@@ -27,9 +24,10 @@ public class EmployeeDto implements Serializable {
         this.birthday = builder.birthday;
         this.startWorkingDate = builder.startWorkingDate;
         this.employeePosition = builder.employeePosition;
-        this.carDto=builder.carDto;
+        this.carDto = builder.carDto;
 
     }
+
     public long getEmpId() {
         return empId;
     }
@@ -53,6 +51,7 @@ public class EmployeeDto implements Serializable {
     public String getEmployeePosition() {
         return employeePosition;
     }
+
     public String getCarDto() {
         return carDto;
     }
@@ -67,7 +66,6 @@ public class EmployeeDto implements Serializable {
 
     private EmployeeDto() {
     }
-
 
     public static class Builder {
         private long empId;
@@ -117,7 +115,6 @@ public class EmployeeDto implements Serializable {
 
             return new EmployeeDto(this);
         }
-
 
         @Override
         public String toString() {

@@ -11,15 +11,14 @@ import pl.lukaszprasek.delegationApp.common.dto.CarDto;
 import pl.lukaszprasek.delegationApp.common.mapper.CarMapper;
 import pl.lukaszprasek.delegationApp.common.requestMapper.RequestCarToDtoMapper;
 import pl.lukaszprasek.delegationApp.domain.entities.CarEntity;
-import pl.lukaszprasek.delegationApp.domain.entities.EmployeeEntity;
 import pl.lukaszprasek.delegationApp.domain.entities.PassengerEntity;
+import pl.lukaszprasek.delegationApp.domain.repositories.CarRepository;
 import pl.lukaszprasek.delegationApp.domain.repositories.PassengerRepository;
 import pl.lukaszprasek.delegationApp.rest.request.CreateCarRequest;
 import pl.lukaszprasek.delegationApp.rest.response.CarRestModel;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/rest/v1")
@@ -32,6 +31,8 @@ public class CarController {
 
     @Autowired
     private PassengerRepository passengerRepository;
+    @Autowired
+    private CarRepository carRepository;
 
     @Autowired
     public CarController(CarManager carManager, CarMapper carMapper, RequestCarToDtoMapper requestCarToDtoMapper) {
@@ -42,8 +43,17 @@ public class CarController {
 
     @ApiOperation("Get all cars")
     @GetMapping(path = "/cars")
-    public List<CarRestModel> showAllCars() {
-        return carMapper.mapList(carManager.getAlCars());
+//    public List<CarRestModel> showAllCars() {
+//                return carMapper.mapList(carManager.getAllCars());
+    public String showAllCars() {
+        return carRepository.findAll().get(2).getPassengerEntities().get(1).toString();
+//                .getPassengerEntities().get(1)
+//                .showPassengerData();
+//        List<CarEntity> lista=carRepository.findAll();
+//        for (CarEntity carEntity : lista) {
+//            System.out.println(carEntity.toString());
+//        }
+//        return carRepository.findAll();
     }
 
     @ApiOperation("Get one car")
@@ -61,15 +71,6 @@ public class CarController {
         return (CarRestModel) carMapper.map(responseCarDto);
     }
 
-    @ApiOperation("Get all passengers")
-    @GetMapping(path = "/passengers")
-    public String showAllPassengers() {
-        List<PassengerEntity> passengerEntities = passengerRepository.findAll();
-        return passengerEntities.stream()
-                .map(passengerEntity -> passengerEntity == null ? "No passengers" : passengerEntity.showPassengerData())
-                .collect(Collectors.joining());
-    }
-
     @ApiOperation("Delete car by Id")
     @DeleteMapping(path = "/car/delete/{id}")
     @ResponseStatus(HttpStatus.OK)
@@ -80,4 +81,24 @@ public class CarController {
             return new ResponseEntity<>(HttpStatus.OK);
         }
     }
+
+    @ApiOperation("Get all passengers")
+    @GetMapping(path = "/passengers")
+    public List<PassengerEntity> showAllPassengers() {
+        return passengerRepository.findAll();//.get(1).getCar().showBasicCarData();
+    }
+
+    @ApiOperation("Get one passenger")
+    @PutMapping(path = "/car/{carId}/passenger/{empId}")
+    public CarRestModel showOnePassenger(@PathVariable("carId") long carId, @PathVariable("empId") long empId) {
+        return (CarRestModel) carMapper.map(carManager.addPassengerToSelectedCar(carId, empId));
+    }
+
+//        CarEntity carEntity=carRepository.getOne(carId);
+//        List<PassengerEntity> passengerEntities = passengerRepository.find(carEntity);
+//        return passengerEntities.stream()
+//                .map(passengerEntity -> passengerEntity == null ? "No passengers" : passengerEntity.showPassengerData())
+//                .collect(Collectors.joining());
+//    }
+
 }

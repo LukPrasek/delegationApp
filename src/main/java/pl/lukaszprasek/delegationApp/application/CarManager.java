@@ -6,7 +6,7 @@ import pl.lukaszprasek.delegationApp.common.dto.PassengerDto;
 import java.util.List;
 
 public interface CarManager {
-    List<CarDto> getAlCars();
+    List<CarDto> getAllCars();
 
     CarDto getCarById(Long id);
 
@@ -14,7 +14,7 @@ public interface CarManager {
 
     boolean deleteCarById(Long id);
 
-    boolean assignOwnerToCar(Long id);
+    CarDto removePassengerFromSelectedCar(long carId, long empId);
 
-    boolean addPassengerToSelectedCar(PassengerDto passengerDto);
+    CarDto addPassengerToSelectedCar(long carId, long empId);
 }

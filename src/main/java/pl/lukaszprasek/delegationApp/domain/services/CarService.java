@@ -15,7 +15,7 @@ public interface CarService {
 
     boolean deleteCarById(Long id);
 
-    boolean assignOwnerToCar(Long id);
+    CarDto addPassengerToSelectedCar(long carId, long empId);
 
-    boolean addPassenger(PassengerDto passengerDto);
+    CarDto removePassengerFromSelectedCar(long carId, long empId);
 }

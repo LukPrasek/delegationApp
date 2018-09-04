@@ -1,16 +1,14 @@
 package pl.lukaszprasek.delegationApp.domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import pl.lukaszprasek.delegationApp.domain.entities.enums.EmployeePosition;
-
 import javax.persistence.*;
 import java.time.LocalDate;
 
 
 @Entity
 @Table(name = "employees")
-//@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class EmployeeEntity {
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,8 +23,9 @@ public class EmployeeEntity {
     @Column(name = "employee_position")
     private EmployeePosition employeePosition;
 
-    @OneToOne//(mappedBy = "carId")
+    @OneToOne
     @JoinColumn(name = "car_id")
+    @JsonBackReference
     private CarEntity carEntity;
 
 //

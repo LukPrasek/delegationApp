@@ -13,7 +13,6 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
     private final EmployeeRepository employeeRepository;
@@ -33,6 +32,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .withBirthday(employeeEntity.getBirthday())
                 .withStartWorkingDay(employeeEntity.getStartWorkingDate())
                 .withEmployeePosition(employeeEntity.getEmployeePosition().toString())
+                .withCarDto(employeeEntity.getCarEntity()==null?"No car":employeeEntity.getCarEntity().showBasicCarData())
                 .build()).collect(Collectors.toList());
 
     }
@@ -44,7 +44,9 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .withName(employeeEntity.getName()).withSurname(employeeEntity.getSurname())
                 .withBirthday(employeeEntity.getBirthday())
                 .withStartWorkingDay(employeeEntity.getStartWorkingDate())
-                .withEmployeePosition(employeeEntity.getEmployeePosition().toString()).build();
+                .withEmployeePosition(employeeEntity.getEmployeePosition().toString())
+                .withCarDto(employeeEntity.getCarEntity()==null?"No car":employeeEntity.getCarEntity().showBasicCarData())
+                .build();
     }
 
     @Override
@@ -68,11 +70,9 @@ public class EmployeeServiceImpl implements EmployeeService {
         if (employeeEntity == null) {
             return false;
         } else {
-            employeeEntity.setCarEntity(null);
             employeeRepository.deleteById(id);
             return true;
         }
-
     }
 
     @Override
@@ -88,7 +88,8 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .withBirthday(employeeEntity.getBirthday())
                 .withStartWorkingDay(employeeEntity.getStartWorkingDate())
                 .withEmployeePosition(employeeEntity.getEmployeePosition().toString())
-                .withCarDto(employeeEntity.getCarEntity().showBasicCarData()).build();
+                .withCarDto(employeeEntity.getCarEntity()==null?"No car":employeeEntity.getCarEntity().showBasicCarData())
+                        .build();
     }
 
     @Override

@@ -3,15 +3,14 @@ package pl.lukaszprasek.delegationApp.application;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.lukaszprasek.delegationApp.common.dto.CarDto;
-import pl.lukaszprasek.delegationApp.common.dto.PassengerDto;
 import pl.lukaszprasek.delegationApp.domain.services.CarService;
 
 import java.util.List;
 
 @Service
 public class CarManagerImpl implements CarManager {
-    private CarService carService;
 
+    private CarService carService;
 
     @Autowired
     public CarManagerImpl(CarService carService) {
@@ -19,7 +18,7 @@ public class CarManagerImpl implements CarManager {
     }
 
     @Override
-    public List<CarDto> getAlCars() {
+    public List<CarDto> getAllCars() {
         return carService.getAllCars();
     }
 
@@ -39,12 +38,14 @@ public class CarManagerImpl implements CarManager {
     }
 
     @Override
-    public boolean assignOwnerToCar(Long id) {
-        return false;
+    public CarDto removePassengerFromSelectedCar(long carId, long empId) {
+        return carService.removePassengerFromSelectedCar(carId, empId);
     }
 
     @Override
-    public boolean addPassengerToSelectedCar(PassengerDto passengerDto) {
-        return false;
+    public CarDto addPassengerToSelectedCar(long carId, long empId) {
+        return carService.addPassengerToSelectedCar(carId, empId);
     }
+
+
 }

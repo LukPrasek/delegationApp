@@ -1,7 +1,8 @@
 package pl.lukaszprasek.delegationApp.domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "passengers")
@@ -11,12 +12,12 @@ public class PassengerEntity {
     @GeneratedValue
     private Long passengerId;
 
-    @ManyToOne (fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name ="car_Id" )
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "car_Id")
     private CarEntity car;
 
-    @OneToOne
-    @JoinColumn(name ="emp_Id" )
+    @OneToOne//cascade = {CascadeType.PERSIST, CascadeType.MERGE}
+    @JoinColumn(name = "emp_Id")
     private EmployeeEntity employeeEntity;
 
     public Long getPassengerId() {
@@ -45,12 +46,14 @@ public class PassengerEntity {
 
     @Override
     public String toString() {
-        return
-        "Passenger{" +
-                "passenger Id=" + passengerId +
-                "+"+ employeeEntity.toString()+"'}'";
+        return "PassengerEntity{" +
+                "passengerId=" + passengerId +
+                ", car=" + car +
+                ", employeeEntity=" + employeeEntity +
+                '}';
     }
-    public String showPassengerData(){
+
+    public String showPassengerData() {
         return "PassengerEntity{" +
                 "passengerId=" + passengerId +
                 ", employeeEntity=" + employeeEntity.showNameSurnameAndPosition() +
