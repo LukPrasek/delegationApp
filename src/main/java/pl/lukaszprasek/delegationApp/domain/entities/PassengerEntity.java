@@ -14,6 +14,7 @@ public class PassengerEntity {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "car_Id")
+    @JsonBackReference
     private CarEntity car;
 
     @OneToOne//cascade = {CascadeType.PERSIST, CascadeType.MERGE}

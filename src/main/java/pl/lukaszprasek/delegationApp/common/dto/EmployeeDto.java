@@ -1,8 +1,9 @@
 package pl.lukaszprasek.delegationApp.common.dto;
 
+import pl.lukaszprasek.delegationApp.domain.entities.CarEntity;
+
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
 
 public class EmployeeDto implements Serializable {
 
@@ -12,7 +13,7 @@ public class EmployeeDto implements Serializable {
     private String birthday;
     private String startWorkingDate;
     private String employeePosition;
-    private String carDto;
+    private CarEntity carEntity;
 
     private EmployeeDto(Builder builder) {
         if (builder == null) {
@@ -24,7 +25,7 @@ public class EmployeeDto implements Serializable {
         this.birthday = builder.birthday;
         this.startWorkingDate = builder.startWorkingDate;
         this.employeePosition = builder.employeePosition;
-        this.carDto = builder.carDto;
+        this.carEntity = builder.carEntity1;
 
     }
 
@@ -52,12 +53,12 @@ public class EmployeeDto implements Serializable {
         return employeePosition;
     }
 
-    public String getCarDto() {
-        return carDto;
+    public CarEntity getCarEntity() {
+        return carEntity;
     }
 
-    public void setCarDto(String carDto) {
-        this.carDto = carDto;
+    public void setCarEntity(CarEntity carEntity) {
+        this.carEntity = carEntity;
     }
 
     public void setEmployeePosition(String employeePosition) {
@@ -74,7 +75,7 @@ public class EmployeeDto implements Serializable {
         private String birthday;
         private String startWorkingDate;
         private String employeePosition;
-        private String carDto;
+        private CarEntity carEntity1;
 
         public Builder withEmpId(long empId) {
             this.empId = empId;
@@ -106,8 +107,8 @@ public class EmployeeDto implements Serializable {
             return this;
         }
 
-        public Builder withCarDto(String carDto) {
-            this.carDto = carDto;
+        public Builder withCarDto(CarEntity carDto) {
+            this.carEntity1 = carDto;
             return this;
         }
 
@@ -125,7 +126,7 @@ public class EmployeeDto implements Serializable {
                     ", birthday='" + birthday + '\'' +
                     ", startWorkingDate='" + startWorkingDate + '\'' +
                     ", employeePosition='" + employeePosition + '\'' +
-                    ", carDto='" + carDto + '\'' +
+                    ", carEntity='" + carEntity1 + '\'' +
                     '}';
         }
     }

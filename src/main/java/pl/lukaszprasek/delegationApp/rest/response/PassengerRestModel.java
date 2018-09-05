@@ -1,9 +1,12 @@
 package pl.lukaszprasek.delegationApp.rest.response;
 
+import pl.lukaszprasek.delegationApp.domain.entities.CarEntity;
+import pl.lukaszprasek.delegationApp.domain.entities.EmployeeEntity;
+
 public class PassengerRestModel {
     private long passangerId;
-    private String carDto;
-    private String employeeDto;
+    private CarEntity carDto;
+    private EmployeeEntity employeeDto;
 
     public long getPassangerId() {
         return passangerId;
@@ -13,19 +16,19 @@ public class PassengerRestModel {
         this.passangerId = passangerId;
     }
 
-    public String getCarDto() {
+    public CarEntity getCarDto() {
         return carDto;
     }
 
-    public void setCarDto(String carDto) {
+    public void setCarDto(CarEntity carDto) {
         this.carDto = carDto;
     }
 
-    public String getEmployeeDto() {
+    public EmployeeEntity getEmployeeDto() {
         return employeeDto;
     }
 
-    public void setEmployeeDto(String employeeDto) {
+    public void setEmployeeDto(EmployeeEntity employeeDto) {
         this.employeeDto = employeeDto;
     }
 

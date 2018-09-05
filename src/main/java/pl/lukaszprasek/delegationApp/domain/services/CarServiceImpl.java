@@ -36,10 +36,11 @@ public class CarServiceImpl implements CarService {
                         .withBrand(carEntity.getBrand())
                         .withModel(carEntity.getModel())
                         .withSeatsNumber(carEntity.getSeatsNumber())
-                        .withOwner((carEntity.getOwner() == null) ? "No owner" : carEntity.getOwner().showNameSurnameAndPosition())
-                        .withPassengers(carEntity.getPassengerEntities().stream()
-                                .map(passengerEntity -> passengerEntity.showPassengerData())
-                                .collect(Collectors.joining(",")))
+                        //.withOwner((carEntity.getOwner() == null) ? "No owner" : carEntity.getOwner().showNameSurnameAndPosition())
+//                        .withPassengers(carEntity.getPassengerEntities().stream()
+//                                .map(passengerEntity -> passengerEntity.showPassengerData())
+//                                .collect(Collectors.joining(",")))
+                        .withPassengers( carEntity.getPassengerEntities().stream().findAny().get())
                         .build()).collect(Collectors.toList());
     }
 
@@ -47,16 +48,19 @@ public class CarServiceImpl implements CarService {
     public CarDto getCarById(Long id) {
         CarEntity carEntity = carRepository.getOne(id);
         System.out.println("***************************************************"
-                +carEntity.getPassengerEntities().size());
+                + carEntity.getPassengerEntities().size());
         return new CarDto.Builder()
                 .withCarId(carEntity.getCarId())
                 .withBrand(carEntity.getBrand())
                 .withModel(carEntity.getModel())
                 .withSeatsNumber(carEntity.getSeatsNumber())
-                .withOwner((carEntity.getOwner() == null) ? "No owner" : carEntity.getOwner().showNameSurnameAndPosition())
-                .withPassengers(carEntity.getPassengerEntities()==null?"No passengers":carEntity.getPassengerEntities().stream()
-                        .map(passengerEntity -> passengerEntity.showPassengerData())
-                        .collect(Collectors.joining(";"))).build();
+                .withOwner(carEntity.getOwner())
+                .withPassengers(carEntity.getPassengerEntities().stream().findAny().get())
+                .build();
+//                .withOwner((carEntity.getOwner() == null) ? "No owner" : carEntity.getOwner().showNameSurnameAndPosition())
+//                .withPassengers(carEntity.getPassengerEntities()==null?"No passengers":carEntity.getPassengerEntities().stream()
+//                        .map(passengerEntity -> passengerEntity.showPassengerData())
+//                        .collect(Collectors.joining(";"))).build();
     }
 
     @Override
@@ -87,7 +91,7 @@ public class CarServiceImpl implements CarService {
     public CarDto addPassengerToSelectedCar(long carId, long empId) {
         CarEntity carEntity = carRepository.getOne(carId);
         EmployeeEntity employeeEntity = employeeRepository.getOne(empId);
-        if (((carEntity.getSeatsNumber()-1) - carEntity.getPassengerEntities().size()) > 0) {
+        if (((carEntity.getSeatsNumber() - 1) - carEntity.getPassengerEntities().size()) > 0) {
             PassengerEntity passengerEntity = new PassengerEntity();
             passengerEntity.setCar(carEntity);
             passengerEntity.setEmployeeEntity(employeeEntity);
@@ -98,10 +102,11 @@ public class CarServiceImpl implements CarService {
                     .withBrand(carEntity.getBrand())
                     .withModel(carEntity.getModel())
                     .withSeatsNumber(carEntity.getSeatsNumber())
-                    .withOwner(carEntity.getOwner().showNameSurnameAndPosition())
-                    .withPassengers(carEntity.getPassengerEntities().stream()
-                            .map(passengerEnt -> passengerEnt.showPassengerData())
-                            .collect(Collectors.joining(","))).build();
+//                    .withOwner(carEntity.getOwner().showNameSurnameAndPosition())
+//                    .withPassengers(carEntity.getPassengerEntities().stream()
+//                            .map(passengerEnt -> passengerEnt.showPassengerData())
+//                            .collect(Collectors.joining(",")))
+                    .build();
         } else {
             return getCarById(carId);//todo
         }

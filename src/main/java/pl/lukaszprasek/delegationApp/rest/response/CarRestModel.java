@@ -1,12 +1,15 @@
 package pl.lukaszprasek.delegationApp.rest.response;
 
+import pl.lukaszprasek.delegationApp.domain.entities.EmployeeEntity;
+import pl.lukaszprasek.delegationApp.domain.entities.PassengerEntity;
+
 public class CarRestModel {
     private long carId;
     private String brand;
     private String model;
     private int seatsNumber;
-    private String owner;
-    private String passengers;
+    private EmployeeEntity owner;
+    private PassengerEntity passengers;
 
 
     public long getCarId() {
@@ -41,19 +44,19 @@ public class CarRestModel {
         this.seatsNumber = seatsNumber;
     }
 
-    public String getOwner() {
+    public EmployeeEntity getOwner() {
         return owner;
     }
 
-    public void setOwner(String owner) {
+    public void setOwner(EmployeeEntity owner) {
         this.owner = owner;
     }
 
-    public String getPassengers() {
+    public PassengerEntity getPassengers() {
         return passengers;
     }
 
-    public void setPassengers(String passengers) {
+    public void setPassengers(PassengerEntity passengers) {
         this.passengers = passengers;
     }
 }

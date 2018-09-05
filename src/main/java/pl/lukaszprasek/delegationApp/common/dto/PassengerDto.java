@@ -1,13 +1,16 @@
 package pl.lukaszprasek.delegationApp.common.dto;
 
 
+import pl.lukaszprasek.delegationApp.domain.entities.CarEntity;
+import pl.lukaszprasek.delegationApp.domain.entities.EmployeeEntity;
+
 import java.io.Serializable;
 
 public class PassengerDto implements Serializable {
 
     private Long passengerId;
-    private String carDto;
-    private String employeeDto;
+    private CarEntity carDto;
+    private EmployeeEntity employeeDto;
 
     public PassengerDto(Builder builder) {
         if (builder == null) {
@@ -26,38 +29,38 @@ public class PassengerDto implements Serializable {
         this.passengerId = passengerId;
     }
 
-    public String getCarDto() {
+    public CarEntity getCarDto() {
         return carDto;
     }
 
-    public void setCarDto(String carDto) {
+    public void setCarDto(CarEntity carDto) {
         this.carDto = carDto;
     }
 
-    public String getEmployeeDto() {
+    public EmployeeEntity getEmployeeDto() {
         return employeeDto;
     }
 
-    public void setEmployeeDto(String employeeDto) {
+    public void setEmployeeDto(EmployeeEntity employeeDto) {
         this.employeeDto = employeeDto;
     }
 
     private static class Builder {
         private Long passengerId;
-        private String carDto;
-        private String employeeDto;
+        private CarEntity carDto;
+        private EmployeeEntity employeeDto;
 
         public Builder withPassengerID(Long passangerId) {
             this.passengerId = passangerId;
             return this;
         }
 
-        public Builder withCarDto(String carDto) {
+        public Builder withCarDto(CarEntity carDto) {
             this.carDto = carDto;
             return this;
         }
 
-        public Builder withEmployeeDto(String employeeDto) {
+        public Builder withEmployeeDto(EmployeeEntity employeeDto) {
             this.employeeDto = employeeDto;
             return this;
         }

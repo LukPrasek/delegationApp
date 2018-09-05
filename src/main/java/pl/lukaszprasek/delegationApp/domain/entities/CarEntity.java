@@ -1,5 +1,7 @@
 package pl.lukaszprasek.delegationApp.domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -20,6 +22,7 @@ public class CarEntity {
     private EmployeeEntity owner;
 
     @OneToMany(mappedBy = "passengerId", fetch = FetchType.LAZY)
+    @JsonManagedReference
     private List<PassengerEntity> passengerEntities;
 
     public CarEntity() {
