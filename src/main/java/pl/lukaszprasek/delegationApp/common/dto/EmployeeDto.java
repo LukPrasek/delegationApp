@@ -13,7 +13,7 @@ public class EmployeeDto implements Serializable {
     private String birthday;
     private String startWorkingDate;
     private String employeePosition;
-    private CarEntity carEntity;
+    private CarDto carDto;
 
     private EmployeeDto(Builder builder) {
         if (builder == null) {
@@ -25,7 +25,7 @@ public class EmployeeDto implements Serializable {
         this.birthday = builder.birthday;
         this.startWorkingDate = builder.startWorkingDate;
         this.employeePosition = builder.employeePosition;
-        this.carEntity = builder.carEntity1;
+        this.carDto = builder.carEntity1;
 
     }
 
@@ -53,12 +53,12 @@ public class EmployeeDto implements Serializable {
         return employeePosition;
     }
 
-    public CarEntity getCarEntity() {
-        return carEntity;
+    public CarDto getCarDto() {
+        return carDto;
     }
 
-    public void setCarEntity(CarEntity carEntity) {
-        this.carEntity = carEntity;
+    public void setCarDto(CarDto carDto) {
+        this.carDto = carDto;
     }
 
     public void setEmployeePosition(String employeePosition) {
@@ -75,7 +75,7 @@ public class EmployeeDto implements Serializable {
         private String birthday;
         private String startWorkingDate;
         private String employeePosition;
-        private CarEntity carEntity1;
+        private CarDto carEntity1;
 
         public Builder withEmpId(long empId) {
             this.empId = empId;
@@ -107,7 +107,7 @@ public class EmployeeDto implements Serializable {
             return this;
         }
 
-        public Builder withCarDto(CarEntity carDto) {
+        public Builder withCarDto(CarDto carDto) {
             this.carEntity1 = carDto;
             return this;
         }
@@ -126,7 +126,7 @@ public class EmployeeDto implements Serializable {
                     ", birthday='" + birthday + '\'' +
                     ", startWorkingDate='" + startWorkingDate + '\'' +
                     ", employeePosition='" + employeePosition + '\'' +
-                    ", carEntity='" + carEntity1 + '\'' +
+                    ", carDto='" + carEntity1 + '\'' +
                     '}';
         }
     }

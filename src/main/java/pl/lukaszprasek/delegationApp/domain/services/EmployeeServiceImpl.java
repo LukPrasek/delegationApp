@@ -3,6 +3,7 @@ package pl.lukaszprasek.delegationApp.domain.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.lukaszprasek.delegationApp.common.dto.EmployeeDto;
+import pl.lukaszprasek.delegationApp.common.mapper.CarMapperFromEntityToDto;
 import pl.lukaszprasek.delegationApp.domain.entities.CarEntity;
 import pl.lukaszprasek.delegationApp.domain.entities.EmployeeEntity;
 import pl.lukaszprasek.delegationApp.domain.entities.builder.EmployeeEntityBuilder;
@@ -17,11 +18,14 @@ import java.util.stream.Collectors;
 public class EmployeeServiceImpl implements EmployeeService {
     private final EmployeeRepository employeeRepository;
     private final CarRepository carRepository;
+    private final CarMapperFromEntityToDto carMapperFromEntityToDto;
+
 
     @Autowired
-    public EmployeeServiceImpl(EmployeeRepository employeeRepository, CarRepository carRepository) {
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository, CarRepository carRepository, CarMapperFromEntityToDto carMapperFromEntityToDto) {
         this.employeeRepository = employeeRepository;
         this.carRepository = carRepository;
+        this.carMapperFromEntityToDto = carMapperFromEntityToDto;
     }
 
     @Override
@@ -32,8 +36,8 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .withBirthday(employeeEntity.getBirthday())
                 .withStartWorkingDay(employeeEntity.getStartWorkingDate())
                 .withEmployeePosition(employeeEntity.getEmployeePosition().toString())
-                .withCarDto(employeeEntity.getCarEntity())
-                //.withCarDto(employeeEntity.getCarEntity()==null?"No car":employeeEntity.getCarEntity().showBasicCarData())
+                .withCarDto(carMapperFromEntityToDto.mapToDto(employeeEntity.getCarEntity()))
+                //.withCarDto(employeeEntity.getCarDto()==null?"No car":employeeEntity.getCarDto().showBasicCarData())
                 .build()).collect(Collectors.toList());
 
     }
@@ -46,8 +50,8 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .withBirthday(employeeEntity.getBirthday())
                 .withStartWorkingDay(employeeEntity.getStartWorkingDate())
                 .withEmployeePosition(employeeEntity.getEmployeePosition().toString())
-                .withCarDto(employeeEntity.getCarEntity())
-                //.withCarDto(employeeEntity.getCarEntity()==null?"No car":employeeEntity.getCarEntity().showBasicCarData())
+                .withCarDto(carMapperFromEntityToDto.mapToDto(employeeEntity.getCarEntity()))
+                //.withCarDto(employeeEntity.getCarDto()==null?"No car":employeeEntity.getCarDto().showBasicCarData())
                 .build();
     }
 
@@ -90,7 +94,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .withBirthday(employeeEntity.getBirthday())
                 .withStartWorkingDay(employeeEntity.getStartWorkingDate())
                 .withEmployeePosition(employeeEntity.getEmployeePosition().toString())
-                .withCarDto(employeeEntity.getCarEntity())//==null?"No car":employeeEntity.getCarEntity()
+                .withCarDto(carMapperFromEntityToDto.mapToDto(employeeEntity.getCarEntity()))//==null?"No car":employeeEntity.getCarDto()
                         .build();
     }
 

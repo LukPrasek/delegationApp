@@ -28,16 +28,7 @@ public class EmployeeEntity {
     @JsonBackReference
     private CarEntity carEntity;
 
-//
-//    public EmployeeEntity(String name, String surname, LocalDate birthday, LocalDate startWorkingDate, EmployeePosition employeePosition, CarEntity carEntity) {
-//        this.name = name;
-//        this.surname = surname;
-//        this.birthday = birthday;
-//        this.startWorkingDate = startWorkingDate;
-//        this.employeePosition = employeePosition;
-//        this.carEntity = carEntity;
-//
-//    }
+
 
     public EmployeeEntity() {
     }
