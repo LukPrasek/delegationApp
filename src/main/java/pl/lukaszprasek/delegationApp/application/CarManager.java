@@ -14,7 +14,9 @@ public interface CarManager {
 
     boolean deleteCarById(Long id);
 
-    CarDto removePassengerFromSelectedCar(long carId, long empId);
+    CarDto removePassengerFromSelectedCar(long carId,long passengerId);
 
     CarDto addPassengerToSelectedCar(long carId, long empId);
+
+    List<PassengerDto> showPassengersForSelectedCar();
 }

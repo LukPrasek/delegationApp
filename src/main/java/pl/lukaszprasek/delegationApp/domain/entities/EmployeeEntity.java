@@ -23,12 +23,10 @@ public class EmployeeEntity {
     @Column(name = "employee_position")
     private EmployeePosition employeePosition;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "car_id")
     @JsonBackReference
     private CarEntity carEntity;
-
-
 
     public EmployeeEntity() {
     }

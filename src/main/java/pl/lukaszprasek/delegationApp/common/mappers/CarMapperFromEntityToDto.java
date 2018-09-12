@@ -1,7 +1,7 @@
-package pl.lukaszprasek.delegationApp.common.mapper;
+package pl.lukaszprasek.delegationApp.common.mappers;
 
 import pl.lukaszprasek.delegationApp.common.dto.CarDto;
 
 public interface CarMapperFromEntityToDto <F, T> {
-    CarDto mapToDto(F from);
+    T mapToDto(F from);
 }

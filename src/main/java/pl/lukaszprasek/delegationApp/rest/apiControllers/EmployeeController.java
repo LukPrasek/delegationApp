@@ -9,9 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.lukaszprasek.delegationApp.application.EmployeeManager;
 import pl.lukaszprasek.delegationApp.common.dto.EmployeeDto;
-import pl.lukaszprasek.delegationApp.common.mapper.Mapper;
+import pl.lukaszprasek.delegationApp.common.mappers.Mapper;
 import pl.lukaszprasek.delegationApp.common.requestMapper.RequestEmployeeToDtoMapper;
-import pl.lukaszprasek.delegationApp.domain.entities.EmployeeEntity;
 import pl.lukaszprasek.delegationApp.domain.repositories.EmployeeRepository;
 import pl.lukaszprasek.delegationApp.rest.request.CreateEmployeeRequest;
 import pl.lukaszprasek.delegationApp.rest.response.EmployeeRestModel;
@@ -64,23 +63,26 @@ public class EmployeeController {
 
     @ApiOperation(value = "Delete employee")
     @DeleteMapping(path = "/employee/delete/{id}", produces = "application/json")
-     public ResponseEntity<EmployeeEntity> deleteEmployee(@PathVariable("id") Long id) {
+    public ResponseEntity<String> deleteEmployee(@PathVariable("id") Long id) {
 
         if (employeeManager.deleteEmployee(id) == false) {
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
+            return new ResponseEntity<>("Error, cannot delete employee", HttpStatus.CONFLICT);
         } else {
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>("Employee is deleted", HttpStatus.OK);
         }
     }
+
     @ApiOperation(value = "assign car to employee")
     @PutMapping(path = "/employee{empId}/assignCar{carId}")
-    public EmployeeRestModel assignCarToEmployee(@PathVariable("empId") Long empId,@PathVariable("carId") Long carId ){
-        return (EmployeeRestModel) mapper.map(employeeManager.assignCarToEmployee(empId,carId));
+    public ResponseEntity<EmployeeRestModel> assignCarToEmployee(@PathVariable("empId") Long empId, @PathVariable("carId") Long carId) {
+        EmployeeRestModel employeeRestModel = (EmployeeRestModel) mapper.map(employeeManager.assignCarToEmployee(empId, carId));
+        return new ResponseEntity<>(employeeRestModel, HttpStatus.OK);
     }
 
     @ApiOperation(value = "Unassign car from employee")
     @PutMapping(path = "/unassignemployee{empId}")
-    public EmployeeRestModel unassignCarFromEmployee(@PathVariable("empId")long empId){
-        return (EmployeeRestModel) mapper.map(employeeManager.unassignCarFromEmployee(empId));
+    public ResponseEntity<EmployeeRestModel> unassignCarFromEmployee(@PathVariable("empId") long empId) {
+        EmployeeRestModel employeeRestModel = (EmployeeRestModel) mapper.map(employeeManager.unassignCarFromEmployee(empId));
+        return new ResponseEntity<>(employeeRestModel, HttpStatus.OK);
     }
 }

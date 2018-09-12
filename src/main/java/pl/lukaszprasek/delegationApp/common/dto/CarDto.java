@@ -1,18 +1,17 @@
 package pl.lukaszprasek.delegationApp.common.dto;
 
-
-import pl.lukaszprasek.delegationApp.domain.entities.EmployeeEntity;
 import pl.lukaszprasek.delegationApp.domain.entities.PassengerEntity;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class CarDto implements Serializable {
     private Long carId;
     private String brand;
     private String model;
     private int seatsNumber;
-    private EmployeeEntity owner;
-    private PassengerEntity passengers;
+    private EmployeeDto owner;
+    private List<PassengerDto> passengers;
 
     private CarDto(Builder builder) {
         if (builder == null) {
@@ -61,19 +60,19 @@ public class CarDto implements Serializable {
         this.seatsNumber = seatsNumber;
     }
 
-    public EmployeeEntity getOwner() {
+    public EmployeeDto getOwner() {
         return owner;
     }
 
-    public void setOwner(EmployeeEntity owner) {
+    public void setOwner(EmployeeDto owner) {
         this.owner = owner;
     }
 
-    public PassengerEntity getPassengers() {
+    public List<PassengerDto> getPassengers() {
         return passengers;
     }
 
-    public void setPassengers(PassengerEntity passengers) {
+    public void setPassengers(List<PassengerDto> passengers) {
         this.passengers = passengers;
     }
 
@@ -82,8 +81,8 @@ public class CarDto implements Serializable {
         private String brand;
         private String model;
         private int seatsNumber;
-        private EmployeeEntity owner;
-        private PassengerEntity passengers;
+        private EmployeeDto owner;
+        private List<PassengerDto> passengers;
 
         public Builder withCarId(Long carId) {
             this.carId = carId;
@@ -105,12 +104,12 @@ public class CarDto implements Serializable {
             return this;
         }
 
-        public Builder withOwner(EmployeeEntity owner) {
+        public Builder withOwner(EmployeeDto owner) {
             this.owner = owner;
             return this;
         }
 
-        public Builder withPassengers(PassengerEntity passengers) {
+        public Builder withPassengers(List<PassengerDto> passengers) {
             this.passengers = passengers;
             return this;
         }

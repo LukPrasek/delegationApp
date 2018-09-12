@@ -1,4 +1,4 @@
-package pl.lukaszprasek.delegationApp.common.mapper;
+package pl.lukaszprasek.delegationApp.common.mappers;
 
 import java.util.List;
 

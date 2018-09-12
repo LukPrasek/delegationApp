@@ -12,9 +12,9 @@ import java.util.List;
 @Repository
 public interface PassengerRepository extends JpaRepository<PassengerEntity, Long> {
 
-    //@Query("SELECT p.empId FROM PassengerEntity p where p.car = :car")
-    //@Query(value = "SELECT * FROM passengers WHERE passenger_id = :passengerId", nativeQuery = true)
-    @Query(value = "SELECT * FROM company.passengers where car_id= :car_id", nativeQuery = true)
-    //public List<PassengerEntity> find(@Param("car") CarEntity car);
-    List<PassengerEntity> find(@Param("car_id") long car_id);
+    @Query("SELECT p.employeeEntity FROM PassengerEntity p where p.car = :car")
+    List<PassengerEntity> find(@Param("car") CarEntity car_id);
+
+    @Query("SELECT COUNT(p) FROM PassengerEntity p where p.car = :car")
+    long countPassengersByCarId(@Param("car") CarEntity car_id);
 }

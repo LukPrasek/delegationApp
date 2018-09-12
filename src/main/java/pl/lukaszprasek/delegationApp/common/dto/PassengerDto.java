@@ -12,7 +12,7 @@ public class PassengerDto implements Serializable {
     private CarEntity carDto;
     private EmployeeEntity employeeDto;
 
-    public PassengerDto(Builder builder) {
+    private PassengerDto(Builder builder) {
         if (builder == null) {
             return;
         }
@@ -45,7 +45,7 @@ public class PassengerDto implements Serializable {
         this.employeeDto = employeeDto;
     }
 
-    private static class Builder {
+    public static class Builder {
         private Long passengerId;
         private CarEntity carDto;
         private EmployeeEntity employeeDto;

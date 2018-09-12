@@ -1,4 +1,4 @@
-package pl.lukaszprasek.delegationApp.common.mapper;
+package pl.lukaszprasek.delegationApp.common.mappers;
 
 import pl.lukaszprasek.delegationApp.common.dto.PassengerDto;
 import pl.lukaszprasek.delegationApp.rest.response.PassengerRestModel;

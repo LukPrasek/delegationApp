@@ -1,4 +1,4 @@
-package pl.lukaszprasek.delegationApp.common.mapper;
+package pl.lukaszprasek.delegationApp.common.mappers;
 
 import org.springframework.stereotype.Component;
 import pl.lukaszprasek.delegationApp.common.dto.EmployeeDto;
@@ -18,7 +18,7 @@ public class EmployeeMapperFromDTOToRestModel implements Mapper<EmployeeDto, Emp
         employeeRestModel.setBirthday(from.getBirthday());
         employeeRestModel.setStartWorkingDate(from.getStartWorkingDate());
         employeeRestModel.setPosition(from.getEmployeePosition());
-        employeeRestModel.setCar(from.getCarDto());
+//        employeeRestModel.setCar(from.getCarDto());
         return employeeRestModel;
     }
 

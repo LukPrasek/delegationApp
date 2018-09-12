@@ -1,6 +1,6 @@
 package pl.lukaszprasek.delegationApp.rest.response;
 
-import pl.lukaszprasek.delegationApp.domain.entities.EmployeeEntity;
+import pl.lukaszprasek.delegationApp.common.dto.EmployeeDto;
 import pl.lukaszprasek.delegationApp.domain.entities.PassengerEntity;
 
 public class CarRestModel {
@@ -8,8 +8,8 @@ public class CarRestModel {
     private String brand;
     private String model;
     private int seatsNumber;
-    private EmployeeEntity owner;
-    private PassengerEntity passengers;
+//    private EmployeeDto owner;
+//    private PassengerEntity passengers;
 
 
     public long getCarId() {
@@ -44,19 +44,19 @@ public class CarRestModel {
         this.seatsNumber = seatsNumber;
     }
 
-    public EmployeeEntity getOwner() {
-        return owner;
-    }
-
-    public void setOwner(EmployeeEntity owner) {
-        this.owner = owner;
-    }
-
-    public PassengerEntity getPassengers() {
-        return passengers;
-    }
-
-    public void setPassengers(PassengerEntity passengers) {
-        this.passengers = passengers;
-    }
+//    public EmployeeDto getOwner() {
+//        return owner;
+//    }
+//
+//    public void setOwner(EmployeeDto owner) {
+//        this.owner = owner;
+//    }
+//
+//    public PassengerEntity getPassengers() {
+//        return passengers;
+//    }
+//
+//    public void setPassengers(PassengerEntity passengers) {
+//        this.passengers = passengers;
+//    }
 }

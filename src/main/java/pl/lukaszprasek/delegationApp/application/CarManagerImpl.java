@@ -3,6 +3,7 @@ package pl.lukaszprasek.delegationApp.application;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.lukaszprasek.delegationApp.common.dto.CarDto;
+import pl.lukaszprasek.delegationApp.common.dto.PassengerDto;
 import pl.lukaszprasek.delegationApp.domain.services.CarService;
 
 import java.util.List;
@@ -38,8 +39,8 @@ public class CarManagerImpl implements CarManager {
     }
 
     @Override
-    public CarDto removePassengerFromSelectedCar(long carId, long empId) {
-        return carService.removePassengerFromSelectedCar(carId, empId);
+    public CarDto removePassengerFromSelectedCar(long carId,long passengerId) {
+        return carService.removePassengerFromSelectedCar(carId, passengerId);
     }
 
     @Override
@@ -47,5 +48,9 @@ public class CarManagerImpl implements CarManager {
         return carService.addPassengerToSelectedCar(carId, empId);
     }
 
+    @Override
+    public List<PassengerDto> showPassengersForSelectedCar() {
+        return carService.showPassengersForSelectedCar();
+    }
 
 }

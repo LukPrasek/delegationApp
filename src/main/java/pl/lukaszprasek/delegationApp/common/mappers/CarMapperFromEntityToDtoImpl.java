@@ -1,4 +1,4 @@
-package pl.lukaszprasek.delegationApp.common.mapper;
+package pl.lukaszprasek.delegationApp.common.mappers;
 
 import org.springframework.stereotype.Component;
 import pl.lukaszprasek.delegationApp.common.dto.CarDto;

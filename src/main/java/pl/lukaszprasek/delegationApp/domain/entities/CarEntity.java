@@ -18,10 +18,10 @@ public class CarEntity {
     @Column(name = "seats_number")
     private int seatsNumber = 5;
 
-    @OneToOne(mappedBy = "carEntity")
+    @OneToOne(mappedBy = "carEntity", cascade = CascadeType.REFRESH)
     private EmployeeEntity owner;
 
-    @OneToMany(mappedBy = "passengerId", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "passengerId", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<PassengerEntity> passengerEntities;
 

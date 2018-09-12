@@ -3,12 +3,13 @@ package pl.lukaszprasek.delegationApp.rest.apiControllers;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.lukaszprasek.delegationApp.application.CarManager;
 import pl.lukaszprasek.delegationApp.common.dto.CarDto;
-import pl.lukaszprasek.delegationApp.common.mapper.CarMapper;
+import pl.lukaszprasek.delegationApp.common.mappers.CarMapper;
 import pl.lukaszprasek.delegationApp.common.requestMapper.RequestCarToDtoMapper;
 import pl.lukaszprasek.delegationApp.domain.entities.CarEntity;
 import pl.lukaszprasek.delegationApp.domain.entities.PassengerEntity;
@@ -43,17 +44,8 @@ public class CarController {
 
     @ApiOperation("Get all cars")
     @GetMapping(path = "/cars")
-//    public List<CarRestModel> showAllCars() {
-//                return carMapper.mapList(carManager.getAllCars());
-    public String showAllCars() {
-        return carRepository.findAll().get(2).getPassengerEntities().get(1).toString();
-//                .getPassengerEntities().get(1)
-//                .showPassengerData();
-//        List<CarEntity> lista=carRepository.findAll();
-//        for (CarEntity carEntity : lista) {
-//            System.out.println(carEntity.toString());
-//        }
-//        return carRepository.findAll();
+    public List<CarRestModel> showAllCars() {
+        return carMapper.mapList(carManager.getAllCars());
     }
 
     @ApiOperation("Get one car")
@@ -73,32 +65,32 @@ public class CarController {
 
     @ApiOperation("Delete car by Id")
     @DeleteMapping(path = "/car/delete/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<CarEntity> deleteCarById(@PathVariable("id") long id) {
+    public ResponseEntity<String> deleteCarById(@PathVariable("id") long id) {
         if (carManager.deleteCarById(id) == false) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         } else {
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>("Done, car is deleted", HttpStatus.OK);
         }
     }
 
-    @ApiOperation("Get all passengers")
-    @GetMapping(path = "/passengers")
-    public List<PassengerEntity> showAllPassengers() {
-        return passengerRepository.findAll();//.get(1).getCar().showBasicCarData();
+    @ApiOperation("Get all passengers for one car")
+    @GetMapping(path = "/passengers/{car_id}")
+    public List<PassengerEntity> showPassengersForSelectedCar(@PathVariable("car_id") long carId) {
+        return passengerRepository.find(carRepository.getOne(carId));
     }
 
-    @ApiOperation("Get one passenger")
-    @PutMapping(path = "/car/{carId}/passenger/{empId}")
-    public CarRestModel showOnePassenger(@PathVariable("carId") long carId, @PathVariable("empId") long empId) {
-        return (CarRestModel) carMapper.map(carManager.addPassengerToSelectedCar(carId, empId));
+    @ApiOperation("Add passenger to selected car")
+    @PutMapping(path = "/car/{carId}/employee/{empId}")
+    public ResponseEntity<CarRestModel> addPassengerToSelectedCar(@PathVariable("carId") long carId, @PathVariable("empId") long empId) {
+        CarRestModel carRestModel = (CarRestModel) carMapper.map(carManager.addPassengerToSelectedCar(carId, empId));
+        return new ResponseEntity<>(carRestModel, HttpStatus.OK);
     }
 
-//        CarEntity carEntity=carRepository.getOne(carId);
-//        List<PassengerEntity> passengerEntities = passengerRepository.find(carEntity);
-//        return passengerEntities.stream()
-//                .map(passengerEntity -> passengerEntity == null ? "No passengers" : passengerEntity.showPassengerData())
-//                .collect(Collectors.joining());
-//    }
-
+    @ApiOperation("Remove passenger from selected car")
+    @DeleteMapping(path = "/car/{carId}/passenger/{passengerId}")
+    public ResponseEntity<CarRestModel> removePassengerFromSelectedCar
+            (@PathVariable("carId") long carId, @PathVariable("passengerId") long passengerId) {
+        carMapper.map(carManager.removePassengerFromSelectedCar(carId, passengerId));
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

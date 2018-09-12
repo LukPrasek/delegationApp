@@ -2,8 +2,9 @@ package pl.lukaszprasek.delegationApp.domain.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.lukaszprasek.delegationApp.common.dto.CarDto;
 import pl.lukaszprasek.delegationApp.common.dto.EmployeeDto;
-import pl.lukaszprasek.delegationApp.common.mapper.CarMapperFromEntityToDto;
+import pl.lukaszprasek.delegationApp.common.mappers.CarMapperFromEntityToDto;
 import pl.lukaszprasek.delegationApp.domain.entities.CarEntity;
 import pl.lukaszprasek.delegationApp.domain.entities.EmployeeEntity;
 import pl.lukaszprasek.delegationApp.domain.entities.builder.EmployeeEntityBuilder;
@@ -36,7 +37,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .withBirthday(employeeEntity.getBirthday())
                 .withStartWorkingDay(employeeEntity.getStartWorkingDate())
                 .withEmployeePosition(employeeEntity.getEmployeePosition().toString())
-                .withCarDto(carMapperFromEntityToDto.mapToDto(employeeEntity.getCarEntity()))
+                .withCarDto((CarDto) carMapperFromEntityToDto.mapToDto(employeeEntity.getCarEntity()))
                 //.withCarDto(employeeEntity.getCarDto()==null?"No car":employeeEntity.getCarDto().showBasicCarData())
                 .build()).collect(Collectors.toList());
 
@@ -50,7 +51,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .withBirthday(employeeEntity.getBirthday())
                 .withStartWorkingDay(employeeEntity.getStartWorkingDate())
                 .withEmployeePosition(employeeEntity.getEmployeePosition().toString())
-                .withCarDto(carMapperFromEntityToDto.mapToDto(employeeEntity.getCarEntity()))
+                .withCarDto((CarDto) carMapperFromEntityToDto.mapToDto(employeeEntity.getCarEntity()))
                 //.withCarDto(employeeEntity.getCarDto()==null?"No car":employeeEntity.getCarDto().showBasicCarData())
                 .build();
     }
@@ -94,7 +95,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .withBirthday(employeeEntity.getBirthday())
                 .withStartWorkingDay(employeeEntity.getStartWorkingDate())
                 .withEmployeePosition(employeeEntity.getEmployeePosition().toString())
-                .withCarDto(carMapperFromEntityToDto.mapToDto(employeeEntity.getCarEntity()))//==null?"No car":employeeEntity.getCarDto()
+                .withCarDto((CarDto) carMapperFromEntityToDto.mapToDto(employeeEntity.getCarEntity()))
                         .build();
     }
 

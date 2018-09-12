@@ -1,4 +1,4 @@
-package pl.lukaszprasek.delegationApp.common.mapper;
+package pl.lukaszprasek.delegationApp.common.mappers;
 
 import org.springframework.stereotype.Component;
 import pl.lukaszprasek.delegationApp.common.dto.CarDto;
@@ -15,8 +15,8 @@ public class CarMapperFromDtoToRESTModel implements CarMapper<CarDto, CarRestMod
         carRestModel.setBrand(from.getBrand());
         carRestModel.setModel(from.getModel());
         carRestModel.setSeatsNumber(from.getSeatsNumber());
-        carRestModel.setOwner(from.getOwner());
-        carRestModel.setPassengers(from.getPassengers());
+//        carRestModel.setOwner(from.getOwner());
+//        carRestModel.setPassengers(from.getPassengers());
         return carRestModel;
     }
 
