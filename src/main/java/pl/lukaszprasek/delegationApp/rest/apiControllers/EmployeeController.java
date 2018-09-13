@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.lukaszprasek.delegationApp.application.EmployeeManager;
 import pl.lukaszprasek.delegationApp.common.dto.EmployeeDto;
-import pl.lukaszprasek.delegationApp.common.mappers.Mapper;
+import pl.lukaszprasek.delegationApp.common.mappers.EmployeeMapper;
 import pl.lukaszprasek.delegationApp.common.requestMapper.RequestEmployeeToDtoMapper;
 import pl.lukaszprasek.delegationApp.domain.repositories.EmployeeRepository;
 import pl.lukaszprasek.delegationApp.rest.request.CreateEmployeeRequest;
@@ -25,29 +25,29 @@ import java.util.List;
 public class EmployeeController {
 
     private final EmployeeManager employeeManager;
-    private final Mapper mapper;
+    private final EmployeeMapper employeeMapper;
     private final RequestEmployeeToDtoMapper requestEmployeeToDtoMapper;
     @Autowired
     private EmployeeRepository employeeRepository;
 
     @Autowired
-    public EmployeeController(EmployeeManager employeeManager, Mapper mapper, RequestEmployeeToDtoMapper requestEmployeeToDtoMapper) {
+    public EmployeeController(EmployeeManager employeeManager, EmployeeMapper employeeMapper, RequestEmployeeToDtoMapper requestEmployeeToDtoMapper) {
         this.employeeManager = employeeManager;
-        this.mapper = mapper;
+        this.employeeMapper = employeeMapper;
         this.requestEmployeeToDtoMapper = requestEmployeeToDtoMapper;
     }
 
     @ApiOperation(value = "Get all employees")
     @GetMapping(path = "/employees", produces = "application/json")
     public List<EmployeeRestModel> getEmployees() {
-        return mapper.mapList(employeeManager.getAllEmployees());
+        return employeeMapper.mapList(employeeManager.getAllEmployees());
 
     }
 
     @ApiOperation(value = "Get one employee")
     @GetMapping(path = "/employees/{id}", produces = "application/json")
     public EmployeeRestModel getEmployeeById(@PathVariable("id") Long id) {
-        return (EmployeeRestModel) mapper.map(employeeManager.showEmployee(id));
+        return (EmployeeRestModel) employeeMapper.map(employeeManager.showEmployee(id));
 
     }
 
@@ -58,7 +58,7 @@ public class EmployeeController {
     public EmployeeRestModel createEmployee(@Valid @RequestBody CreateEmployeeRequest createEmployeeRequest) {
         EmployeeDto responseEmployeeDTO = employeeManager.createEmployee(
                 requestEmployeeToDtoMapper.mapCreateRequestToDTO(createEmployeeRequest));
-        return (EmployeeRestModel) mapper.map(responseEmployeeDTO);
+        return (EmployeeRestModel) employeeMapper.map(responseEmployeeDTO);
     }
 
     @ApiOperation(value = "Delete employee")
@@ -75,14 +75,14 @@ public class EmployeeController {
     @ApiOperation(value = "assign car to employee")
     @PutMapping(path = "/employee{empId}/assignCar{carId}")
     public ResponseEntity<EmployeeRestModel> assignCarToEmployee(@PathVariable("empId") Long empId, @PathVariable("carId") Long carId) {
-        EmployeeRestModel employeeRestModel = (EmployeeRestModel) mapper.map(employeeManager.assignCarToEmployee(empId, carId));
+        EmployeeRestModel employeeRestModel = (EmployeeRestModel) employeeMapper.map(employeeManager.assignCarToEmployee(empId, carId));
         return new ResponseEntity<>(employeeRestModel, HttpStatus.OK);
     }
 
     @ApiOperation(value = "Unassign car from employee")
     @PutMapping(path = "/unassignemployee{empId}")
     public ResponseEntity<EmployeeRestModel> unassignCarFromEmployee(@PathVariable("empId") long empId) {
-        EmployeeRestModel employeeRestModel = (EmployeeRestModel) mapper.map(employeeManager.unassignCarFromEmployee(empId));
+        EmployeeRestModel employeeRestModel = (EmployeeRestModel) employeeMapper.map(employeeManager.unassignCarFromEmployee(empId));
         return new ResponseEntity<>(employeeRestModel, HttpStatus.OK);
     }
 }

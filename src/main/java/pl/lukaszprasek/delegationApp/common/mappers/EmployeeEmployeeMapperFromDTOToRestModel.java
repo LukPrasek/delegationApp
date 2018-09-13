@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class EmployeeMapperFromDTOToRestModel implements Mapper<EmployeeDto, EmployeeRestModel> {
+public class EmployeeEmployeeMapperFromDTOToRestModel implements EmployeeMapper<EmployeeDto, EmployeeRestModel> {
     @Override
     public EmployeeRestModel map(EmployeeDto from) {
         EmployeeRestModel employeeRestModel = new EmployeeRestModel();

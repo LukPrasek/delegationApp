@@ -8,7 +8,7 @@ public class CarRestModel {
     private String brand;
     private String model;
     private int seatsNumber;
-//    private EmployeeDto owner;
+    private EmployeeDto owner;
 //    private PassengerEntity passengers;
 
 
@@ -44,14 +44,14 @@ public class CarRestModel {
         this.seatsNumber = seatsNumber;
     }
 
-//    public EmployeeDto getOwner() {
-//        return owner;
-//    }
-//
-//    public void setOwner(EmployeeDto owner) {
-//        this.owner = owner;
-//    }
-//
+    public EmployeeDto getOwner() {
+        return owner;
+    }
+
+    public void setOwner(EmployeeDto owner) {
+        this.owner = owner;
+    }
+
 //    public PassengerEntity getPassengers() {
 //        return passengers;
 //    }

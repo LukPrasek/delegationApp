@@ -11,7 +11,7 @@ public class CarDto implements Serializable {
     private String model;
     private int seatsNumber;
     private EmployeeDto owner;
-    private List<PassengerDto> passengers;
+    //private List<PassengerDto> passengers;
 
     private CarDto(Builder builder) {
         if (builder == null) {
@@ -22,7 +22,7 @@ public class CarDto implements Serializable {
         this.model = builder.model;
         this.seatsNumber = builder.seatsNumber;
         this.owner = builder.owner;
-        this.passengers = builder.passengers;
+        // this.passengers = builder.passengers;
     }
 
     public CarDto() {
@@ -68,13 +68,13 @@ public class CarDto implements Serializable {
         this.owner = owner;
     }
 
-    public List<PassengerDto> getPassengers() {
-        return passengers;
-    }
-
-    public void setPassengers(List<PassengerDto> passengers) {
-        this.passengers = passengers;
-    }
+//    public List<PassengerDto> getPassengers() {
+//        return passengers;
+//    }
+//
+//    public void setPassengers(List<PassengerDto> passengers) {
+//        this.passengers = passengers;
+//    }
 
     public static class Builder {
         private Long carId;
@@ -82,7 +82,7 @@ public class CarDto implements Serializable {
         private String model;
         private int seatsNumber;
         private EmployeeDto owner;
-        private List<PassengerDto> passengers;
+        //private List<PassengerDto> passengers;
 
         public Builder withCarId(Long carId) {
             this.carId = carId;
@@ -109,10 +109,10 @@ public class CarDto implements Serializable {
             return this;
         }
 
-        public Builder withPassengers(List<PassengerDto> passengers) {
-            this.passengers = passengers;
-            return this;
-        }
+//        public Builder withPassengers(List<PassengerDto> passengers) {
+//            this.passengers = passengers;
+//            return this;
+//        }
 
         public CarDto build() {
             return new CarDto(this);
@@ -127,7 +127,6 @@ public class CarDto implements Serializable {
                 ", model='" + model + '\'' +
                 ", seatsNumber=" + seatsNumber +
                 ", owner='" + owner + '\'' +
-                ", passengers='" + passengers + '\'' +
                 '}';
     }
 }

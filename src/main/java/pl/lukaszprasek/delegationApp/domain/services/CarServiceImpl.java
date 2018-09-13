@@ -15,6 +15,7 @@ import pl.lukaszprasek.delegationApp.domain.repositories.CarRepository;
 import pl.lukaszprasek.delegationApp.domain.repositories.EmployeeRepository;
 import pl.lukaszprasek.delegationApp.domain.repositories.PassengerRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -44,7 +45,7 @@ public class CarServiceImpl implements CarService {
                         .withBrand(carEntity.getBrand())
                         .withModel(carEntity.getModel())
                         .withSeatsNumber(carEntity.getSeatsNumber())
-                        .withOwner((EmployeeDto) employeeMapperFromEntityToDto.mapEmployeeEntityToDt(carEntity.getOwner()))
+                        .withOwner(employeeMapperFromEntityToDto.mapEmployeeEntityToDto(carEntity.getOwner()))
                         .build()).collect(Collectors.toList());
     }
 
@@ -56,7 +57,7 @@ public class CarServiceImpl implements CarService {
                 .withBrand(carEntity.getBrand())
                 .withModel(carEntity.getModel())
                 .withSeatsNumber(carEntity.getSeatsNumber())
-                .withOwner((EmployeeDto) employeeMapperFromEntityToDto.mapEmployeeEntityToDt(carEntity.getOwner()))
+                .withOwner(employeeMapperFromEntityToDto.mapEmployeeEntityToDto(carEntity.getOwner()))
                 .build();
 
     }
@@ -103,7 +104,6 @@ public class CarServiceImpl implements CarService {
         } else {
             return getCarById(carId);
         }
-
     }
 
     @Override
@@ -115,13 +115,14 @@ public class CarServiceImpl implements CarService {
                 .withBrand(carEntity.getBrand())
                 .withModel(carEntity.getModel())
                 .withSeatsNumber(carEntity.getSeatsNumber())
-               // .withPassengers(passengerMapperFromEntityToDto.mapList(passengerRepository.findAll()))
+                //.withPassengers(passengerMapperFromEntityToDto.mapList(passengerRepository.findAll()))
                 .build();
     }
 
     @Override
-    public List<PassengerDto> showPassengersForSelectedCar() {
-        return null;
+    public List<PassengerDto> showPassengersForSelectedCar(long carId) {
+        List<PassengerEntity> passengerEntities = passengerRepository.findAllPassengerInGivenCar(carRepository.getOne(carId));
+        return passengerMapperFromEntityToDto.mapList(passengerEntities);
     }
 
 

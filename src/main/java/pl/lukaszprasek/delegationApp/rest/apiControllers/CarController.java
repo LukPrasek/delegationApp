@@ -3,20 +3,18 @@ package pl.lukaszprasek.delegationApp.rest.apiControllers;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.lukaszprasek.delegationApp.application.CarManager;
 import pl.lukaszprasek.delegationApp.common.dto.CarDto;
 import pl.lukaszprasek.delegationApp.common.mappers.CarMapper;
+import pl.lukaszprasek.delegationApp.common.mappers.EmployeeMapper;
+import pl.lukaszprasek.delegationApp.common.mappers.PassengerMapperFromDtoToRESTModel;
 import pl.lukaszprasek.delegationApp.common.requestMapper.RequestCarToDtoMapper;
-import pl.lukaszprasek.delegationApp.domain.entities.CarEntity;
-import pl.lukaszprasek.delegationApp.domain.entities.PassengerEntity;
-import pl.lukaszprasek.delegationApp.domain.repositories.CarRepository;
-import pl.lukaszprasek.delegationApp.domain.repositories.PassengerRepository;
 import pl.lukaszprasek.delegationApp.rest.request.CreateCarRequest;
 import pl.lukaszprasek.delegationApp.rest.response.CarRestModel;
+import pl.lukaszprasek.delegationApp.rest.response.PassengerRestModel;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -28,18 +26,17 @@ public class CarController {
 
     private final CarManager carManager;
     private final CarMapper carMapper;
-    private RequestCarToDtoMapper requestCarToDtoMapper;
+    private final RequestCarToDtoMapper requestCarToDtoMapper;
+    private final EmployeeMapper employeeMapper;
+    private final PassengerMapperFromDtoToRESTModel passengerMapperFromDtoToRESTModel;
 
     @Autowired
-    private PassengerRepository passengerRepository;
-    @Autowired
-    private CarRepository carRepository;
-
-    @Autowired
-    public CarController(CarManager carManager, CarMapper carMapper, RequestCarToDtoMapper requestCarToDtoMapper) {
+    public CarController(CarManager carManager, CarMapper carMapper, RequestCarToDtoMapper requestCarToDtoMapper, EmployeeMapper employeeMapper, PassengerMapperFromDtoToRESTModel passengerMapperFromDtoToRESTModel) {
         this.carManager = carManager;
         this.carMapper = carMapper;
         this.requestCarToDtoMapper = requestCarToDtoMapper;
+        this.employeeMapper = employeeMapper;
+        this.passengerMapperFromDtoToRESTModel = passengerMapperFromDtoToRESTModel;
     }
 
     @ApiOperation("Get all cars")
@@ -75,8 +72,10 @@ public class CarController {
 
     @ApiOperation("Get all passengers for one car")
     @GetMapping(path = "/passengers/{car_id}")
-    public List<PassengerEntity> showPassengersForSelectedCar(@PathVariable("car_id") long carId) {
-        return passengerRepository.find(carRepository.getOne(carId));
+//    public List<PassengerEntity> showPassengersForSelectedCar(@PathVariable("car_id") long carId) {
+//        return passengerRepository.findAllPassengerInGivenCar(carRepository.getOne(carId));
+    public List<PassengerRestModel> showPassengersForSelectedCar(@PathVariable("car_id") long carId) {
+        return passengerMapperFromDtoToRESTModel.mapListToRest(carManager.showPassengersForSelectedCar(carId));
     }
 
     @ApiOperation("Add passenger to selected car")

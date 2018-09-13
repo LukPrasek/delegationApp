@@ -6,6 +6,7 @@ import pl.lukaszprasek.delegationApp.rest.response.CarRestModel;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
 @Component
 public class CarMapperFromDtoToRESTModel implements CarMapper<CarDto, CarRestModel> {
     @Override
@@ -15,7 +16,7 @@ public class CarMapperFromDtoToRESTModel implements CarMapper<CarDto, CarRestMod
         carRestModel.setBrand(from.getBrand());
         carRestModel.setModel(from.getModel());
         carRestModel.setSeatsNumber(from.getSeatsNumber());
-//        carRestModel.setOwner(from.getOwner());
+        carRestModel.setOwner(from.getOwner());
 //        carRestModel.setPassengers(from.getPassengers());
         return carRestModel;
     }

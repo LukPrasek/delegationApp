@@ -1,7 +1,9 @@
 package pl.lukaszprasek.delegationApp.application;
 
 import pl.lukaszprasek.delegationApp.common.dto.CarDto;
+import pl.lukaszprasek.delegationApp.common.dto.EmployeeDto;
 import pl.lukaszprasek.delegationApp.common.dto.PassengerDto;
+import pl.lukaszprasek.delegationApp.domain.entities.PassengerEntity;
 
 import java.util.List;
 
@@ -18,5 +20,5 @@ public interface CarManager {
 
     CarDto addPassengerToSelectedCar(long carId, long empId);
 
-    List<PassengerDto> showPassengersForSelectedCar();
+    List<PassengerDto> showPassengersForSelectedCar(long carId);
 }
