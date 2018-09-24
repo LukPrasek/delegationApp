@@ -13,7 +13,7 @@ public class EmployeeDto implements Serializable {
     private String birthday;
     private String startWorkingDate;
     private String employeePosition;
-    private CarDto carDto;
+    private long carId;
 
     private EmployeeDto(Builder builder) {
         if (builder == null) {
@@ -25,7 +25,7 @@ public class EmployeeDto implements Serializable {
         this.birthday = builder.birthday;
         this.startWorkingDate = builder.startWorkingDate;
         this.employeePosition = builder.employeePosition;
-        this.carDto = builder.carEntity1;
+        this.carId = builder.carId;
 
     }
 
@@ -53,12 +53,12 @@ public class EmployeeDto implements Serializable {
         return employeePosition;
     }
 
-    public CarDto getCarDto() {
-        return carDto;
+    public long getCarDto() {
+        return carId;
     }
 
-    public void setCarDto(CarDto carDto) {
-        this.carDto = carDto;
+    public void setCarDto(long carId) {
+        this.carId = carId;
     }
 
     public void setEmployeePosition(String employeePosition) {
@@ -75,7 +75,7 @@ public class EmployeeDto implements Serializable {
         private String birthday;
         private String startWorkingDate;
         private String employeePosition;
-        private CarDto carEntity1;
+        private long carId;
 
         public Builder withEmpId(long empId) {
             this.empId = empId;
@@ -107,8 +107,8 @@ public class EmployeeDto implements Serializable {
             return this;
         }
 
-        public Builder withCarDto(CarDto carDto) {
-            this.carEntity1 = carDto;
+        public Builder withCarDto(long carId) {
+            this.carId = carId;
             return this;
         }
 
@@ -126,7 +126,7 @@ public class EmployeeDto implements Serializable {
                     ", birthday='" + birthday + '\'' +
                     ", startWorkingDate='" + startWorkingDate + '\'' +
                     ", employeePosition='" + employeePosition + '\'' +
-                    ", carDto='" + carEntity1 + '\'' +
+                    //", carDto='" + carId + '\'' +
                     '}';
         }
     }

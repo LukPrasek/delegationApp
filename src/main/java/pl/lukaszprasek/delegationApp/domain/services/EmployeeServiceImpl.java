@@ -37,7 +37,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .withBirthday(employeeEntity.getBirthday())
                 .withStartWorkingDay(employeeEntity.getStartWorkingDate())
                 .withEmployeePosition(employeeEntity.getEmployeePosition().toString())
-                .withCarDto((CarDto) carMapperFromEntityToDto.mapToDto(employeeEntity.getCarEntity()))
+                //.withCarDto((CarDto) carMapperFromEntityToDto.mapToDto(employeeEntity.getCarEntity()))
                 //.withCarDto(employeeEntity.getCarDto()==null?"No car":employeeEntity.getCarDto().showBasicCarData())
                 .build()).collect(Collectors.toList());
 
@@ -85,7 +85,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public EmployeeDto assignCarToEmployee(long empId, long carId) {
         EmployeeEntity employeeEntity = employeeRepository.getOne(empId);
-        System.out.println(employeeEntity.toString());
         CarEntity carEntity = carRepository.getOne(carId);
         employeeEntity.setCarEntity(carEntity);
         employeeRepository.save(employeeEntity);
@@ -95,7 +94,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .withBirthday(employeeEntity.getBirthday())
                 .withStartWorkingDay(employeeEntity.getStartWorkingDate())
                 .withEmployeePosition(employeeEntity.getEmployeePosition().toString())
-                .withCarDto((CarDto) carMapperFromEntityToDto.mapToDto(employeeEntity.getCarEntity()))
+                //.withCarDto((CarDto) carMapperFromEntityToDto.mapToDto(employeeEntity.getCarEntity()))
                         .build();
     }
 
@@ -105,7 +104,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeEntity.setCarEntity(null);
         employeeRepository.save(employeeEntity);
         return new EmployeeDto.Builder().withEmpId(employeeEntity.getEmpId())
-                .withName(employeeEntity.getSurname())
+                .withName(employeeEntity.getName())
                 .withSurname(employeeEntity.getSurname())
                 .withBirthday(employeeEntity.getBirthday())
                 .withStartWorkingDay(employeeEntity.getStartWorkingDate())

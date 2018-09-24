@@ -14,6 +14,7 @@ import pl.lukaszprasek.delegationApp.common.mappers.PassengerMapperFromDtoToREST
 import pl.lukaszprasek.delegationApp.common.requestMapper.RequestCarToDtoMapper;
 import pl.lukaszprasek.delegationApp.rest.request.CreateCarRequest;
 import pl.lukaszprasek.delegationApp.rest.response.CarRestModel;
+import pl.lukaszprasek.delegationApp.rest.response.EmployeeRestModel;
 import pl.lukaszprasek.delegationApp.rest.response.PassengerRestModel;
 
 import javax.validation.Valid;
@@ -81,8 +82,15 @@ public class CarController {
     @ApiOperation("Add passenger to selected car")
     @PutMapping(path = "/car/{carId}/employee/{empId}")
     public ResponseEntity<CarRestModel> addPassengerToSelectedCar(@PathVariable("carId") long carId, @PathVariable("empId") long empId) {
-        CarRestModel carRestModel = (CarRestModel) carMapper.map(carManager.addPassengerToSelectedCar(carId, empId));
-        return new ResponseEntity<>(carRestModel, HttpStatus.OK);
+        CarDto carDto=carManager.addPassengerToSelectedCar(carId, empId);
+        if (carDto!= null){
+            CarRestModel carRestModel = (CarRestModel) carMapper.map(carDto);
+            return new ResponseEntity<>(carRestModel, HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
+
     }
 
     @ApiOperation("Remove passenger from selected car")
@@ -91,5 +99,11 @@ public class CarController {
             (@PathVariable("carId") long carId, @PathVariable("passengerId") long passengerId) {
         carMapper.map(carManager.removePassengerFromSelectedCar(carId, passengerId));
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+    @ApiOperation("Show car owner")
+    @GetMapping(path = "/car/{carId}/owner")
+    public ResponseEntity<EmployeeRestModel> showCArOwner(@PathVariable("carId") long carId){
+        EmployeeRestModel employeeRestModel= (EmployeeRestModel) employeeMapper.map(carManager.showCarOwner(carId));
+        return new ResponseEntity<>(employeeRestModel, HttpStatus.OK);
     }
 }

@@ -28,9 +28,14 @@ public class EmployeeEntity {
     @JsonBackReference
     private CarEntity carEntity;
 
+
+
     public EmployeeEntity() {
     }
-
+    public EmployeeEntity(String name, String surname) {
+        this.name = name;
+        this.surname = surname;
+    }
     public long getEmpId() {
         return empId;
     }

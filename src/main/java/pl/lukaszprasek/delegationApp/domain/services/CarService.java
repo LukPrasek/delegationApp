@@ -22,4 +22,6 @@ public interface CarService {
     CarDto removePassengerFromSelectedCar(long carId, long passengerId);
 
     List<PassengerDto> showPassengersForSelectedCar(long carId);
+
+    EmployeeDto showCarOwner(long carId);
 }

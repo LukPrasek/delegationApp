@@ -13,7 +13,7 @@ public class PassengerEmployeeMapperFromDtoToRESTModel implements PassengerMappe
     public PassengerRestModel mapToRestModel(PassengerDto from) {
         PassengerRestModel passengerRestModel = new PassengerRestModel();
         passengerRestModel.setPassengerId(from.getPassengerId());
-        passengerRestModel.setCarDto(from.getCarDto());
+//        passengerRestModel.setCarDto(from.getCarDto());
         passengerRestModel.setEmployeeDto(from.getEmployeeDto());
         return passengerRestModel;
     }

@@ -2,9 +2,8 @@ package pl.lukaszprasek.delegationApp.common.mappers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import pl.lukaszprasek.delegationApp.common.dto.EmployeeDto;
+import pl.lukaszprasek.delegationApp.common.dto.CarDto;
 import pl.lukaszprasek.delegationApp.common.dto.PassengerDto;
-import pl.lukaszprasek.delegationApp.domain.entities.EmployeeEntity;
 import pl.lukaszprasek.delegationApp.domain.entities.PassengerEntity;
 
 import java.util.List;
@@ -20,10 +19,16 @@ public class PassengerMapperFromEntityToDtoImpl implements PassengerMapperFromEn
 //        this.employeeMapperFromEntityToDto = employeeMapperFromEntityToDto;
 //    }
     private final EmployeeMapperFromEntityToDto employeeMapperFromEntityToDto;
+    private CarMapperFromEntityToDto carMapperFromEntityToDto;
+    @Autowired
+    public void setCarMapperFromEntityToDto(CarMapperFromEntityToDto carMapperFromEntityToDto) {
+        this.carMapperFromEntityToDto = carMapperFromEntityToDto;
+    }
 
     @Autowired
     public PassengerMapperFromEntityToDtoImpl(EmployeeMapperFromEntityToDto employeeMapperFromEntityToDto) {
         this.employeeMapperFromEntityToDto = employeeMapperFromEntityToDto;
+
     }
 
     @Override
@@ -31,6 +36,7 @@ public class PassengerMapperFromEntityToDtoImpl implements PassengerMapperFromEn
         return new PassengerDto.Builder()
                 .withPassengerID(from.getPassengerId())
                 .withEmployeeDto(employeeMapperFromEntityToDto.mapEmployeeEntityToDto(from.getEmployeeEntity()))
+                //.withCarDto((CarDto) carMapperFromEntityToDto.mapToDto(from.getCar()))
                 .build();
     }
 

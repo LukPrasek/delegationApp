@@ -26,7 +26,7 @@ public class CarMapperFromEntityToDtoImpl implements CarMapperFromEntityToDto<Ca
                     .withBrand(from.getBrand())
                     .withModel(from.getModel())
                     .withSeatsNumber(from.getSeatsNumber())
-                    //.withPassengers(passengerMapperFromEntityToDto.mapList(from.getPassengerEntities()))
+                   // .withPassengers(passengerMapperFromEntityToDto.mapList(from.getPassengerEntities()))
                     .build();
         }
     }

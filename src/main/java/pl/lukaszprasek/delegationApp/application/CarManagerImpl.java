@@ -55,4 +55,9 @@ public class CarManagerImpl implements CarManager {
         return carService.showPassengersForSelectedCar(carId);
     }
 
+    @Override
+    public EmployeeDto showCarOwner(long carId) {
+        return carService.showCarOwner(carId);
+    }
+
 }

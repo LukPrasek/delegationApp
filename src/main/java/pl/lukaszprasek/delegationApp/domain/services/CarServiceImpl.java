@@ -17,6 +17,7 @@ import pl.lukaszprasek.delegationApp.domain.repositories.PassengerRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -37,6 +38,7 @@ public class CarServiceImpl implements CarService {
         this.passengerMapperFromEntityToDto = passengerMapperFromEntityToDto;
     }
 
+
     @Override
     public List<CarDto> getAllCars() {
         return carRepository.findAll().stream()
@@ -52,14 +54,18 @@ public class CarServiceImpl implements CarService {
     @Override
     public CarDto getCarById(Long id) {
         CarEntity carEntity = carRepository.getOne(id);
+        carEntity.setPassengerEntities(passengerRepository.findAllPassengerInGivenCar(carEntity));
+        passengerRepository.findAllPassengerInGivenCar(carEntity);
+        System.out.println("********************" + (carEntity.getOwner()).showNameSurnameAndPosition());
+        System.out.println("+++++++++++++++++++*" + (carEntity.getPassengerEntities()).size());
         return new CarDto.Builder()
                 .withCarId(carEntity.getCarId())
                 .withBrand(carEntity.getBrand())
                 .withModel(carEntity.getModel())
                 .withSeatsNumber(carEntity.getSeatsNumber())
                 .withOwner(employeeMapperFromEntityToDto.mapEmployeeEntityToDto(carEntity.getOwner()))
+                .withPassengers(passengerMapperFromEntityToDto.mapList(carEntity.getPassengerEntities()))
                 .build();
-
     }
 
     @Override
@@ -78,7 +84,7 @@ public class CarServiceImpl implements CarService {
         CarEntity carEntity = carRepository.getOne(id);
 
         if (carEntity == null) {
-            return false;//albo try catch??todo
+            return false;
         } else {
             carRepository.deleteById(id);
             return true;
@@ -88,21 +94,23 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public CarDto addPassengerToSelectedCar(long carId, long empId) {
-        CarEntity carEntity = carRepository.getOne(carId);
         EmployeeEntity employeeEntity = employeeRepository.getOne(empId);
+        CarEntity carEntity = carRepository.getOne(carId);
         if (((carEntity.getSeatsNumber() - 1) - passengerRepository.countPassengersByCarId(carEntity)) > 0) {
             PassengerEntity passengerEntity = new PassengerEntity();
             passengerEntity.setCar(carEntity);
             passengerEntity.setEmployeeEntity(employeeEntity);
             passengerRepository.save(passengerEntity);
-            return new CarDto.Builder()
+            return new CarDto.Builder()//Optional.of(
                     .withCarId(carEntity.getCarId())
                     .withBrand(carEntity.getBrand())
                     .withModel(carEntity.getModel())
                     .withSeatsNumber(carEntity.getSeatsNumber())
+                    .withPassengers(passengerMapperFromEntityToDto.mapList(passengerRepository.findAll()))
                     .build();
         } else {
-            return getCarById(carId);
+           // return Optional.empty();
+            return null;
         }
     }
 
@@ -123,6 +131,18 @@ public class CarServiceImpl implements CarService {
     public List<PassengerDto> showPassengersForSelectedCar(long carId) {
         List<PassengerEntity> passengerEntities = passengerRepository.findAllPassengerInGivenCar(carRepository.getOne(carId));
         return passengerMapperFromEntityToDto.mapList(passengerEntities);
+    }
+
+    @Override
+    public EmployeeDto showCarOwner(long carId) {
+        CarEntity carEntity = carRepository.getOne(carId);
+        EmployeeEntity employeeEntity = carEntity.getOwner();
+        return new EmployeeDto.Builder().withName(employeeEntity.getName())
+                .withSurname(employeeEntity.getSurname())
+                .withBirthday(employeeEntity.getBirthday())
+                .withStartWorkingDay(employeeEntity.getStartWorkingDate())
+                .withEmployeePosition(employeeEntity.getEmployeePosition().toString())
+                .withEmpId(employeeEntity.getEmpId()).build();
     }
 
 

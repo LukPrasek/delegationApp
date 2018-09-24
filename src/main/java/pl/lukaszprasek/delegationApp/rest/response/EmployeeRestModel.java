@@ -11,7 +11,7 @@ public class EmployeeRestModel {
     private String birthday;
     private String startWorkingDate;
     private String position;
-    //private CarDto car;
+    private CarDto car;
 
 
     public long getEmpId() {
