@@ -53,7 +53,7 @@ public class EmployeeDto implements Serializable {
         return employeePosition;
     }
 
-    public long getCarDto() {
+    public long getCarId() {
         return carId;
     }
 
@@ -117,18 +117,6 @@ public class EmployeeDto implements Serializable {
             return new EmployeeDto(this);
         }
 
-        @Override
-        public String toString() {
-            return "Builder{" +
-                    "empId=" + empId +
-                    ", name='" + name + '\'' +
-                    ", surname='" + surname + '\'' +
-                    ", birthday='" + birthday + '\'' +
-                    ", startWorkingDate='" + startWorkingDate + '\'' +
-                    ", employeePosition='" + employeePosition + '\'' +
-                    //", carDto='" + carId + '\'' +
-                    '}';
-        }
-    }
+     }
 
 }

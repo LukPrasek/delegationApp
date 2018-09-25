@@ -1,7 +1,5 @@
 package pl.lukaszprasek.delegationApp.common.dto;
 
-import pl.lukaszprasek.delegationApp.domain.entities.PassengerEntity;
-
 import java.io.Serializable;
 import java.util.List;
 
@@ -10,8 +8,8 @@ public class CarDto implements Serializable {
     private String brand;
     private String model;
     private int seatsNumber;
-    private EmployeeDto owner;
-    private List<PassengerDto> passengers;
+    private long employeeId;
+    private List<Long> passengers;
 
     private CarDto(Builder builder) {
         if (builder == null) {
@@ -21,8 +19,8 @@ public class CarDto implements Serializable {
         this.brand = builder.brand;
         this.model = builder.model;
         this.seatsNumber = builder.seatsNumber;
-        this.owner = builder.owner;
-        // this.passengers = builder.passengers;
+        this.employeeId = builder.owner;
+        this.passengers = builder.passengers;
     }
 
     public CarDto() {
@@ -60,19 +58,19 @@ public class CarDto implements Serializable {
         this.seatsNumber = seatsNumber;
     }
 
-    public EmployeeDto getOwner() {
-        return owner;
+    public long getEmployeeId() {
+        return employeeId;
     }
 
-    public void setOwner(EmployeeDto owner) {
-        this.owner = owner;
+    public void setEmployeeId(long employeeId) {
+        this.employeeId = employeeId;
     }
 
-    public List<PassengerDto> getPassengers() {
+    public List<Long> getPassengers() {
         return passengers;
     }
 
-    public void setPassengers(List<PassengerDto> passengers) {
+    public void setPassengers(List<Long> passengers) {
         this.passengers = passengers;
     }
 
@@ -81,8 +79,8 @@ public class CarDto implements Serializable {
         private String brand;
         private String model;
         private int seatsNumber;
-        private EmployeeDto owner;
-        private List<PassengerDto> passengers;
+        private long owner;
+        private List<Long> passengers;
 
         public Builder withCarId(Long carId) {
             this.carId = carId;
@@ -104,12 +102,12 @@ public class CarDto implements Serializable {
             return this;
         }
 
-        public Builder withOwner(EmployeeDto owner) {
+        public Builder withOwner(long owner) {
             this.owner = owner;
             return this;
         }
 
-        public Builder withPassengers(List<PassengerDto> passengers) {
+        public Builder withPassengers(List<Long> passengers) {
             this.passengers = passengers;
             return this;
         }
@@ -126,7 +124,7 @@ public class CarDto implements Serializable {
                 ", brand='" + brand + '\'' +
                 ", model='" + model + '\'' +
                 ", seatsNumber=" + seatsNumber +
-                ", owner='" + owner + '\'' +
+                ", employeeId='" + employeeId + '\'' +
                 '}';
     }
 }

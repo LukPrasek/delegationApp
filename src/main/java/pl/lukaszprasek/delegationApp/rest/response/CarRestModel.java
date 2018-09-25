@@ -11,8 +11,8 @@ public class CarRestModel {
     private String brand;
     private String model;
     private int seatsNumber;
-//    private EmployeeDto owner;
-//  private List<PassengerDto> passengers;
+    private long owner;
+    private List<Long> passengers;
 
 
     public long getCarId() {
@@ -47,19 +47,19 @@ public class CarRestModel {
         this.seatsNumber = seatsNumber;
     }
 
-//    public EmployeeDto getOwner() {
-//        return owner;
-//    }
-//
-//    public void setOwner(EmployeeDto owner) {
-//        this.owner = owner;
-//    }
-//
-//    public List<PassengerDto> getPassengers() {
-//        return passengers;
-//    }
-//
-//    public void setPassengers(List<PassengerDto> passengers) {
-//        this.passengers = passengers;
-//    }
+    public Long getEmployeeId() {
+        return owner;
+    }
+
+    public void setEmployeeId(Long owner) {
+        this.owner = owner;
+    }
+
+    public List<Long> getPassengers() {
+        return passengers;
+    }
+
+    public void setPassengers(List<Long> passengers) {
+        this.passengers = passengers;
+    }
 }

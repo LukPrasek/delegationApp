@@ -40,6 +40,7 @@ public class EmployeeController {
     @ApiOperation(value = "Get all employees")
     @GetMapping(path = "/employees", produces = "application/json")
     public List<EmployeeRestModel> getEmployees() {
+        System.out.println("KOntroller Employee*********************");
         return employeeMapper.mapList(employeeManager.getAllEmployees());
 
     }

@@ -23,12 +23,10 @@ public class EmployeeEntity {
     @Column(name = "employee_position")
     private EmployeePosition employeePosition;
 
-    @OneToOne(cascade = CascadeType.REFRESH)
+    @OneToOne(cascade = CascadeType.REFRESH)//mappedBy = "owner",
     @JoinColumn(name = "car_id")
     @JsonBackReference
     private CarEntity carEntity;
-
-
 
     public EmployeeEntity() {
     }
@@ -91,25 +89,25 @@ public class EmployeeEntity {
         this.carEntity = carEntity;
     }
 
-    @Override
-    public String toString() {
-        return "EmployeeEntity{" +
-                "empId=" + empId +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", birthday=" + birthday +
-                ", startWorkingDate=" + startWorkingDate +
-                ", employeePosition=" + employeePosition +
-                ", carEntity=" + carEntity +
-                '}';
-    }
-
-    public String showNameSurnameAndPosition(){
-                return "Employee{" +
-                "Id=" + empId +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", Position=" + employeePosition +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "EmployeeEntity{" +
+//                "empId=" + empId +
+//                ", name='" + name + '\'' +
+//                ", surname='" + surname + '\'' +
+//                ", birthday=" + birthday +
+//                ", startWorkingDate=" + startWorkingDate +
+//                ", employeePosition=" + employeePosition +
+//                ", carEntity=" + carEntity +
+//                '}';
+//    }
+//
+//    public String showNameSurnameAndPosition(){
+//                return "Employee{" +
+//                "Id=" + empId +
+//                ", name='" + name + '\'' +
+//                ", surname='" + surname + '\'' +
+//                ", Position=" + employeePosition +
+//                '}';
+//    }
 }

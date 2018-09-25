@@ -15,6 +15,7 @@ import pl.lukaszprasek.delegationApp.domain.repositories.CarRepository;
 import pl.lukaszprasek.delegationApp.domain.repositories.EmployeeRepository;
 import pl.lukaszprasek.delegationApp.domain.repositories.PassengerRepository;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -30,7 +31,9 @@ public class CarServiceImpl implements CarService {
     private final PassengerMapperFromEntityToDto passengerMapperFromEntityToDto;
 
     @Autowired
-    public CarServiceImpl(CarRepository carRepository, EmployeeRepository employeeRepository, PassengerRepository passengerRepository, EmployeeMapperFromEntityToDto employeeMapperFromEntityToDto, PassengerMapperFromEntityToDto passengerMapperFromEntityToDto) {
+    public CarServiceImpl(CarRepository carRepository, EmployeeRepository employeeRepository, PassengerRepository passengerRepository,
+                          EmployeeMapperFromEntityToDto employeeMapperFromEntityToDto,
+                          PassengerMapperFromEntityToDto passengerMapperFromEntityToDto) {
         this.carRepository = carRepository;
         this.employeeRepository = employeeRepository;
         this.passengerRepository = passengerRepository;
@@ -47,24 +50,20 @@ public class CarServiceImpl implements CarService {
                         .withBrand(carEntity.getBrand())
                         .withModel(carEntity.getModel())
                         .withSeatsNumber(carEntity.getSeatsNumber())
-                        .withOwner(employeeMapperFromEntityToDto.mapEmployeeEntityToDto(carEntity.getOwner()))
+                        .withOwner(carEntity.getOwner() != null ? carEntity.getOwner().getEmpId() : -1)
                         .build()).collect(Collectors.toList());
     }
 
-    @Override
+      @Override
     public CarDto getCarById(Long id) {
-        CarEntity carEntity = carRepository.getOne(id);
-        carEntity.setPassengerEntities(passengerRepository.findAllPassengerInGivenCar(carEntity));
-        passengerRepository.findAllPassengerInGivenCar(carEntity);
-        System.out.println("********************" + (carEntity.getOwner()).showNameSurnameAndPosition());
-        System.out.println("+++++++++++++++++++*" + (carEntity.getPassengerEntities()).size());
+        Optional<CarEntity> carEntity = carRepository.findById(id);
         return new CarDto.Builder()
-                .withCarId(carEntity.getCarId())
-                .withBrand(carEntity.getBrand())
-                .withModel(carEntity.getModel())
-                .withSeatsNumber(carEntity.getSeatsNumber())
-                .withOwner(employeeMapperFromEntityToDto.mapEmployeeEntityToDto(carEntity.getOwner()))
-                .withPassengers(passengerMapperFromEntityToDto.mapList(carEntity.getPassengerEntities()))
+                .withCarId(carEntity.get().getCarId())
+                .withBrand(carEntity.get().getBrand())
+                .withModel(carEntity.get().getModel())
+                .withSeatsNumber(carEntity.get().getSeatsNumber())
+                .withOwner(carEntity.get().getOwner() != null ? carEntity.get().getOwner().getEmpId() : -1)
+                // .withPassengers(passengerMapperFromEntityToDto.mapList(carEntity.getPassengerEntities()))
                 .build();
     }
 
@@ -106,11 +105,11 @@ public class CarServiceImpl implements CarService {
                     .withBrand(carEntity.getBrand())
                     .withModel(carEntity.getModel())
                     .withSeatsNumber(carEntity.getSeatsNumber())
-                    .withPassengers(passengerMapperFromEntityToDto.mapList(passengerRepository.findAll()))
+                    //.withPassengers(passengerMapperFromEntityToDto.mapList(passengerRepository.findAll()))
                     .build();
         } else {
-           // return Optional.empty();
-            return null;
+            // return Optional.empty();
+            return null;//Optional.isempty
         }
     }
 
@@ -135,14 +134,19 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public EmployeeDto showCarOwner(long carId) {
-        CarEntity carEntity = carRepository.getOne(carId);
-        EmployeeEntity employeeEntity = carEntity.getOwner();
-        return new EmployeeDto.Builder().withName(employeeEntity.getName())
-                .withSurname(employeeEntity.getSurname())
-                .withBirthday(employeeEntity.getBirthday())
-                .withStartWorkingDay(employeeEntity.getStartWorkingDate())
-                .withEmployeePosition(employeeEntity.getEmployeePosition().toString())
-                .withEmpId(employeeEntity.getEmpId()).build();
+        CarEntity carEntity1 = carRepository.getOne(carId);
+        //CarDto carDto = getCarById(carId);
+        EmployeeEntity employeeEntity1 = employeeRepository.getOne(carEntity1.getOwner().getEmpId());
+        //EmployeeEntity employeeEntity = employeeRepository.getOne(carId);
+        return new EmployeeDto.Builder()
+                .withName(employeeEntity1.getName())
+                .withSurname(employeeEntity1.getSurname())
+                .withBirthday(employeeEntity1.getBirthday())
+                .withStartWorkingDay(employeeEntity1.getStartWorkingDate())
+                .withEmployeePosition(employeeEntity1.getEmployeePosition().toString())
+                .withEmpId(employeeEntity1.getEmpId())
+                .withCarDto(carId)
+                .build();
     }
 
 

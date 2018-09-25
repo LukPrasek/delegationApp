@@ -18,7 +18,7 @@ public class CarMapperFromDtoToRESTModel implements CarMapper<CarDto, CarRestMod
         carRestModel.setBrand(from.getBrand());
         carRestModel.setModel(from.getModel());
         carRestModel.setSeatsNumber(from.getSeatsNumber());
-//        carRestModel.setOwner(from.getOwner());
+        carRestModel.setEmployeeId(from.getEmployeeId());
 //        carRestModel.setPassengers(from.getPassengers());
         return carRestModel;
     }

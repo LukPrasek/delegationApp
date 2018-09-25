@@ -11,7 +11,7 @@ public class EmployeeRestModel {
     private String birthday;
     private String startWorkingDate;
     private String position;
-    private CarDto car;
+    private long car;
 
 
     public long getEmpId() {
@@ -62,11 +62,11 @@ public class EmployeeRestModel {
         this.position = position;
     }
 
-//    public CarDto getCar() {
-//        return car;
-//    }
-//
-//    public void setCar(CarDto car) {
-//        this.car = car;
-//    }
+    public long getCar() {
+        return car;
+    }
+
+    public void setCar(long car) {
+        this.car = car;
+    }
 }

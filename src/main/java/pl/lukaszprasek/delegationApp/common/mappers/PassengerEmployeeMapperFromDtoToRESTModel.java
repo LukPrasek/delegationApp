@@ -2,19 +2,36 @@ package pl.lukaszprasek.delegationApp.common.mappers;
 
 import org.springframework.stereotype.Component;
 import pl.lukaszprasek.delegationApp.common.dto.PassengerDto;
+import pl.lukaszprasek.delegationApp.domain.services.CarService;
+import pl.lukaszprasek.delegationApp.domain.services.EmployeeService;
 import pl.lukaszprasek.delegationApp.rest.response.PassengerRestModel;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
 @Component
 public class PassengerEmployeeMapperFromDtoToRESTModel implements PassengerMapperFromDtoToRESTModel<PassengerDto, PassengerRestModel> {
+
+    private final CarMapperFromDtoToRESTModel carMapperFromDtoToRESTModel;
+    private final CarService carService;
+    private final EmployeeMapperFromDTOToRestModel employeeEmployeeMapperFromDTOToRestModel;
+    private final EmployeeService employeeService;
+
+    public PassengerEmployeeMapperFromDtoToRESTModel(CarMapperFromDtoToRESTModel carMapperFromDtoToRESTModel,
+                                                     CarService carService, EmployeeMapperFromDTOToRestModel employeeEmployeeMapperFromDTOToRestModel, EmployeeService employeeService) {
+        this.carMapperFromDtoToRESTModel = carMapperFromDtoToRESTModel;
+        this.carService = carService;
+        this.employeeEmployeeMapperFromDTOToRestModel = employeeEmployeeMapperFromDTOToRestModel;
+        this.employeeService = employeeService;
+    }
+
 
     @Override
     public PassengerRestModel mapToRestModel(PassengerDto from) {
         PassengerRestModel passengerRestModel = new PassengerRestModel();
         passengerRestModel.setPassengerId(from.getPassengerId());
-//        passengerRestModel.setCarDto(from.getCarDto());
-        passengerRestModel.setEmployeeDto(from.getEmployeeDto());
+       // passengerRestModel.setCarRestModel(carMapperFromDtoToRESTModel.map(carService.getCarById(from.getCarDto())));
+        passengerRestModel.setEmployeeRestModel(employeeEmployeeMapperFromDTOToRestModel.map(employeeService.getEmployeeById(from.getEmployeeDto())));
         return passengerRestModel;
     }
 

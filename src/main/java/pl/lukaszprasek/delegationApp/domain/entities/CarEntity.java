@@ -76,24 +76,24 @@ public class CarEntity {
         this.passengerEntities = passengerEntities;
     }
 
-    @Override
-    public String toString() {
-        return "CarEntity{" +
-                "carId=" + carId +
-                ", brand='" + brand + '\'' +
-                ", model='" + model + '\'' +
-                ", seatsNumber=" + seatsNumber +
-                ", owner=" + owner +
-                ", passengerEntities=" + passengerEntities +
-                '}';
-    }
-
-    public String showBasicCarData() {
-        return "CarEntity{" +
-                "carId=" + carId +
-                ", brand='" + brand + '\'' +
-                ", model='" + model + '\'' +
-                ", seatsNumber=" + seatsNumber +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "CarEntity{" +
+//                "carId=" + carId +
+//                ", brand='" + brand + '\'' +
+//                ", model='" + model + '\'' +
+//                ", seatsNumber=" + seatsNumber +
+//                ", owner=" + owner +
+//                ", passengerEntities=" + passengerEntities +
+//                '}';
+//    }
+//
+//    public String showBasicCarData() {
+//        return "CarEntity{" +
+//                "carId=" + carId +
+//                ", brand='" + brand + '\'' +
+//                ", model='" + model + '\'' +
+//                ", seatsNumber=" + seatsNumber +
+//                '}';
+    //}
 }

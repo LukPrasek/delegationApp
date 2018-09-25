@@ -101,7 +101,7 @@ public class CarController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
     @ApiOperation("Show car owner")
-    @GetMapping(path = "/car/{carId}/owner")
+    @GetMapping(path = "/car/owner/{carId}")
     public ResponseEntity<EmployeeRestModel> showCArOwner(@PathVariable("carId") long carId){
         EmployeeRestModel employeeRestModel= (EmployeeRestModel) employeeMapper.map(carManager.showCarOwner(carId));
         return new ResponseEntity<>(employeeRestModel, HttpStatus.OK);
