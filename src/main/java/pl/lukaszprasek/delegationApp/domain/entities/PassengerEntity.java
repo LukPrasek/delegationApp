@@ -45,19 +45,4 @@ public class PassengerEntity {
         this.employeeEntity = employeeEntity;
     }
 
-//    @Override
-//    public String toString() {
-//        return "PassengerEntity{" +
-//                "passengerId=" + passengerId +
-//                ", car=" + car +
-//                ", employeeEntity=" + employeeEntity +
-//                '}';
-//    }
-//
-//    public String showPassengerData() {
-//        return "PassengerEntity{" +
-//                "passengerId=" + passengerId +
-//                ", employeeEntity=" + employeeEntity.showNameSurnameAndPosition() +
-//                '}';
-//    }
 }

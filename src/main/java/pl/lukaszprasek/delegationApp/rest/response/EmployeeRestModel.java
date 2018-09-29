@@ -1,8 +1,5 @@
 package pl.lukaszprasek.delegationApp.rest.response;
 
-import pl.lukaszprasek.delegationApp.common.dto.CarDto;
-import pl.lukaszprasek.delegationApp.domain.entities.CarEntity;
-
 public class EmployeeRestModel {
 
     private long empId;
@@ -11,7 +8,7 @@ public class EmployeeRestModel {
     private String birthday;
     private String startWorkingDate;
     private String position;
-    private long car;
+    private CarRestModel carRestModel;
 
 
     public long getEmpId() {
@@ -62,11 +59,11 @@ public class EmployeeRestModel {
         this.position = position;
     }
 
-    public long getCar() {
-        return car;
+    public CarRestModel getCarRestModel() {
+        return carRestModel;
     }
 
-    public void setCar(long car) {
-        this.car = car;
+    public void setCarRestModel(CarRestModel carRestModel) {
+        this.carRestModel = carRestModel;
     }
 }

@@ -1,9 +1,5 @@
 package pl.lukaszprasek.delegationApp.rest.response;
 
-import pl.lukaszprasek.delegationApp.common.dto.EmployeeDto;
-import pl.lukaszprasek.delegationApp.common.dto.PassengerDto;
-import pl.lukaszprasek.delegationApp.domain.entities.PassengerEntity;
-
 import java.util.List;
 
 public class CarRestModel {

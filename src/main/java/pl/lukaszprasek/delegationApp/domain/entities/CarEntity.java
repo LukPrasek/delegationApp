@@ -21,7 +21,7 @@ public class CarEntity {
     @OneToOne(mappedBy = "carEntity", cascade = CascadeType.REFRESH)
     private EmployeeEntity owner;
 
-    @OneToMany(mappedBy = "passengerId", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "car",cascade = CascadeType.ALL, orphanRemoval = true)//mappedBy = "passengerId",
     @JsonManagedReference
     private List<PassengerEntity> passengerEntities;
 
@@ -64,36 +64,9 @@ public class CarEntity {
         return owner;
     }
 
-    public void setOwner(EmployeeEntity owner) {
-        this.owner = owner;
-    }
-
     public List<PassengerEntity> getPassengerEntities() {
         return passengerEntities;
     }
 
-    public void setPassengerEntities(List<PassengerEntity> passengerEntities) {
-        this.passengerEntities = passengerEntities;
-    }
 
-//    @Override
-//    public String toString() {
-//        return "CarEntity{" +
-//                "carId=" + carId +
-//                ", brand='" + brand + '\'' +
-//                ", model='" + model + '\'' +
-//                ", seatsNumber=" + seatsNumber +
-//                ", owner=" + owner +
-//                ", passengerEntities=" + passengerEntities +
-//                '}';
-//    }
-//
-//    public String showBasicCarData() {
-//        return "CarEntity{" +
-//                "carId=" + carId +
-//                ", brand='" + brand + '\'' +
-//                ", model='" + model + '\'' +
-//                ", seatsNumber=" + seatsNumber +
-//                '}';
-    //}
 }

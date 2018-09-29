@@ -22,5 +22,7 @@ public interface CarManager {
 
     List<PassengerDto> showPassengersForSelectedCar(long carId);
 
+    List<EmployeeDto> showPassengersForCar(long carId);
+
     EmployeeDto showCarOwner(long carId);
 }

@@ -1,6 +1,5 @@
 package pl.lukaszprasek.delegationApp.common.mappers;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import pl.lukaszprasek.delegationApp.common.dto.PassengerDto;
 import pl.lukaszprasek.delegationApp.domain.entities.PassengerEntity;
@@ -11,13 +10,6 @@ import java.util.stream.Collectors;
 @Component
 public class PassengerMapperFromEntityToDtoImpl implements PassengerMapperFromEntityToDto<PassengerEntity, PassengerDto> {
 
-    private final EmployeeMapperFromEntityToDto employeeMapperFromEntityToDto;
-
-    @Autowired
-    public PassengerMapperFromEntityToDtoImpl(EmployeeMapperFromEntityToDto employeeMapperFromEntityToDto) {
-        this.employeeMapperFromEntityToDto = employeeMapperFromEntityToDto;
-
-    }
 
     @Override
     public PassengerDto mapPassengerEntityToDto(PassengerEntity from) {

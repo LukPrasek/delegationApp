@@ -9,7 +9,7 @@ public class CarDto implements Serializable {
     private String model;
     private int seatsNumber;
     private long employeeId;
-    private List<Long> passengers;
+    private List<Long> passengersId;
 
     private CarDto(Builder builder) {
         if (builder == null) {
@@ -20,7 +20,7 @@ public class CarDto implements Serializable {
         this.model = builder.model;
         this.seatsNumber = builder.seatsNumber;
         this.employeeId = builder.owner;
-        this.passengers = builder.passengers;
+        this.passengersId = builder.passengersId;
     }
 
     public CarDto() {
@@ -66,12 +66,12 @@ public class CarDto implements Serializable {
         this.employeeId = employeeId;
     }
 
-    public List<Long> getPassengers() {
-        return passengers;
+    public List<Long> getPassengersId() {
+        return passengersId;
     }
 
-    public void setPassengers(List<Long> passengers) {
-        this.passengers = passengers;
+    public void setPassengersId(List<Long> passengersId) {
+        this.passengersId = passengersId;
     }
 
     public static class Builder {
@@ -80,7 +80,7 @@ public class CarDto implements Serializable {
         private String model;
         private int seatsNumber;
         private long owner;
-        private List<Long> passengers;
+        private List<Long> passengersId;
 
         public Builder withCarId(Long carId) {
             this.carId = carId;
@@ -108,23 +108,12 @@ public class CarDto implements Serializable {
         }
 
         public Builder withPassengers(List<Long> passengers) {
-            this.passengers = passengers;
+            this.passengersId = passengers;
             return this;
         }
 
         public CarDto build() {
             return new CarDto(this);
         }
-    }
-
-    @Override
-    public String toString() {
-        return "CarDto{" +
-                "carId=" + carId +
-                ", brand='" + brand + '\'' +
-                ", model='" + model + '\'' +
-                ", seatsNumber=" + seatsNumber +
-                ", employeeId='" + employeeId + '\'' +
-                '}';
     }
 }

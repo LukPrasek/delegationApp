@@ -56,6 +56,11 @@ public class CarManagerImpl implements CarManager {
     }
 
     @Override
+    public List<EmployeeDto> showPassengersForCar(long carId) {
+        return carService.showPassengersCar(carId);
+    }
+
+    @Override
     public EmployeeDto showCarOwner(long carId) {
         return carService.showCarOwner(carId);
     }

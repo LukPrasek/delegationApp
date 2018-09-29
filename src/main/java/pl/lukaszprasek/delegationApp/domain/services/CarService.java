@@ -23,5 +23,7 @@ public interface CarService {
 
     List<PassengerDto> showPassengersForSelectedCar(long carId);
 
+    List<EmployeeDto> showPassengersCar(long carId);
+
     EmployeeDto showCarOwner(long carId);
 }

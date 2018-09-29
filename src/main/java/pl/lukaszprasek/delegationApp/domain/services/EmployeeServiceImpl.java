@@ -37,7 +37,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .withBirthday(employeeEntity.getBirthday())
                 .withStartWorkingDay(employeeEntity.getStartWorkingDate())
                 .withEmployeePosition(employeeEntity.getEmployeePosition().toString())
-                .withCarDto(employeeEntity.getCarEntity()!=null?employeeEntity.getCarEntity().getCarId():-1)
+                .withCarDto(employeeEntity.getCarEntity()!=null?employeeEntity.getCarEntity().getCarId():0)
                 .build()).collect(Collectors.toList());
 
     }
@@ -50,7 +50,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .withBirthday(employeeEntity.getBirthday())
                 .withStartWorkingDay(employeeEntity.getStartWorkingDate())
                 .withEmployeePosition(employeeEntity.getEmployeePosition().toString())
-                .withCarDto(employeeEntity.getCarEntity()!=null?employeeEntity.getCarEntity().getCarId():-1)
+                .withCarDto(employeeEntity.getCarEntity()!=null?employeeEntity.getCarEntity().getCarId():0)
                 .build();
     }
 

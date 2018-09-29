@@ -2,8 +2,8 @@ package pl.lukaszprasek.delegationApp.rest.response;
 
 public class PassengerRestModel {
     private long passengerId;
-    private CarRestModel carRestModel;
-    private EmployeeRestModel employeeRestModel;
+    private long carRestModel;
+    private long employeeRestModel;
 
     public long getPassengerId() {
         return passengerId;
@@ -13,19 +13,19 @@ public class PassengerRestModel {
         this.passengerId = passengerId;
     }
 
-    public CarRestModel getCarRestModel() {
+    public long getCarRestModel() {
         return carRestModel;
     }
 
-    public void setCarRestModel(CarRestModel carRestModel) {
+    public void setCarRestModel(long carRestModel) {
         this.carRestModel = carRestModel;
     }
 
-    public EmployeeRestModel getEmployeeRestModel() {
+    public long getEmployeeRestModel() {
         return employeeRestModel;
     }
 
-    public void setEmployeeRestModel(EmployeeRestModel employeeRestModel) {
+    public void setEmployeeRestModel(long employeeRestModel) {
         this.employeeRestModel = employeeRestModel;
     }
 

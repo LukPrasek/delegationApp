@@ -71,10 +71,8 @@ public class CarController {
         }
     }
 
-    @ApiOperation("Get all passengers for one car")
+    @ApiOperation("Get passengers id for one car")
     @GetMapping(path = "/passengers/{car_id}")
-//    public List<PassengerEntity> showPassengersForSelectedCar(@PathVariable("car_id") long carId) {
-//        return passengerRepository.findAllPassengerInGivenCar(carRepository.getOne(carId));
     public List<PassengerRestModel> showPassengersForSelectedCar(@PathVariable("car_id") long carId) {
         return passengerMapperFromDtoToRESTModel.mapListToRest(carManager.showPassengersForSelectedCar(carId));
     }
@@ -90,7 +88,6 @@ public class CarController {
         else {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
-
     }
 
     @ApiOperation("Remove passenger from selected car")
@@ -106,4 +103,10 @@ public class CarController {
         EmployeeRestModel employeeRestModel= (EmployeeRestModel) employeeMapper.map(carManager.showCarOwner(carId));
         return new ResponseEntity<>(employeeRestModel, HttpStatus.OK);
     }
+    @ApiOperation("Show all passengers for one car")
+    @GetMapping(path = "/car/{car_id}/passengers")
+    public List<EmployeeRestModel> showPassengersForCar(@PathVariable("car_id") long carId) {
+        return employeeMapper.mapList(carManager.showPassengersForCar(carId));
+    }
+
 }
