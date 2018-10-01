@@ -53,7 +53,7 @@ public class CarServiceImpl implements CarService {
                         .build()).collect(Collectors.toList());
     }
 
-      @Override
+    @Override
     public CarDto getCarById(Long id) {
         Optional<CarEntity> carEntity = carRepository.findById(id);
         return new CarDto.Builder()
@@ -78,37 +78,35 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public boolean deleteCarById(Long id) {
+    public Long deleteCarById(Long id) {
         CarEntity carEntity = carRepository.getOne(id);
+        carRepository.deleteById(id);
+        return id;
 
-        if (carEntity == null) {
-            return false;
-        } else {
-            carRepository.deleteById(id);
-            return true;
-        }
     }
 
     @Override
     public CarDto addPassengerToSelectedCar(long carId, long empId) {
         EmployeeEntity employeeEntity = employeeRepository.getOne(empId);
         CarEntity carEntity = carRepository.getOne(carId);
-        if (((carEntity.getSeatsNumber() - 1) - passengerRepository.countPassengersByCarId(carEntity)) > 0) {
-            PassengerEntity passengerEntity = new PassengerEntity();
-            passengerEntity.setCar(carEntity);
-            passengerEntity.setEmployeeEntity(employeeEntity);
-            passengerRepository.save(passengerEntity);
-            return new CarDto.Builder()//Optional.of(
-                    .withCarId(carEntity.getCarId())
-                    .withBrand(carEntity.getBrand())
-                    .withModel(carEntity.getModel())
-                    .withSeatsNumber(carEntity.getSeatsNumber())
-                    .withPassengers(passengerMapperFromEntityToDto.mapList(passengerRepository.findAll()))
-                    .build();
-        } else {
-            // return Optional.empty();
-            return null;//Optional.isempty
+        boolean isPresent = passengerRepository.findAll().stream().anyMatch(passengerEntity -> passengerEntity.getEmployeeEntity().getEmpId() == empId);
+        if (isPresent == false) {
+            if (((carEntity.getSeatsNumber() - 1) - passengerRepository.countPassengersByCarId(carEntity)) > 0) {
+                PassengerEntity passengerEntity = new PassengerEntity();
+                passengerEntity.setCar(carEntity);
+                passengerEntity.setEmployeeEntity(employeeEntity);
+                passengerRepository.save(passengerEntity);
+                return new CarDto.Builder()
+                        .withCarId(carEntity.getCarId())
+                        .withBrand(carEntity.getBrand())
+                        .withModel(carEntity.getModel())
+                        .withSeatsNumber(carEntity.getSeatsNumber())
+                        .withPassengers(carEntity.getPassengerEntities().stream()
+                                .map(passengerEntity1 -> passengerEntity1.getPassengerId()).collect(Collectors.toList()))
+                        .build();
+            }
         }
+        return null;
     }
 
     @Override
@@ -132,7 +130,7 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public List<EmployeeDto> showPassengersCar(long carId) {
-        List<EmployeeEntity> employeeEntities=passengerRepository.findPassengersInCar(carRepository.getOne(carId));
+        List<EmployeeEntity> employeeEntities = passengerRepository.findPassengersInCar(carRepository.getOne(carId));
         return employeeMapperFromEntityToDto.mapListFromEntitiesToDtos(employeeEntities);
     }
 

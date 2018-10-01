@@ -19,14 +19,13 @@ import java.util.stream.Collectors;
 public class EmployeeServiceImpl implements EmployeeService {
     private final EmployeeRepository employeeRepository;
     private final CarRepository carRepository;
-    private final CarMapperFromEntityToDto carMapperFromEntityToDto;
 
 
     @Autowired
-    public EmployeeServiceImpl(EmployeeRepository employeeRepository, CarRepository carRepository, CarMapperFromEntityToDto carMapperFromEntityToDto) {
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository, CarRepository carRepository) {
         this.employeeRepository = employeeRepository;
         this.carRepository = carRepository;
-        this.carMapperFromEntityToDto = carMapperFromEntityToDto;
+
     }
 
     @Override
@@ -37,7 +36,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .withBirthday(employeeEntity.getBirthday())
                 .withStartWorkingDay(employeeEntity.getStartWorkingDate())
                 .withEmployeePosition(employeeEntity.getEmployeePosition().toString())
-                .withCarDto(employeeEntity.getCarEntity()!=null?employeeEntity.getCarEntity().getCarId():0)
+                .withCarDto(employeeEntity.getCarEntity() != null ? employeeEntity.getCarEntity().getCarId() : 0)
                 .build()).collect(Collectors.toList());
 
     }
@@ -50,7 +49,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .withBirthday(employeeEntity.getBirthday())
                 .withStartWorkingDay(employeeEntity.getStartWorkingDate())
                 .withEmployeePosition(employeeEntity.getEmployeePosition().toString())
-                .withCarDto(employeeEntity.getCarEntity()!=null?employeeEntity.getCarEntity().getCarId():0)
+                .withCarDto(employeeEntity.getCarEntity() != null ? employeeEntity.getCarEntity().getCarId() : 0)
                 .build();
     }
 
@@ -62,22 +61,18 @@ public class EmployeeServiceImpl implements EmployeeService {
                 employeeDto.getSurname(), birthday, startWorkingDate, employeeDto.getEmployeePosition()).build();
         employeeRepository.save(employeeEntity);
         return new EmployeeDto.Builder().withEmpId(employeeEntity.getEmpId())
-                .withName(employeeEntity.getSurname())
+                .withName(employeeEntity.getName())
+                .withSurname(employeeEntity.getSurname())
                 .withBirthday(employeeEntity.getBirthday())
                 .withStartWorkingDay(employeeEntity.getStartWorkingDate())
                 .withEmployeePosition(employeeEntity.getEmployeePosition().toString()).build();
     }
 
     @Override
-    public boolean deleteEmployeeById(Long id) {
+    public Long deleteEmployeeById(Long id) {
         EmployeeEntity employeeEntity = employeeRepository.getOne(id);
-
-        if (employeeEntity == null) {
-            return false;
-        } else {
-            employeeRepository.deleteById(id);
-            return true;
-        }
+        employeeRepository.deleteById(id);
+        return id;
     }
 
     @Override
@@ -92,7 +87,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .withBirthday(employeeEntity.getBirthday())
                 .withStartWorkingDay(employeeEntity.getStartWorkingDate())
                 .withEmployeePosition(employeeEntity.getEmployeePosition().toString())
-                .withCarDto(employeeEntity.getCarEntity()!=null?employeeEntity.getCarEntity().getCarId():-1)
+                .withCarDto(employeeEntity.getCarEntity() != null ? employeeEntity.getCarEntity().getCarId() : -1)
                 .build();
     }
 

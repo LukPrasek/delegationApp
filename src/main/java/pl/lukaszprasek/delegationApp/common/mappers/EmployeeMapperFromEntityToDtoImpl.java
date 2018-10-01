@@ -13,8 +13,7 @@ public class EmployeeMapperFromEntityToDtoImpl implements EmployeeMapperFromEnti
 
     @Override
     public EmployeeDto mapEmployeeEntityToDto(EmployeeEntity from) {
-        if (from == null) return null;
-        return new EmployeeDto.Builder()
+          return new EmployeeDto.Builder()
                 .withEmpId(from.getEmpId())
                 .withName(from.getName())
                 .withSurname(from.getSurname())

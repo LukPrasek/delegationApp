@@ -19,6 +19,8 @@ public class CarEntity {
     private int seatsNumber = 5;
 
     @OneToOne(mappedBy = "carEntity", cascade = CascadeType.REFRESH)
+    @JoinColumn(name = "emp_id")
+
     private EmployeeEntity owner;
 
     @OneToMany(mappedBy = "car",cascade = CascadeType.ALL, orphanRemoval = true)//mappedBy = "passengerId",
@@ -68,5 +70,7 @@ public class CarEntity {
         return passengerEntities;
     }
 
-
+    public void setPassengerEntities(List<PassengerEntity> passengerEntities) {
+        this.passengerEntities = passengerEntities;
+    }
 }

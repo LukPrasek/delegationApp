@@ -12,7 +12,7 @@ public interface EmployeeManager {
 
     EmployeeDto createEmployee(EmployeeDto employeeDto);
 
-    Boolean deleteEmployee(Long id);
+    Long deleteEmployee(Long id);
 
     EmployeeDto assignCarToEmployee (long empId, long carId);
 

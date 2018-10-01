@@ -10,6 +10,8 @@ import java.time.LocalDate;
 @Table(name = "employees")
 public class EmployeeEntity {
 
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "emp_id")
@@ -23,7 +25,7 @@ public class EmployeeEntity {
     @Column(name = "employee_position")
     private EmployeePosition employeePosition;
 
-    @OneToOne(cascade = CascadeType.REFRESH)//mappedBy = "owner",
+    @OneToOne
     @JoinColumn(name = "car_id")
     @JsonBackReference
     private CarEntity carEntity;
@@ -33,6 +35,9 @@ public class EmployeeEntity {
     public EmployeeEntity(String name, String surname) {
         this.name = name;
         this.surname = surname;
+    }
+    public void setEmpId(long empId) {
+        this.empId = empId;
     }
     public long getEmpId() {
         return empId;

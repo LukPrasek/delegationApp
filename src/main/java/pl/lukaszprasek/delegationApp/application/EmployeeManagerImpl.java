@@ -32,7 +32,7 @@ public class EmployeeManagerImpl implements EmployeeManager {
     }
 
     @Override
-    public Boolean deleteEmployee(Long id) {
+    public Long deleteEmployee(Long id) {
         return employeeService.deleteEmployeeById(id);
     }
 

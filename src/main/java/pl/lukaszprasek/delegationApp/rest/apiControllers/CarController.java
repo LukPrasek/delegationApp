@@ -64,11 +64,9 @@ public class CarController {
     @ApiOperation("Delete car by Id")
     @DeleteMapping(path = "/car/delete/{id}")
     public ResponseEntity<String> deleteCarById(@PathVariable("id") long id) {
-        if (carManager.deleteCarById(id) == false) {
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
-        } else {
-            return new ResponseEntity<>("Done, car is deleted", HttpStatus.OK);
-        }
+        carManager.deleteCarById(id);
+        return new ResponseEntity<>("Done, car is deleted", HttpStatus.OK);
+
     }
 
     @ApiOperation("Get passengers id for one car")
@@ -80,13 +78,12 @@ public class CarController {
     @ApiOperation("Add passenger to selected car")
     @PutMapping(path = "/car/{carId}/employee/{empId}")
     public ResponseEntity<CarRestModel> addPassengerToSelectedCar(@PathVariable("carId") long carId, @PathVariable("empId") long empId) {
-        CarDto carDto=carManager.addPassengerToSelectedCar(carId, empId);
-        if (carDto!= null){
+        CarDto carDto = carManager.addPassengerToSelectedCar(carId, empId);
+        if (carDto != null) {
             CarRestModel carRestModel = (CarRestModel) carMapper.map(carDto);
             return new ResponseEntity<>(carRestModel, HttpStatus.OK);
-        }
-        else {
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        } else {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);//409
         }
     }
 
@@ -97,12 +94,14 @@ public class CarController {
         carMapper.map(carManager.removePassengerFromSelectedCar(carId, passengerId));
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
     @ApiOperation("Show car owner")
     @GetMapping(path = "/car/owner/{carId}")
-    public ResponseEntity<EmployeeRestModel> showCArOwner(@PathVariable("carId") long carId){
-        EmployeeRestModel employeeRestModel= (EmployeeRestModel) employeeMapper.map(carManager.showCarOwner(carId));
+    public ResponseEntity<EmployeeRestModel> showCArOwner(@PathVariable("carId") long carId) {
+        EmployeeRestModel employeeRestModel = (EmployeeRestModel) employeeMapper.map(carManager.showCarOwner(carId));
         return new ResponseEntity<>(employeeRestModel, HttpStatus.OK);
     }
+
     @ApiOperation("Show all passengers for one car")
     @GetMapping(path = "/car/{car_id}/passengers")
     public List<EmployeeRestModel> showPassengersForCar(@PathVariable("car_id") long carId) {

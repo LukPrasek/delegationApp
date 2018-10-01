@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import pl.lukaszprasek.delegationApp.common.dto.CarDto;
 import pl.lukaszprasek.delegationApp.common.dto.EmployeeDto;
 import pl.lukaszprasek.delegationApp.common.dto.PassengerDto;
-import pl.lukaszprasek.delegationApp.domain.entities.PassengerEntity;
 import pl.lukaszprasek.delegationApp.domain.services.CarService;
 
 import java.util.List;
@@ -36,7 +35,7 @@ public class CarManagerImpl implements CarManager {
     }
 
     @Override
-    public boolean deleteCarById(Long id) {
+    public Long deleteCarById(Long id) {
         return carService.deleteCarById(id);
     }
 

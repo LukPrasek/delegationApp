@@ -27,11 +27,10 @@ public class EmployeeController {
     private final EmployeeManager employeeManager;
     private final EmployeeMapper employeeMapper;
     private final RequestEmployeeToDtoMapper requestEmployeeToDtoMapper;
-    @Autowired
-    private EmployeeRepository employeeRepository;
 
     @Autowired
-    public EmployeeController(EmployeeManager employeeManager, EmployeeMapper employeeMapper, RequestEmployeeToDtoMapper requestEmployeeToDtoMapper) {
+    public EmployeeController(EmployeeManager employeeManager, EmployeeMapper employeeMapper,
+                              RequestEmployeeToDtoMapper requestEmployeeToDtoMapper) {
         this.employeeManager = employeeManager;
         this.employeeMapper = employeeMapper;
         this.requestEmployeeToDtoMapper = requestEmployeeToDtoMapper;
@@ -40,7 +39,6 @@ public class EmployeeController {
     @ApiOperation(value = "Get all employees")
     @GetMapping(path = "/employees", produces = "application/json")
     public List<EmployeeRestModel> getEmployees() {
-        System.out.println("KOntroller Employee*********************");
         return employeeMapper.mapList(employeeManager.getAllEmployees());
 
     }
@@ -54,23 +52,18 @@ public class EmployeeController {
 
     @ApiOperation(value = "Create employee")
     @PostMapping(path = "/employee/create", produces = "application/json")
-    @ResponseStatus(HttpStatus.CREATED)
-    @ResponseBody
-    public EmployeeRestModel createEmployee(@Valid @RequestBody CreateEmployeeRequest createEmployeeRequest) {
+    public ResponseEntity<EmployeeRestModel> createEmployee(@Valid @RequestBody CreateEmployeeRequest createEmployeeRequest) {
         EmployeeDto responseEmployeeDTO = employeeManager.createEmployee(
                 requestEmployeeToDtoMapper.mapCreateRequestToDTO(createEmployeeRequest));
-        return (EmployeeRestModel) employeeMapper.map(responseEmployeeDTO);
+        return new ResponseEntity<>((EmployeeRestModel) employeeMapper.map(responseEmployeeDTO), HttpStatus.CREATED);
     }
 
     @ApiOperation(value = "Delete employee")
     @DeleteMapping(path = "/employee/delete/{id}", produces = "application/json")
-    public ResponseEntity<String> deleteEmployee(@PathVariable("id") Long id) {
-
-        if (employeeManager.deleteEmployee(id) == false) {
-            return new ResponseEntity<>("Error, cannot delete employee", HttpStatus.CONFLICT);
-        } else {
-            return new ResponseEntity<>("Employee is deleted", HttpStatus.OK);
-        }
+    @ResponseBody
+    public ResponseEntity<Long> deleteEmployee(@PathVariable("id") Long id) {
+        employeeManager.deleteEmployee(id);
+        return new ResponseEntity<>(id, HttpStatus.OK);
     }
 
     @ApiOperation(value = "assign car to employee")
