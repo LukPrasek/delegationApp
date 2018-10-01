@@ -41,23 +41,22 @@ public class CarServiceImplTest {
     private long numberOfPassengers = 2;
     private CarEntity carEntity;
 
-
     @Before
     public void setUp() {
         carService = new CarServiceImpl(carRepository, employeeRepository,
                 passengerRepository, employeeMapperFromEntityToDto, passengerMapperFromEntityToDto);
+        carEntity = createCarEntity();
+        when(carRepository.getOne(carId)).thenReturn(carEntity);
+        when(passengerRepository.countPassengersByCarId(carEntity)).thenReturn(numberOfPassengers);
+        when(passengerRepository.findAll()).thenReturn(carEntity.getPassengerEntities());
+
     }
 
     @Test
     public void shouldAddPassengerToSelectedCar() {
         //GIVEN
-        carEntity = createCarEntity();
         EmployeeEntity employeeEntity1 = createEmployeeEntity(3, "Andrzej", "Wozniak");
-        List<PassengerEntity> list = createPassengerEntityList(carEntity, employeeEntity1);
-        when(carRepository.getOne(carId)).thenReturn(createCarEntity());
         when(employeeRepository.getOne(empId)).thenReturn(employeeEntity1);
-//        when(passengerRepository.countPassengersByCarId(carEntity)).thenReturn(numberOfPassengers);
-        when(passengerRepository.findAll()).thenReturn(list);
 
         //WHEN
         CarDto actual = carService.addPassengerToSelectedCar(carId, empId);
@@ -71,13 +70,20 @@ public class CarServiceImplTest {
     @Test
     public void shouldNotAddPassengerToSelectedCarWhenEmployeeIsAlreadyAssigned() {
         //GIVEN
-        carEntity = createCarEntity();
+
+        //WHEN
+        CarDto actual = carService.addPassengerToSelectedCar(carId, 2);
+
+        //THEN
+        assertNull(actual);
+    }
+
+    @Test
+    public void shouldNotAddPassengerWhenAllSeatsAreOccupied() {
+        //GIVEN
         EmployeeEntity employeeEntity1 = createEmployeeEntity(1, "Andrzej", "Wozniak");
-        List<PassengerEntity> list = createPassengerEntityList(carEntity, employeeEntity1);
-        System.out.println(list.get(0).getEmployeeEntity().getEmpId()+"************");
-        when(carRepository.getOne(carId)).thenReturn(createCarEntity());
         when(employeeRepository.getOne(empId)).thenReturn(employeeEntity1);
-        when(passengerRepository.findAll()).thenReturn(list);
+        when(passengerRepository.countPassengersByCarId(carEntity)).thenReturn(4L);
 
         //WHEN
         CarDto actual = carService.addPassengerToSelectedCar(carId, empId);
@@ -87,11 +93,11 @@ public class CarServiceImplTest {
     }
 
     private CarEntity createCarEntity() {
-        CarEntity carEntity = new CarEntity();
+        carEntity = new CarEntity();
         carEntity.setCarId(5L);
         carEntity.setBrand("Mercedes");
         carEntity.setModel("Vito");
-        carEntity.setSeatsNumber(3);
+        carEntity.setSeatsNumber(5);
         EmployeeEntity employeeEntity2 = createEmployeeEntity(2, "Mieczyslaw", "Nowak");
         carEntity.setPassengerEntities(createPassengerEntityList(carEntity, employeeEntity2));
         return carEntity;
