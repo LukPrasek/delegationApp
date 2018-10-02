@@ -1,6 +1,7 @@
 package pl.lukaszprasek.delegationApp.domain.entities;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
 public class CarEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name = "car_id")
     private Long carId;
     private String brand;
@@ -20,10 +21,9 @@ public class CarEntity {
 
     @OneToOne(mappedBy = "carEntity", cascade = CascadeType.REFRESH)
     @JoinColumn(name = "emp_id")
-
     private EmployeeEntity owner;
 
-    @OneToMany(mappedBy = "car",cascade = CascadeType.ALL, orphanRemoval = true)//mappedBy = "passengerId",
+    @OneToMany(mappedBy = "car",cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<PassengerEntity> passengerEntities;
 
@@ -36,6 +36,10 @@ public class CarEntity {
 
     public void setCarId(Long carId) {
         this.carId = carId;
+    }
+
+    public void setOwner(EmployeeEntity owner) {
+        this.owner = owner;
     }
 
     public String getBrand() {

@@ -1,6 +1,7 @@
 package pl.lukaszprasek.delegationApp.domain.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import org.hibernate.annotations.GenericGenerator;
 import pl.lukaszprasek.delegationApp.domain.entities.enums.EmployeePosition;
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -13,7 +14,7 @@ public class EmployeeEntity {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name = "emp_id")
     private long empId;
     private String name;

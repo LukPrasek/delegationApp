@@ -1,6 +1,7 @@
 package pl.lukaszprasek.delegationApp.domain.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
@@ -9,16 +10,16 @@ import javax.persistence.*;
 public class PassengerEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long passengerId;
 
-    @ManyToOne(fetch = FetchType.LAZY)//, cascade = CascadeType.ALL
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "car_Id")
     @JsonBackReference
     private CarEntity car;
 
-    @OneToOne
-    @JoinColumn(name = "emp_Id")
+    @OneToOne(cascade = CascadeType.REFRESH)
+    //@JoinColumn(name = "emp_Id")
     private EmployeeEntity employeeEntity;
 
     public Long getPassengerId() {
