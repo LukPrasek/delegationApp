@@ -1,6 +1,5 @@
 package pl.lukaszprasek.delegationApp.application;
 
-import org.springframework.http.ResponseEntity;
 import pl.lukaszprasek.delegationApp.common.dto.EmployeeDto;
 
 import java.util.List;

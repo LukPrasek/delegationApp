@@ -36,14 +36,5 @@ public class EmployeeManagerImpl implements EmployeeManager {
         return employeeService.deleteEmployeeById(id);
     }
 
-//    @Override
-//    public EmployeeDto assignEmployeeToCar(long empId, long carId) {
-//        return employeeService.assignEmployeeToCar(empId,carId);
-//    }
-//
-//    @Override
-//    public EmployeeDto unassignEmployeeFromCar(long empId) {
-//        return employeeService.unassignEmployeeFromCar(empId);
-//    }
 
 }

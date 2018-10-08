@@ -11,7 +11,6 @@ import pl.lukaszprasek.delegationApp.application.EmployeeManager;
 import pl.lukaszprasek.delegationApp.common.dto.EmployeeDto;
 import pl.lukaszprasek.delegationApp.common.mappers.EmployeeMapper;
 import pl.lukaszprasek.delegationApp.common.requestMapper.RequestEmployeeToDtoMapper;
-import pl.lukaszprasek.delegationApp.domain.repositories.EmployeeRepository;
 import pl.lukaszprasek.delegationApp.rest.request.CreateEmployeeRequest;
 import pl.lukaszprasek.delegationApp.rest.response.EmployeeRestModel;
 
@@ -47,7 +46,6 @@ public class EmployeeController {
     @GetMapping(path = "/employees/{id}", produces = "application/json")
     public EmployeeRestModel getEmployeeById(@PathVariable("id") Long id) {
         return (EmployeeRestModel) employeeMapper.map(employeeManager.showEmployee(id));
-
     }
 
     @ApiOperation(value = "Create employee")

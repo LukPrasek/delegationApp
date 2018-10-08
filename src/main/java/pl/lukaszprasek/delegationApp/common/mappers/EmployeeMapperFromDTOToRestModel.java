@@ -7,7 +7,6 @@ import pl.lukaszprasek.delegationApp.domain.services.CarService;
 import pl.lukaszprasek.delegationApp.rest.response.EmployeeRestModel;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component

@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.lukaszprasek.delegationApp.common.dto.CarDto;
 import pl.lukaszprasek.delegationApp.common.dto.EmployeeDto;
-import pl.lukaszprasek.delegationApp.common.dto.PassengerDto;
 import pl.lukaszprasek.delegationApp.domain.services.CarService;
+import pl.lukaszprasek.delegationApp.domain.services.PassengerService;
 
 import java.util.List;
 
@@ -13,10 +13,13 @@ import java.util.List;
 public class CarManagerImpl implements CarManager {
 
     private CarService carService;
+    private PassengerService passengerService;
 
     @Autowired
-    public CarManagerImpl(CarService carService) {
+    public CarManagerImpl(CarService carService, PassengerService passengerService
+    ) {
         this.carService = carService;
+        this.passengerService = passengerService;
     }
 
     @Override
@@ -40,23 +43,18 @@ public class CarManagerImpl implements CarManager {
     }
 
     @Override
-    public CarDto removePassengerFromSelectedCar(long carId,long passengerId) {
-        return carService.removePassengerFromSelectedCar(carId, passengerId);
+    public CarDto removePassengerFromSelectedCar(long carId, long passengerId) {
+        return passengerService.removePassengerFromSelectedCar(carId, passengerId);
     }
 
     @Override
     public CarDto addPassengerToSelectedCar(long carId, long empId) {
-        return carService.addPassengerToSelectedCar(carId, empId);
-    }
-
-    @Override
-    public List<PassengerDto> showPassengersForSelectedCar(long carId) {
-        return carService.showPassengersForSelectedCar(carId);
+        return passengerService.addPassengerToSelectedCar(carId, empId);
     }
 
     @Override
     public List<EmployeeDto> showPassengersForCar(long carId) {
-        return carService.showPassengersCar(carId);
+        return passengerService.showPassengersForCar(carId);
     }
 
     @Override
@@ -66,7 +64,7 @@ public class CarManagerImpl implements CarManager {
 
     @Override
     public CarDto assignEmployeeToCar(long empId, long carId) {
-        return carService.assignEmployeeToCar(empId,carId);
+        return carService.assignEmployeeToCar(empId, carId);
     }
 
     @Override

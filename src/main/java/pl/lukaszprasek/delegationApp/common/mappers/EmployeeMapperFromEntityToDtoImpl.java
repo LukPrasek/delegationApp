@@ -1,6 +1,6 @@
 package pl.lukaszprasek.delegationApp.common.mappers;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Component;
 import pl.lukaszprasek.delegationApp.common.dto.EmployeeDto;
 import pl.lukaszprasek.delegationApp.domain.entities.EmployeeEntity;
@@ -20,7 +20,6 @@ public class EmployeeMapperFromEntityToDtoImpl implements EmployeeMapperFromEnti
                 .withEmployeePosition(from.getEmployeePosition().toString())
                 .withStartWorkingDay(from.getStartWorkingDate())
                 .withBirthday(from.getBirthday())
-                //.withCarDto(from.getCarEntity()!=null?from.getCarEntity().getCarId():0)
                 .build();
     }
 

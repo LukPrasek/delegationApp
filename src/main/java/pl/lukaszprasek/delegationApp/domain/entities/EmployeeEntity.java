@@ -1,8 +1,6 @@
 package pl.lukaszprasek.delegationApp.domain.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import org.hibernate.annotations.GenericGenerator;
-import pl.lukaszprasek.delegationApp.domain.entities.enums.EmployeePosition;
+import pl.lukaszprasek.delegationApp.domain.enums.EmployeePosition;
 
 import javax.persistence.*;
 import java.time.LocalDate;

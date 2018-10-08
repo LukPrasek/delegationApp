@@ -10,7 +10,5 @@ public interface EmployeeService {
     EmployeeDto getEmployeeById(Long id);
     EmployeeDto createEmployee(EmployeeDto employeeDto);
     Long deleteEmployeeById(Long id);
-//    EmployeeDto assignEmployeeToCar(long empId, long id);
-//    EmployeeDto unassignEmployeeFromCar(long empId);
 }
 

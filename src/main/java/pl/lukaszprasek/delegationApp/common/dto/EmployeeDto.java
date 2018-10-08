@@ -1,7 +1,4 @@
 package pl.lukaszprasek.delegationApp.common.dto;
-
-import pl.lukaszprasek.delegationApp.domain.entities.CarEntity;
-
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -117,6 +114,6 @@ public class EmployeeDto implements Serializable {
             return new EmployeeDto(this);
         }
 
-     }
+    }
 
 }

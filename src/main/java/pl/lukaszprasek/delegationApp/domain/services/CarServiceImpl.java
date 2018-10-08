@@ -4,16 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.lukaszprasek.delegationApp.common.dto.CarDto;
 import pl.lukaszprasek.delegationApp.common.dto.EmployeeDto;
-import pl.lukaszprasek.delegationApp.common.dto.PassengerDto;
-import pl.lukaszprasek.delegationApp.common.mappers.EmployeeMapperFromEntityToDto;
-import pl.lukaszprasek.delegationApp.common.mappers.PassengerMapperFromEntityToDto;
 import pl.lukaszprasek.delegationApp.domain.entities.CarEntity;
 import pl.lukaszprasek.delegationApp.domain.entities.EmployeeEntity;
 import pl.lukaszprasek.delegationApp.domain.entities.PassengerEntity;
-import pl.lukaszprasek.delegationApp.domain.entities.builder.CarEntityBuilder;
+import pl.lukaszprasek.delegationApp.domain.builder.CarEntityBuilder;
 import pl.lukaszprasek.delegationApp.domain.repositories.CarRepository;
 import pl.lukaszprasek.delegationApp.domain.repositories.EmployeeRepository;
-import pl.lukaszprasek.delegationApp.domain.repositories.PassengerRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,19 +20,13 @@ public class CarServiceImpl implements CarService {
 
     private final CarRepository carRepository;
     private final EmployeeRepository employeeRepository;
-    private final PassengerRepository passengerRepository;
-    private final EmployeeMapperFromEntityToDto employeeMapperFromEntityToDto;
-    private final PassengerMapperFromEntityToDto passengerMapperFromEntityToDto;
+
 
     @Autowired
-    public CarServiceImpl(CarRepository carRepository, EmployeeRepository employeeRepository, PassengerRepository passengerRepository,
-                          EmployeeMapperFromEntityToDto employeeMapperFromEntityToDto,
-                          PassengerMapperFromEntityToDto passengerMapperFromEntityToDto) {
+    public CarServiceImpl(CarRepository carRepository, EmployeeRepository employeeRepository) {
         this.carRepository = carRepository;
         this.employeeRepository = employeeRepository;
-        this.passengerRepository = passengerRepository;
-        this.employeeMapperFromEntityToDto = employeeMapperFromEntityToDto;
-        this.passengerMapperFromEntityToDto = passengerMapperFromEntityToDto;
+
     }
 
     @Override
@@ -83,54 +73,6 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public CarDto addPassengerToSelectedCar(long carId, long empId) {
-        EmployeeEntity employeeEntity = employeeRepository.getOne(empId);
-        CarEntity carEntity = carRepository.getOne(carId);
-        boolean isPresent = passengerRepository.findAll().stream().anyMatch(passengerEntity -> passengerEntity.getEmployeeEntity().getEmpId() == empId);
-        if (isPresent == false) {
-            if (((carEntity.getSeatsNumber() - 1) - passengerRepository.countPassengersByCarId(carEntity)) > 0) {
-                PassengerEntity passengerEntity = new PassengerEntity();
-                passengerEntity.setCar(carEntity);
-                passengerEntity.setEmployeeEntity(employeeEntity);
-                passengerRepository.save(passengerEntity);
-                return new CarDto.Builder()
-                        .withCarId(carEntity.getCarId())
-                        .withBrand(carEntity.getBrand())
-                        .withModel(carEntity.getModel())
-                        .withSeatsNumber(carEntity.getSeatsNumber())
-                        .withPassengers(mapPassengerListToLong(carEntity))
-                        .build();
-            }
-        }
-        return null;
-    }
-
-    @Override
-    public CarDto removePassengerFromSelectedCar(long carId, long passengerId) {
-        passengerRepository.deleteById(passengerId);
-        CarEntity carEntity = carRepository.getOne(carId);
-        return new CarDto.Builder()
-                .withCarId(carEntity.getCarId())
-                .withBrand(carEntity.getBrand())
-                .withModel(carEntity.getModel())
-                .withSeatsNumber(carEntity.getSeatsNumber())
-                .withPassengers(passengerMapperFromEntityToDto.mapList(passengerRepository.findAll()))
-                .build();
-    }
-
-    @Override
-    public List<PassengerDto> showPassengersForSelectedCar(long carId) {
-        List<PassengerEntity> passengerEntities = passengerRepository.findAllPassengerInGivenCar(carRepository.getOne(carId));
-        return passengerMapperFromEntityToDto.mapList(passengerEntities);
-    }
-
-    @Override
-    public List<EmployeeDto> showPassengersCar(long carId) {
-        List<EmployeeEntity> employeeEntities = passengerRepository.findPassengersInCar(carRepository.getOne(carId));
-        return employeeMapperFromEntityToDto.mapListFromEntitiesToDtos(employeeEntities);
-    }
-
-    @Override
     public EmployeeDto showCarOwner(long carId) {
         CarEntity carEntity1 = carRepository.getOne(carId);
         EmployeeEntity employeeEntity1 = employeeRepository.getOne(carEntity1.getOwner().getEmpId());
@@ -172,6 +114,7 @@ public class CarServiceImpl implements CarService {
                 .withPassengers(mapPassengerListToLong(carEntity))
                 .build();
     }
+
     private List<Long> mapPassengerListToLong(CarEntity carEntity) {
         return carEntity.getPassengerEntities().stream()
                 .map(passengerEntity -> passengerEntity.getPassengerId()).collect(Collectors.toList());

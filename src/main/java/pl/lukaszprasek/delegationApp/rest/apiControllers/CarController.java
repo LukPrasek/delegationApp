@@ -29,15 +29,13 @@ public class CarController {
     private final CarMapper carMapper;
     private final RequestCarToDtoMapper requestCarToDtoMapper;
     private final EmployeeMapper employeeMapper;
-    private final PassengerMapperFromDtoToRESTModel passengerMapperFromDtoToRESTModel;
 
     @Autowired
-    public CarController(CarManager carManager, CarMapper carMapper, RequestCarToDtoMapper requestCarToDtoMapper, EmployeeMapper employeeMapper, PassengerMapperFromDtoToRESTModel passengerMapperFromDtoToRESTModel) {
+    public CarController(CarManager carManager, CarMapper carMapper, RequestCarToDtoMapper requestCarToDtoMapper, EmployeeMapper employeeMapper) {
         this.carManager = carManager;
         this.carMapper = carMapper;
         this.requestCarToDtoMapper = requestCarToDtoMapper;
         this.employeeMapper = employeeMapper;
-        this.passengerMapperFromDtoToRESTModel = passengerMapperFromDtoToRESTModel;
     }
 
     @ApiOperation("Get all cars")
@@ -51,7 +49,6 @@ public class CarController {
     public CarRestModel showOneCar(@PathVariable("id") long id) {
         return (CarRestModel) carMapper.map(carManager.getCarById(id));
     }
-
 
     @ApiOperation("Create new car")
     @PostMapping(path = "/add/car", produces = "application/json")
@@ -69,12 +66,6 @@ public class CarController {
 
     }
 
-    @ApiOperation("Get passengers id for one car")
-    @GetMapping(path = "/passengers/{car_id}")
-    public List<PassengerRestModel> showPassengersForSelectedCar(@PathVariable("car_id") long carId) {
-        return passengerMapperFromDtoToRESTModel.mapListToRest(carManager.showPassengersForSelectedCar(carId));
-    }
-
     @ApiOperation("Add passenger to selected car")
     @PutMapping(path = "/car/{carId}/employee/{empId}")
     public ResponseEntity<CarRestModel> addPassengerToSelectedCar(@PathVariable("carId") long carId, @PathVariable("empId") long empId) {
@@ -88,11 +79,11 @@ public class CarController {
     }
 
     @ApiOperation("Remove passenger from selected car")
-    @DeleteMapping(path = "/car/{carId}/passenger/{passengerId}")
+    @DeleteMapping(path = "/car/{carId}/employee/{empId}")
     public ResponseEntity<CarRestModel> removePassengerFromSelectedCar
-            (@PathVariable("carId") long carId, @PathVariable("passengerId") long passengerId) {
-        carMapper.map(carManager.removePassengerFromSelectedCar(carId, passengerId));
-        return new ResponseEntity<>(HttpStatus.OK);
+            (@PathVariable("carId") long carId, @PathVariable("empId") long passengerId) {
+        CarRestModel carRestModel= (CarRestModel) carMapper.map(carManager.removePassengerFromSelectedCar(carId, passengerId));
+        return new ResponseEntity<>(carRestModel, HttpStatus.OK);
     }
 
     @ApiOperation("Show car owner")
@@ -107,6 +98,7 @@ public class CarController {
     public List<EmployeeRestModel> showPassengersForCar(@PathVariable("car_id") long carId) {
         return employeeMapper.mapList(carManager.showPassengersForCar(carId));
     }
+
     @ApiOperation(value = "assign employee to car")
     @PutMapping(path = "/assignCar{carId}/employee{empId}/")
     public ResponseEntity<CarRestModel> assignCarToEmployee(@PathVariable("empId") Long empId, @PathVariable("carId") Long carId) {
