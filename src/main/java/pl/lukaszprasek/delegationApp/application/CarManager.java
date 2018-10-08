@@ -24,4 +24,8 @@ public interface CarManager {
     List<EmployeeDto> showPassengersForCar(long carId);
 
     EmployeeDto showCarOwner(long carId);
+
+    CarDto assignEmployeeToCar(long empId, long carId);
+
+    CarDto unassignEmployeeFromCar(long empId);
 }

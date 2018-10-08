@@ -19,7 +19,7 @@ public class CarEntity {
     @Column(name = "seats_number")
     private int seatsNumber = 5;
 
-    @OneToOne(cascade = CascadeType.REFRESH)//mappedBy = "carEntity",
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "emp_id")
     private EmployeeEntity owner;
 
@@ -27,8 +27,7 @@ public class CarEntity {
     @JsonManagedReference
     private List<PassengerEntity> passengerEntities;
 
-    public CarEntity() {
-    }
+    public CarEntity() {}
 
     public Long getCarId() {
         return carId;

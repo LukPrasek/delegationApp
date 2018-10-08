@@ -64,4 +64,14 @@ public class CarManagerImpl implements CarManager {
         return carService.showCarOwner(carId);
     }
 
+    @Override
+    public CarDto assignEmployeeToCar(long empId, long carId) {
+        return carService.assignEmployeeToCar(empId,carId);
+    }
+
+    @Override
+    public CarDto unassignEmployeeFromCar(long carId) {
+        return carService.unassignEmployeeFromCar(carId);
+    }
+
 }

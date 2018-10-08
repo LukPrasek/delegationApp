@@ -21,5 +21,5 @@ public interface PassengerRepository extends JpaRepository<PassengerEntity, Long
     @Query("SELECT p.employeeEntity FROM PassengerEntity p where p.car = :car")
     List<EmployeeEntity> findPassengersInCar(@Param("car") CarEntity car_id);
 
-    //@Query("select p.car from PassengerEntity p where p.car = :car")
+
 }

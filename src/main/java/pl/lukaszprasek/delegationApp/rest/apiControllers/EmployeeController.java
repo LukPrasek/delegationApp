@@ -66,17 +66,4 @@ public class EmployeeController {
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
 
-    @ApiOperation(value = "assign car to employee")
-    @PutMapping(path = "/employee{empId}/assignCar{carId}")
-    public ResponseEntity<EmployeeRestModel> assignCarToEmployee(@PathVariable("empId") Long empId, @PathVariable("carId") Long carId) {
-        EmployeeRestModel employeeRestModel = (EmployeeRestModel) employeeMapper.map(employeeManager.assignCarToEmployee(empId, carId));
-        return new ResponseEntity<>(employeeRestModel, HttpStatus.OK);
-    }
-
-    @ApiOperation(value = "Unassign car from employee")
-    @PutMapping(path = "/unassignemployee{empId}")
-    public ResponseEntity<EmployeeRestModel> unassignCarFromEmployee(@PathVariable("empId") long empId) {
-        EmployeeRestModel employeeRestModel = (EmployeeRestModel) employeeMapper.map(employeeManager.unassignCarFromEmployee(empId));
-        return new ResponseEntity<>(employeeRestModel, HttpStatus.OK);
-    }
 }

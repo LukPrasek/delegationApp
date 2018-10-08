@@ -25,7 +25,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     public EmployeeServiceImpl(EmployeeRepository employeeRepository, CarRepository carRepository) {
         this.employeeRepository = employeeRepository;
         this.carRepository = carRepository;
-
     }
 
     @Override
@@ -36,7 +35,6 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .withBirthday(employeeEntity.getBirthday())
                 .withStartWorkingDay(employeeEntity.getStartWorkingDate())
                 .withEmployeePosition(employeeEntity.getEmployeePosition().toString())
-                //.withCarDto(employeeEntity.getCarEntity() != null ? employeeEntity.getCarEntity().getCarId() : 0)
                 .build()).collect(Collectors.toList());
 
     }
@@ -75,33 +73,33 @@ public class EmployeeServiceImpl implements EmployeeService {
         return id;
     }
 
-    @Override
-    public EmployeeDto assignCarToEmployee(long empId, long carId) {
-        EmployeeEntity employeeEntity = employeeRepository.getOne(empId);
-        CarEntity carEntity = carRepository.getOne(carId);
-        employeeRepository.save(employeeEntity);
-        return new EmployeeDto.Builder().withEmpId(employeeEntity.getEmpId())
-                .withName(employeeEntity.getSurname())
-                .withSurname(employeeEntity.getSurname())
-                .withBirthday(employeeEntity.getBirthday())
-                .withStartWorkingDay(employeeEntity.getStartWorkingDate())
-                .withEmployeePosition(employeeEntity.getEmployeePosition().toString())
-                .build();
-    }
-
-    @Override
-    public EmployeeDto unassignCarFromEmployee(long empId) {
-        EmployeeEntity employeeEntity = employeeRepository.getOne(empId);
-        // employeeEntity.setCarEntity(null);
-        employeeRepository.save(employeeEntity);
-        return new EmployeeDto.Builder().withEmpId(employeeEntity.getEmpId())
-                .withName(employeeEntity.getName())
-                .withSurname(employeeEntity.getSurname())
-                .withBirthday(employeeEntity.getBirthday())
-                .withStartWorkingDay(employeeEntity.getStartWorkingDate())
-                .withEmployeePosition(employeeEntity.getEmployeePosition().toString())
-                .build();
-    }
+//    @Override
+//    public EmployeeDto assignEmployeeToCar(long empId, long carId) {
+//        EmployeeEntity employeeEntity = employeeRepository.getOne(empId);
+//        CarEntity carEntity = carRepository.getOne(carId);
+//        employeeRepository.save(employeeEntity);
+//        return new EmployeeDto.Builder().withEmpId(employeeEntity.getEmpId())
+//                .withName(employeeEntity.getSurname())
+//                .withSurname(employeeEntity.getSurname())
+//                .withBirthday(employeeEntity.getBirthday())
+//                .withStartWorkingDay(employeeEntity.getStartWorkingDate())
+//                .withEmployeePosition(employeeEntity.getEmployeePosition().toString())
+//                .build();
+//    }
+//
+//    @Override
+//    public EmployeeDto unassignEmployeeFromCar(long empId) {
+//        EmployeeEntity employeeEntity = employeeRepository.getOne(empId);
+//        // employeeEntity.setCarEntity(null);
+//        employeeRepository.save(employeeEntity);
+//        return new EmployeeDto.Builder().withEmpId(employeeEntity.getEmpId())
+//                .withName(employeeEntity.getName())
+//                .withSurname(employeeEntity.getSurname())
+//                .withBirthday(employeeEntity.getBirthday())
+//                .withStartWorkingDay(employeeEntity.getStartWorkingDate())
+//                .withEmployeePosition(employeeEntity.getEmployeePosition().toString())
+//                .build();
+//    }
 }
 
 

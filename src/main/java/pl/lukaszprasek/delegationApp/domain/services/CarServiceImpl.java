@@ -48,8 +48,7 @@ public class CarServiceImpl implements CarService {
                         .withModel(carEntity.getModel())
                         .withSeatsNumber(carEntity.getSeatsNumber())
                         .withOwner(carEntity.getOwner() != null ? carEntity.getOwner().getEmpId() : 0)
-                        .withPassengers(carEntity.getPassengerEntities().stream()
-                                .map(passengerEntity -> passengerEntity.getPassengerId()).collect(Collectors.toList()))
+                        .withPassengers(mapPassengerListToLong(carEntity))
                         .build()).collect(Collectors.toList());
     }
 
@@ -62,7 +61,7 @@ public class CarServiceImpl implements CarService {
                 .withModel(carEntity.get().getModel())
                 .withSeatsNumber(carEntity.get().getSeatsNumber())
                 .withOwner(carEntity.get().getOwner() != null ? carEntity.get().getOwner().getEmpId() : 0)
-                .withPassengers(carEntity.get().getPassengerEntities().stream().map(passengerEntity -> passengerEntity.getPassengerId()).collect(Collectors.toList()))
+                .withPassengers(mapPassengerListToLong(carEntity.get()))
                 .build();
     }
 
@@ -79,10 +78,8 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public Long deleteCarById(Long id) {
-        CarEntity carEntity = carRepository.getOne(id);
         carRepository.deleteById(id);
         return id;
-
     }
 
     @Override
@@ -101,8 +98,7 @@ public class CarServiceImpl implements CarService {
                         .withBrand(carEntity.getBrand())
                         .withModel(carEntity.getModel())
                         .withSeatsNumber(carEntity.getSeatsNumber())
-                        .withPassengers(carEntity.getPassengerEntities().stream()
-                                .map(passengerEntity1 -> passengerEntity1.getPassengerId()).collect(Collectors.toList()))
+                        .withPassengers(mapPassengerListToLong(carEntity))
                         .build();
             }
         }
@@ -148,6 +144,39 @@ public class CarServiceImpl implements CarService {
                 .withCarDto(carId)
                 .build();
     }
+
+    @Override
+    public CarDto assignEmployeeToCar(long empId, long carId) {
+        EmployeeEntity employeeEntity = employeeRepository.getOne(empId);
+        CarEntity carEntity = carRepository.getOne(carId);
+        carEntity.setOwner(employeeEntity);
+        carRepository.save(carEntity);
+        return new CarDto.Builder().withCarId(carEntity.getCarId())
+                .withBrand(carEntity.getBrand())
+                .withModel(carEntity.getModel())
+                .withSeatsNumber(carEntity.getSeatsNumber())
+                .withOwner(carEntity.getOwner().getEmpId())
+                .withPassengers(carEntity.getPassengerEntities().stream().map(PassengerEntity::getPassengerId).collect(Collectors.toList()))
+                .build();
+    }
+
+    @Override
+    public CarDto unassignEmployeeFromCar(long carId) {
+        CarEntity carEntity = carRepository.getOne(carId);
+        carEntity.setOwner(null);
+        carRepository.save(carEntity);
+        return new CarDto.Builder().withCarId(carEntity.getCarId())
+                .withBrand(carEntity.getBrand())
+                .withModel(carEntity.getModel())
+                .withSeatsNumber(carEntity.getSeatsNumber())
+                .withPassengers(mapPassengerListToLong(carEntity))
+                .build();
+    }
+    private List<Long> mapPassengerListToLong(CarEntity carEntity) {
+        return carEntity.getPassengerEntities().stream()
+                .map(passengerEntity -> passengerEntity.getPassengerId()).collect(Collectors.toList());
+    }
 }
+
 
 

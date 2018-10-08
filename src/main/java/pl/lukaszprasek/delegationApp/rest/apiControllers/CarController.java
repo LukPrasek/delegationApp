@@ -107,5 +107,17 @@ public class CarController {
     public List<EmployeeRestModel> showPassengersForCar(@PathVariable("car_id") long carId) {
         return employeeMapper.mapList(carManager.showPassengersForCar(carId));
     }
+    @ApiOperation(value = "assign employee to car")
+    @PutMapping(path = "/assignCar{carId}/employee{empId}/")
+    public ResponseEntity<CarRestModel> assignCarToEmployee(@PathVariable("empId") Long empId, @PathVariable("carId") Long carId) {
+        CarRestModel carRestModel = (CarRestModel) carMapper.map(carManager.assignEmployeeToCar(empId, carId));
+        return new ResponseEntity<>(carRestModel, HttpStatus.OK);
+    }
 
+    @ApiOperation(value = "Unassign employee from car")
+    @PutMapping(path = "/unassignemployee{carId}")
+    public ResponseEntity<CarRestModel> unassignCarFromEmployee(@PathVariable("carId") long empId) {
+        CarRestModel carRestModel = (CarRestModel) carMapper.map(carManager.unassignEmployeeFromCar(empId));
+        return new ResponseEntity<>(carRestModel, HttpStatus.OK);
+    }
 }

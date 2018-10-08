@@ -17,11 +17,15 @@ public class EmployeeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "emp_id")
     private long empId;
+    @Column(name = "name")
     private String name;
+    @Column(name = "surname")
     private String surname;
+    @Column(name = "birthday")
     private LocalDate birthday;
     @Column(name = "start_working_date")
     private LocalDate startWorkingDate;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "employee_position")
     private EmployeePosition employeePosition;
@@ -82,5 +86,8 @@ public class EmployeeEntity {
         return employeePosition;
     }
 
+    public void setEmployeePosition(EmployeePosition employeePosition) {
+        this.employeePosition = employeePosition;
+    }
 
 }

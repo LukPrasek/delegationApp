@@ -13,13 +13,13 @@ public class PassengerEntity {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long passengerId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "car_Id")
     @JsonBackReference
     private CarEntity car;
 
     @OneToOne(cascade = CascadeType.REFRESH)
-    //@JoinColumn(name = "emp_Id")
+    @JoinColumn(name = "emp_Id")
     private EmployeeEntity employeeEntity;
 
     public Long getPassengerId() {

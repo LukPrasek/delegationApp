@@ -14,9 +14,9 @@ public interface EmployeeManager {
 
     Long deleteEmployee(Long id);
 
-    EmployeeDto assignCarToEmployee (long empId, long carId);
-
-    EmployeeDto unassignCarFromEmployee (long empId);
+//    EmployeeDto assignEmployeeToCar (long empId, long carId);
+//
+//    EmployeeDto unassignEmployeeFromCar (long empId);
 
 
 }
