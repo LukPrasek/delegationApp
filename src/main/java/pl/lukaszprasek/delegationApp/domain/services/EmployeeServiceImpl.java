@@ -36,7 +36,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .withBirthday(employeeEntity.getBirthday())
                 .withStartWorkingDay(employeeEntity.getStartWorkingDate())
                 .withEmployeePosition(employeeEntity.getEmployeePosition().toString())
-                .withCarDto(employeeEntity.getCarEntity() != null ? employeeEntity.getCarEntity().getCarId() : 0)
+                //.withCarDto(employeeEntity.getCarEntity() != null ? employeeEntity.getCarEntity().getCarId() : 0)
                 .build()).collect(Collectors.toList());
 
     }
@@ -49,7 +49,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .withBirthday(employeeEntity.getBirthday())
                 .withStartWorkingDay(employeeEntity.getStartWorkingDate())
                 .withEmployeePosition(employeeEntity.getEmployeePosition().toString())
-                .withCarDto(employeeEntity.getCarEntity() != null ? employeeEntity.getCarEntity().getCarId() : 0)
+                //.withCarDto(employeeEntity.getCarEntity() != null ? employeeEntity.getCarEntity().getCarId() : 0)
                 .build();
     }
 
@@ -79,7 +79,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     public EmployeeDto assignCarToEmployee(long empId, long carId) {
         EmployeeEntity employeeEntity = employeeRepository.getOne(empId);
         CarEntity carEntity = carRepository.getOne(carId);
-        employeeEntity.setCarEntity(carEntity);
         employeeRepository.save(employeeEntity);
         return new EmployeeDto.Builder().withEmpId(employeeEntity.getEmpId())
                 .withName(employeeEntity.getSurname())
@@ -87,14 +86,13 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .withBirthday(employeeEntity.getBirthday())
                 .withStartWorkingDay(employeeEntity.getStartWorkingDate())
                 .withEmployeePosition(employeeEntity.getEmployeePosition().toString())
-                .withCarDto(employeeEntity.getCarEntity() != null ? employeeEntity.getCarEntity().getCarId() : -1)
                 .build();
     }
 
     @Override
     public EmployeeDto unassignCarFromEmployee(long empId) {
         EmployeeEntity employeeEntity = employeeRepository.getOne(empId);
-        employeeEntity.setCarEntity(null);
+        // employeeEntity.setCarEntity(null);
         employeeRepository.save(employeeEntity);
         return new EmployeeDto.Builder().withEmpId(employeeEntity.getEmpId())
                 .withName(employeeEntity.getName())

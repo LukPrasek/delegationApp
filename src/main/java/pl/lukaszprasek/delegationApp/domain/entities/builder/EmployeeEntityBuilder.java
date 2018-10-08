@@ -16,7 +16,7 @@ public class EmployeeEntityBuilder implements EntityBuilder<EmployeeEntity> {
         employeeEntity.setSurname(surname);
         employeeEntity.setBirthday(birthday);
         employeeEntity.setStartWorkingDate(startWorkingDate);
-        employeeEntity.setEmployeePosition(EmployeePosition.valueOf(employeePosition));
+        //employeeEntity.setEmployeePosition(EmployeePosition.valueOf(employeePosition));
     }
 
     @Override

@@ -8,7 +8,7 @@ public class EmployeeRestModel {
     private String birthday;
     private String startWorkingDate;
     private String position;
-    private CarRestModel carRestModel;
+
 
 
     public long getEmpId() {
@@ -59,11 +59,4 @@ public class EmployeeRestModel {
         this.position = position;
     }
 
-    public CarRestModel getCarRestModel() {
-        return carRestModel;
-    }
-
-    public void setCarRestModel(CarRestModel carRestModel) {
-        this.carRestModel = carRestModel;
-    }
-}
+   }

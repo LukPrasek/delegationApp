@@ -31,7 +31,6 @@ public class EmployeeMapperFromDTOToRestModel implements EmployeeMapper<Employee
         employeeRestModel.setBirthday(from.getBirthday());
         employeeRestModel.setStartWorkingDate(from.getStartWorkingDate());
         employeeRestModel.setPosition(from.getEmployeePosition());
-        employeeRestModel.setCarRestModel(from.getCarId() == 0 ? null : carMapperFromDtoToRESTModel.map(carService.getCarById(from.getCarId())));
         return employeeRestModel;
     }
 

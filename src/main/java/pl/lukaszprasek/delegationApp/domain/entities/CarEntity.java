@@ -11,7 +11,7 @@ import java.util.List;
 public class CarEntity {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy= GenerationType.AUTO)
     @Column(name = "car_id")
     private Long carId;
     private String brand;
@@ -19,7 +19,7 @@ public class CarEntity {
     @Column(name = "seats_number")
     private int seatsNumber = 5;
 
-    @OneToOne(mappedBy = "carEntity", cascade = CascadeType.REFRESH)
+    @OneToOne(cascade = CascadeType.REFRESH)//mappedBy = "carEntity",
     @JoinColumn(name = "emp_id")
     private EmployeeEntity owner;
 

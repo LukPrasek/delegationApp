@@ -3,6 +3,7 @@ package pl.lukaszprasek.delegationApp.domain.entities;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.annotations.GenericGenerator;
 import pl.lukaszprasek.delegationApp.domain.entities.enums.EmployeePosition;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -12,9 +13,8 @@ import java.time.LocalDate;
 public class EmployeeEntity {
 
 
-
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "emp_id")
     private long empId;
     private String name;
@@ -26,20 +26,18 @@ public class EmployeeEntity {
     @Column(name = "employee_position")
     private EmployeePosition employeePosition;
 
-    @OneToOne
-    @JoinColumn(name = "car_id")
-    @JsonBackReference
-    private CarEntity carEntity;
-
     public EmployeeEntity() {
     }
+
     public EmployeeEntity(String name, String surname) {
         this.name = name;
         this.surname = surname;
     }
+
     public void setEmpId(long empId) {
         this.empId = empId;
     }
+
     public long getEmpId() {
         return empId;
     }
@@ -84,36 +82,5 @@ public class EmployeeEntity {
         return employeePosition;
     }
 
-    public void setEmployeePosition(EmployeePosition employeePosition) {
-        this.employeePosition = employeePosition;
-    }
-    public CarEntity getCarEntity() {
-        return carEntity;
-    }
 
-    public void setCarEntity(CarEntity carEntity) {
-        this.carEntity = carEntity;
-    }
-
-//    @Override
-//    public String toString() {
-//        return "EmployeeEntity{" +
-//                "empId=" + empId +
-//                ", name='" + name + '\'' +
-//                ", surname='" + surname + '\'' +
-//                ", birthday=" + birthday +
-//                ", startWorkingDate=" + startWorkingDate +
-//                ", employeePosition=" + employeePosition +
-//                ", carEntity=" + carEntity +
-//                '}';
-//    }
-//
-//    public String showNameSurnameAndPosition(){
-//                return "Employee{" +
-//                "Id=" + empId +
-//                ", name='" + name + '\'' +
-//                ", surname='" + surname + '\'' +
-//                ", Position=" + employeePosition +
-//                '}';
-//    }
 }

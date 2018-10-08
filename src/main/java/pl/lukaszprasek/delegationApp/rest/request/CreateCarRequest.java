@@ -1,6 +1,7 @@
 package pl.lukaszprasek.delegationApp.rest.request;
 
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.validator.constraints.Range;
 
 import javax.validation.constraints.NotNull;
 
@@ -13,7 +14,7 @@ public class CreateCarRequest {
     @NotNull
     private String model;
     @ApiModelProperty(name = "Number of seats", required = true)
-    @NotNull
+    @Range(min=1, max=9)
     private int seatsNumber;
 
     public String getBrand() {

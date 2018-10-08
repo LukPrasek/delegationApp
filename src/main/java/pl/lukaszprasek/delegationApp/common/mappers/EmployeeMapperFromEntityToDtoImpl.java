@@ -20,7 +20,7 @@ public class EmployeeMapperFromEntityToDtoImpl implements EmployeeMapperFromEnti
                 .withEmployeePosition(from.getEmployeePosition().toString())
                 .withStartWorkingDay(from.getStartWorkingDate())
                 .withBirthday(from.getBirthday())
-                .withCarDto(from.getCarEntity()!=null?from.getCarEntity().getCarId():0)
+                //.withCarDto(from.getCarEntity()!=null?from.getCarEntity().getCarId():0)
                 .build();
     }
 
