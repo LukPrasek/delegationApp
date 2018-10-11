@@ -82,7 +82,7 @@ public class CarController {
     @DeleteMapping(path = "/car/{carId}/employee/{empId}")
     public ResponseEntity<CarRestModel> removePassengerFromSelectedCar
             (@PathVariable("carId") long carId, @PathVariable("empId") long passengerId) {
-        CarRestModel carRestModel= (CarRestModel) carMapper.map(carManager.removePassengerFromSelectedCar(carId, passengerId));
+        CarRestModel carRestModel = (CarRestModel) carMapper.map(carManager.removePassengerFromSelectedCar(carId, passengerId));
         return new ResponseEntity<>(carRestModel, HttpStatus.OK);
     }
 
@@ -100,10 +100,18 @@ public class CarController {
     }
 
     @ApiOperation(value = "assign employee to car")
-    @PutMapping(path = "/assignCar{carId}/employee{empId}/")
+    @PutMapping(path = "/assignCar/{carId}/employee/{empId}/")
     public ResponseEntity<CarRestModel> assignCarToEmployee(@PathVariable("empId") Long empId, @PathVariable("carId") Long carId) {
-        CarRestModel carRestModel = (CarRestModel) carMapper.map(carManager.assignEmployeeToCar(empId, carId));
-        return new ResponseEntity<>(carRestModel, HttpStatus.OK);
+        CarDto carDto = carManager.assignEmployeeToCar(empId, carId);
+        System.out.println(carDto);
+        if (carDto != null) {
+            System.out.println("******z kontrollera**********************");
+            CarRestModel carRestModel = (CarRestModel) carMapper.map(carDto);
+            return new ResponseEntity<>(carRestModel, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
+
     }
 
     @ApiOperation(value = "Unassign employee from car")

@@ -28,6 +28,7 @@ public class PassengerServiceImplTest {
     private String brand;
     private String model;
     private int seatsNumber;
+    private TestHelperClass testHelperClass;
     private PassengerService passengerService;
     private CarEntity carEntity;
     private EmployeeEntity employeeEntity1;
@@ -48,13 +49,14 @@ public class PassengerServiceImplTest {
         brand = "Mercedes";
         model = "Vito";
         seatsNumber = 5;
+        testHelperClass = new TestHelperClass();
         passengerService = new PassengerServiceImpl(carRepository, employeeRepository, passengerRepository, employeeMapperFromEntityToDto);
-        employeeEntity1 = createEmployeeEntity(1, "Mieczyslaw", "Kanapka");
-        employeeEntity2 = createEmployeeEntity(2, "Krzysztof", "Zalewski");
-        carEntity = createCarEntity(carId, brand, model, seatsNumber);
+        employeeEntity1 = testHelperClass.createEmployeeEntity(1, "Mieczyslaw", "Kanapka");
+        employeeEntity2 = testHelperClass.createEmployeeEntity(2, "Krzysztof", "Zalewski");
+        carEntity = testHelperClass.createCarEntity(carId, brand, model, seatsNumber);
         carEntity.setOwner(employeeEntity1);
-        carEntity.setPassengerEntities(createPassengerEntityList(carEntity, employeeEntity2));
-        when(carRepository.findAll()).thenReturn(createCarEntityList(carEntity));
+        carEntity.setPassengerEntities(testHelperClass.createPassengerEntityList(carEntity, employeeEntity2));
+        when(carRepository.findAll()).thenReturn(testHelperClass.createCarEntityList(carEntity));
         when(carRepository.getOne(carId)).thenReturn(carEntity);
         when(passengerRepository.findAll()).thenReturn(carEntity.getPassengerEntities());
     }
@@ -65,7 +67,7 @@ public class PassengerServiceImplTest {
         numberOfPassengers = 2;
         long empId = 3;
 
-        EmployeeEntity employeeEntity3 = createEmployeeEntity(empId, "Andrzej", "Wozniak");
+        EmployeeEntity employeeEntity3 = testHelperClass.createEmployeeEntity(empId, "Andrzej", "Wozniak");
         when(employeeRepository.getOne(empId)).thenReturn(employeeEntity3);
         when(passengerRepository.countPassengersByCarId(carEntity)).thenReturn(numberOfPassengers);
         //WHEN
@@ -73,7 +75,7 @@ public class PassengerServiceImplTest {
 
         // THEN
         assertTrue(actual.getBrand().equalsIgnoreCase("Mercedes"));
-        assertTrue(actual.getPassengers().get(0)==1);
+        assertTrue(actual.getPassengers().get(0) == 1);
     }
 
     @Test
@@ -97,7 +99,7 @@ public class PassengerServiceImplTest {
         long empId = 3;
         long carId = 1;
 
-        EmployeeEntity employeeEntity3 = createEmployeeEntity(empId, "Andrzej", "Wozniak");
+        EmployeeEntity employeeEntity3 = testHelperClass.createEmployeeEntity(empId, "Andrzej", "Wozniak");
         when(employeeRepository.getOne(empId)).thenReturn(employeeEntity3);
         when(passengerRepository.countPassengersByCarId(carEntity)).thenReturn(numberOfPassengers);
         //WHEN
@@ -114,9 +116,6 @@ public class PassengerServiceImplTest {
         long empId = 2;
         long carId = 1;
 
-        EmployeeEntity employeeEntity3 = createEmployeeEntity(empId, "Andrzej", "Wozniak");
-        when(employeeRepository.getOne(empId)).thenReturn(employeeEntity3);
-        when(passengerRepository.countPassengersByCarId(carEntity)).thenReturn(numberOfPassengers);
         //WHEN
         CarDto actual = passengerService.addPassengerToSelectedCar(carId, empId);
 
@@ -124,38 +123,6 @@ public class PassengerServiceImplTest {
         assertNull(actual);
     }
 
-    private EmployeeEntity createEmployeeEntity(long empId, String name, String surname) {
-        EmployeeEntity employeeEntity = new EmployeeEntity();
-        employeeEntity.setEmpId(empId);
-        employeeEntity.setName(name);
-        employeeEntity.setSurname(surname);
-        return employeeEntity;
-    }
-
-    private CarEntity createCarEntity(long carId, String brand, String model, int seatsNumber) {
-        carEntity = new CarEntity();
-        carEntity.setCarId(carId);
-        carEntity.setBrand(brand);
-        carEntity.setModel(model);
-        carEntity.setSeatsNumber(seatsNumber);
-        return carEntity;
-    }
-
-    private List<PassengerEntity> createPassengerEntityList(CarEntity carEntity, EmployeeEntity employeeEntity) {
-        List<PassengerEntity> list = new ArrayList<>();
-        PassengerEntity passengerEntity = new PassengerEntity();
-        passengerEntity.setPassengerId(1L);
-        passengerEntity.setEmployeeEntity(employeeEntity);
-        passengerEntity.setCar(carEntity);
-        list.add(passengerEntity);
-        return list;
-    }
-
-    private List<CarEntity> createCarEntityList(CarEntity carEntity) {
-        List<CarEntity> carEntities = new ArrayList<>();
-        carEntities.add(carEntity);
-        return carEntities;
-    }
 }
 
 

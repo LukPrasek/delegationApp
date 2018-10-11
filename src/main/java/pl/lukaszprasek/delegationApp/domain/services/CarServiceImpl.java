@@ -89,17 +89,25 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public CarDto assignEmployeeToCar(long empId, long carId) {
-        EmployeeEntity employeeEntity = employeeRepository.getOne(empId);
+        System.out.println(carRepository.findAll().size() + " wielkosc tablicy wejsciowej, powinno byc 2");
+        boolean isGivenEmpAnyCarOwner = carRepository.findAll().stream()
+                .anyMatch(carEntity -> (carEntity.getOwner() != null ? carEntity.getOwner().getEmpId() == empId : false));
         CarEntity carEntity = carRepository.getOne(carId);
-        carEntity.setOwner(employeeEntity);
-        carRepository.save(carEntity);
-        return new CarDto.Builder().withCarId(carEntity.getCarId())
-                .withBrand(carEntity.getBrand())
-                .withModel(carEntity.getModel())
-                .withSeatsNumber(carEntity.getSeatsNumber())
-                .withOwner(carEntity.getOwner().getEmpId())
-                .withPassengers(carEntity.getPassengerEntities().stream().map(PassengerEntity::getPassengerId).collect(Collectors.toList()))
-                .build();
+        if ((carEntity.getOwner() == null) & (isGivenEmpAnyCarOwner == false)) {
+            EmployeeEntity employeeEntity = employeeRepository.getOne(empId);
+            carEntity.setOwner(employeeEntity);
+            carRepository.save(carEntity);
+
+            return new CarDto.Builder().withCarId(carEntity.getCarId())
+                    .withBrand(carEntity.getBrand())
+                    .withModel(carEntity.getModel())
+                    .withSeatsNumber(carEntity.getSeatsNumber())
+                    .withOwner(carEntity.getOwner().getEmpId())
+                    .withPassengers(carEntity.getPassengerEntities().stream().map(passengerEntity -> passengerEntity != null ? passengerEntity.getPassengerId() : null).collect(Collectors.toList()))
+                    .build();
+        } else {
+            return null;
+        }
     }
 
     @Override
