@@ -1,5 +1,6 @@
 package pl.lukaszprasek.delegationApp.domain.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.lukaszprasek.delegationApp.common.dto.CarDto;
 import pl.lukaszprasek.delegationApp.common.dto.EmployeeDto;
@@ -23,23 +24,23 @@ public class PassengerServiceImpl implements PassengerService {
     private final PassengerRepository passengerRepository;
     private final EmployeeMapperFromEntityToDto employeeMapperFromEntityToDto;
 
+    @Autowired
     public PassengerServiceImpl(CarRepository carRepository, EmployeeRepository employeeRepository, PassengerRepository passengerRepository,
                                 EmployeeMapperFromEntityToDto employeeMapperFromEntityToDto) {
         this.carRepository = carRepository;
         this.employeeRepository = employeeRepository;
         this.passengerRepository = passengerRepository;
         this.employeeMapperFromEntityToDto = employeeMapperFromEntityToDto;
-
     }
 
     @Override
     public CarDto addPassengerToSelectedCar(long carId, long empId) {
-        boolean isGivenEmpIdCarOwner = carRepository.findAll().stream().anyMatch(carEntity1 -> carEntity1.getOwner().getEmpId() == empId);
-        boolean isPresent = passengerRepository.findAll().stream().anyMatch(passengerEntity -> passengerEntity.getEmployeeEntity().getEmpId() == empId);
-        if ((!isPresent) & (!isGivenEmpIdCarOwner)) {
+        boolean isGivenEmpCarOwner = carRepository.findAll().stream().anyMatch(carEntity1 -> carEntity1.getOwner().getEmpId() == empId);
+        boolean isEmpIdPresentInPassengerList = passengerRepository.findAll().stream().anyMatch(passengerEntity -> passengerEntity.getEmployeeEntity().getEmpId() == empId);
+        if ((!isEmpIdPresentInPassengerList) & (!isGivenEmpCarOwner)) {
             EmployeeEntity employeeEntity = employeeRepository.getOne(empId);
             CarEntity carEntity = carRepository.getOne(carId);
-            if (addNewPassenger(employeeEntity, carEntity))
+            if (addNewPassenger(employeeEntity, carEntity)) {
                 return new CarDto.Builder()
                         .withCarId(carEntity.getCarId())
                         .withOwner(carEntity.getOwner().getEmpId())
@@ -48,6 +49,7 @@ public class PassengerServiceImpl implements PassengerService {
                         .withSeatsNumber(carEntity.getSeatsNumber())
                         .withPassengers(mapPassengerListToLong(carEntity))
                         .build();
+            }
         }
         return null;
     }
