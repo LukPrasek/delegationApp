@@ -105,7 +105,6 @@ public class CarController {
         CarDto carDto = carManager.assignEmployeeToCar(empId, carId);
         System.out.println(carDto);
         if (carDto != null) {
-            System.out.println("******z kontrollera**********************");
             CarRestModel carRestModel = (CarRestModel) carMapper.map(carDto);
             return new ResponseEntity<>(carRestModel, HttpStatus.OK);
         } else {

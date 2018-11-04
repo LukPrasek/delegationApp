@@ -1,4 +1,5 @@
 package pl.lukaszprasek.delegationApp.common.dto;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -11,6 +12,7 @@ public class EmployeeDto implements Serializable {
     private String startWorkingDate;
     private String employeePosition;
     private long carId;
+    private long siteId;
 
     private EmployeeDto(Builder builder) {
         if (builder == null) {
@@ -23,6 +25,7 @@ public class EmployeeDto implements Serializable {
         this.startWorkingDate = builder.startWorkingDate;
         this.employeePosition = builder.employeePosition;
         this.carId = builder.carId;
+        this.siteId = builder.siteId;
 
     }
 
@@ -62,6 +65,14 @@ public class EmployeeDto implements Serializable {
         this.employeePosition = employeePosition;
     }
 
+    public long getSiteId() {
+        return siteId;
+    }
+
+    public void setSiteId(long siteId) {
+        this.siteId = siteId;
+    }
+
     private EmployeeDto() {
     }
 
@@ -73,6 +84,7 @@ public class EmployeeDto implements Serializable {
         private String startWorkingDate;
         private String employeePosition;
         private long carId;
+        private long siteId;
 
         public Builder withEmpId(long empId) {
             this.empId = empId;
@@ -108,7 +120,10 @@ public class EmployeeDto implements Serializable {
             this.carId = carId;
             return this;
         }
-
+        public Builder withSiteDto(long siteId) {
+            this.siteId = siteId;
+            return this;
+        }
         public EmployeeDto build() {
 
             return new EmployeeDto(this);

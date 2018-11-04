@@ -27,6 +27,8 @@ public class EmployeeEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "employee_position")
     private EmployeePosition employeePosition;
+    @Column(name = "site_id")
+    private long siteId;
 
     public EmployeeEntity() {
     }
@@ -88,4 +90,11 @@ public class EmployeeEntity {
         this.employeePosition = employeePosition;
     }
 
+    public long getSiteId() {
+        return siteId;
+    }
+
+    public void setSiteId(long siteId) {
+        this.siteId = siteId;
+    }
 }
