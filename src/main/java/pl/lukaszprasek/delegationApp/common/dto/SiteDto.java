@@ -14,6 +14,15 @@ public class SiteDto implements Serializable {
         if (builder == null)
             return;
         this.siteId = builder.siteId;
+        this.name = builder.name;
+        this.address = builder.address;
+        this.employees = builder.employees;
+        System.out.println(siteId+"   site id z buildera **************");
+        System.out.println(name+"   site name z buildera **************");
+     //   System.out.println(employees.size()+"   wielkosc listy z buildera **************");
+    }
+
+    public SiteDto() {
     }
 
     public long getSiteId() {
@@ -75,6 +84,7 @@ public class SiteDto implements Serializable {
         }
 
         public SiteDto build() {
+
             return new SiteDto(this);
         }
     }

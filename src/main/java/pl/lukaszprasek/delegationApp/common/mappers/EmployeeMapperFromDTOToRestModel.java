@@ -12,13 +12,8 @@ import java.util.stream.Collectors;
 @Component
 public class EmployeeMapperFromDTOToRestModel implements EmployeeMapper<EmployeeDto, EmployeeRestModel> {
 
-    private final CarService carService;
-    private final CarMapperFromDtoToRESTModel carMapperFromDtoToRESTModel;
-
     @Autowired
-    public EmployeeMapperFromDTOToRestModel(CarService carService, CarMapperFromDtoToRESTModel carMapperFromDtoToRESTModel) {
-        this.carService = carService;
-        this.carMapperFromDtoToRESTModel = carMapperFromDtoToRESTModel;
+    public EmployeeMapperFromDTOToRestModel(){
     }
 
     @Override
@@ -30,6 +25,7 @@ public class EmployeeMapperFromDTOToRestModel implements EmployeeMapper<Employee
         employeeRestModel.setBirthday(from.getBirthday());
         employeeRestModel.setStartWorkingDate(from.getStartWorkingDate());
         employeeRestModel.setPosition(from.getEmployeePosition());
+        employeeRestModel.setSiteId(from.getSiteId());
         return employeeRestModel;
     }
 

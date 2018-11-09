@@ -34,11 +34,17 @@ public class SiteManagerImpl implements SiteManager {
 
     @Override
     public SiteDto createSite(SiteDto siteDto) {
-        return null;
+
+        return siteService.createSite(siteDto);
     }
 
     @Override
-    public Long deleteSiteById(long id) {
-        return null;
+    public SiteDto assignEmployeeToSite(Long empId, Long siteId) {
+        return siteService.assignEmployeeToSite(empId, siteId);
+    }
+
+    @Override
+    public SiteDto removeEmployeeFromSite(Long empId, Long siteId) {
+        return siteService.removeEmployeeFromSite(empId, siteId);
     }
 }

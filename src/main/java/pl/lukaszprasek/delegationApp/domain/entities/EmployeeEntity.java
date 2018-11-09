@@ -5,11 +5,9 @@ import pl.lukaszprasek.delegationApp.domain.enums.EmployeePosition;
 import javax.persistence.*;
 import java.time.LocalDate;
 
-
 @Entity
 @Table(name = "employees")
 public class EmployeeEntity {
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,12 +21,12 @@ public class EmployeeEntity {
     private LocalDate birthday;
     @Column(name = "start_working_date")
     private LocalDate startWorkingDate;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "employee_position")
     private EmployeePosition employeePosition;
-    @Column(name = "site_id")
-    private long siteId;
+    @ManyToOne
+    @JoinColumn(name = "site_id")
+    private SiteEntity siteEntity;
 
     public EmployeeEntity() {
     }
@@ -90,11 +88,11 @@ public class EmployeeEntity {
         this.employeePosition = employeePosition;
     }
 
-    public long getSiteId() {
-        return siteId;
+    public SiteEntity getSiteEntity() {
+        return siteEntity;
     }
 
-    public void setSiteId(long siteId) {
-        this.siteId = siteId;
+    public void setSiteEntity(SiteEntity siteEntity) {
+        this.siteEntity = siteEntity;
     }
 }

@@ -29,6 +29,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .withBirthday(employeeEntity.getBirthday())
                 .withStartWorkingDay(employeeEntity.getStartWorkingDate())
                 .withEmployeePosition(employeeEntity.getEmployeePosition().toString())
+                .withSiteDto(employeeEntity.getSiteEntity()==null?0:employeeEntity.getSiteEntity().getSiteId())
                 .build()).collect(Collectors.toList());
 
     }
@@ -41,6 +42,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .withBirthday(employeeEntity.getBirthday())
                 .withStartWorkingDay(employeeEntity.getStartWorkingDate())
                 .withEmployeePosition(employeeEntity.getEmployeePosition().toString())
+                .withSiteDto(employeeEntity.getSiteEntity()==null?0:employeeEntity.getSiteEntity().getSiteId())
                 .build();
     }
 
@@ -56,7 +58,8 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .withSurname(employeeEntity.getSurname())
                 .withBirthday(employeeEntity.getBirthday())
                 .withStartWorkingDay(employeeEntity.getStartWorkingDate())
-                .withEmployeePosition(employeeEntity.getEmployeePosition().toString()).build();
+                .withEmployeePosition(employeeEntity.getEmployeePosition().toString())
+                .withSiteDto(employeeEntity.getSiteEntity()==null?0:employeeEntity.getSiteEntity().getSiteId()).build();
     }
 
     @Override

@@ -6,7 +6,6 @@ import pl.lukaszprasek.delegationApp.common.dto.CarDto;
 import pl.lukaszprasek.delegationApp.common.dto.EmployeeDto;
 import pl.lukaszprasek.delegationApp.domain.entities.CarEntity;
 import pl.lukaszprasek.delegationApp.domain.entities.EmployeeEntity;
-import pl.lukaszprasek.delegationApp.domain.entities.PassengerEntity;
 import pl.lukaszprasek.delegationApp.domain.builder.CarEntityBuilder;
 import pl.lukaszprasek.delegationApp.domain.repositories.CarRepository;
 import pl.lukaszprasek.delegationApp.domain.repositories.EmployeeRepository;
@@ -89,9 +88,8 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public CarDto assignEmployeeToCar(long empId, long carId) {
-        System.out.println(carRepository.findAll().size() + " wielkosc tablicy wejsciowej, powinno byc 2");
-        boolean isGivenEmpAnyCarOwner = carRepository.findAll().stream()
-                .anyMatch(carEntity -> (carEntity.getOwner() != null ? carEntity.getOwner().getEmpId() == empId : false));
+         boolean isGivenEmpAnyCarOwner = carRepository.findAll().stream()
+                .anyMatch(carEntity -> (carEntity.getOwner() != null && carEntity.getOwner().getEmpId() == empId));
         CarEntity carEntity = carRepository.getOne(carId);
         if ((carEntity.getOwner() == null) & (isGivenEmpAnyCarOwner == false)) {
             EmployeeEntity employeeEntity = employeeRepository.getOne(empId);

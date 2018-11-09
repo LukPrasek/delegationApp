@@ -36,7 +36,8 @@ public class PassengerServiceImpl implements PassengerService {
     @Override
     public CarDto addPassengerToSelectedCar(long carId, long empId) {
         boolean isGivenEmpCarOwner = carRepository.findAll().stream().anyMatch(carEntity1 -> carEntity1.getOwner().getEmpId() == empId);
-        boolean isEmpIdPresentInPassengerList = passengerRepository.findAll().stream().anyMatch(passengerEntity -> passengerEntity.getEmployeeEntity().getEmpId() == empId);
+        boolean isEmpIdPresentInPassengerList = passengerRepository.findAll().stream()
+                .anyMatch(passengerEntity -> passengerEntity.getEmployeeEntity().getEmpId() == empId);
         if ((!isEmpIdPresentInPassengerList) & (!isGivenEmpCarOwner)) {
             EmployeeEntity employeeEntity = employeeRepository.getOne(empId);
             CarEntity carEntity = carRepository.getOne(carId);
@@ -67,7 +68,8 @@ public class PassengerServiceImpl implements PassengerService {
 
     @Override
     public CarDto removePassengerFromSelectedCar(long carId, long empId) {
-        Optional<PassengerEntity> passenger = passengerRepository.findAll().stream().filter(passengerEntity -> passengerEntity.getEmployeeEntity().getEmpId() == empId).findFirst();
+        Optional<PassengerEntity> passenger = passengerRepository.findAll().stream()
+                .filter(passengerEntity -> passengerEntity.getEmployeeEntity().getEmpId() == empId).findFirst();
         passengerRepository.delete(passenger.get());
         CarEntity carEntity = carRepository.getOne(carId);
         return new CarDto.Builder()

@@ -11,16 +11,10 @@ public class SiteEntity {
     private long siteId;
     private String name;
     private String address;
-    @OneToMany(mappedBy = "siteId", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "siteEntity", cascade = CascadeType.MERGE)
     private List<EmployeeEntity> employeeEntities;
 
     public SiteEntity() {
-    }
-
-    public SiteEntity(int siteId, String name, String address) {
-        this.siteId = siteId;
-        this.name = name;
-        this.address = address;
     }
 
     public long getSiteId() {

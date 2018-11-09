@@ -8,6 +8,7 @@ public class EmployeeRestModel {
     private String birthday;
     private String startWorkingDate;
     private String position;
+    private long siteId;
 
 
 
@@ -59,4 +60,11 @@ public class EmployeeRestModel {
         this.position = position;
     }
 
+    public long getSiteId() {
+        return siteId;
+    }
+
+    public void setSiteId(long siteId) {
+        this.siteId = siteId;
+    }
    }

@@ -14,5 +14,7 @@ public interface SiteManager {
 
     SiteDto createSite(SiteDto siteDto);
 
-    Long deleteSiteById(long id);
+    SiteDto assignEmployeeToSite(Long empId, Long siteId);
+
+    SiteDto removeEmployeeFromSite(Long empId, Long siteId);
 }
