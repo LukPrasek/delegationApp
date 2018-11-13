@@ -51,7 +51,7 @@ public class CarController {
     }
 
     @ApiOperation("Create new car")
-    @PostMapping(path = "/add/car", produces = "application/json")
+    @PostMapping(path = "/car/add", produces = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
     public CarRestModel createNewCar(@Valid @RequestBody CreateCarRequest createCarRequest) {
         CarDto responseCarDto = carManager.createCar(requestCarToDtoMapper.mapCreatedRequestToDTO(createCarRequest));
@@ -67,7 +67,7 @@ public class CarController {
     }
 
     @ApiOperation("Add passenger to selected car")
-    @PutMapping(path = "/car/{carId}/employee/{empId}")
+    @PutMapping(path = "/car/{carId}/add/employee/{empId}")
     public ResponseEntity<CarRestModel> addPassengerToSelectedCar(@PathVariable("carId") long carId, @PathVariable("empId") long empId) {
         CarDto carDto = carManager.addPassengerToSelectedCar(carId, empId);
         if (carDto != null) {
@@ -79,7 +79,7 @@ public class CarController {
     }
 
     @ApiOperation("Remove passenger from selected car")
-    @DeleteMapping(path = "/car/{carId}/employee/{empId}")
+    @DeleteMapping(path = "/car/{carId}/remove/employee/{empId}")
     public ResponseEntity<CarRestModel> removePassengerFromSelectedCar
             (@PathVariable("carId") long carId, @PathVariable("empId") long passengerId) {
         CarRestModel carRestModel = (CarRestModel) carMapper.map(carManager.removePassengerFromSelectedCar(carId, passengerId));
@@ -87,7 +87,7 @@ public class CarController {
     }
 
     @ApiOperation("Show car owner")
-    @GetMapping(path = "/car/owner/{carId}")
+    @GetMapping(path = "/car/{carId}/owner/")
     public ResponseEntity<EmployeeRestModel> showCArOwner(@PathVariable("carId") long carId) {
         EmployeeRestModel employeeRestModel = (EmployeeRestModel) employeeMapper.map(carManager.showCarOwner(carId));
         return new ResponseEntity<>(employeeRestModel, HttpStatus.OK);
@@ -100,7 +100,7 @@ public class CarController {
     }
 
     @ApiOperation(value = "assign employee to car")
-    @PutMapping(path = "/assignCar/{carId}/employee/{empId}/")
+    @PutMapping(path = "car/{carId}/assign/employee/{empId}/")
     public ResponseEntity<CarRestModel> assignCarToEmployee(@PathVariable("empId") Long empId, @PathVariable("carId") Long carId) {
         CarDto carDto = carManager.assignEmployeeToCar(empId, carId);
         System.out.println(carDto);
@@ -114,8 +114,8 @@ public class CarController {
     }
 
     @ApiOperation(value = "Unassign employee from car")
-    @PutMapping(path = "/unassignemployee{carId}")
-    public ResponseEntity<CarRestModel> unassignCarFromEmployee(@PathVariable("carId") long empId) {
+    @PutMapping(path = "car/unassign-employee/{empId}")
+    public ResponseEntity<CarRestModel> unassignCarFromEmployee(@PathVariable("empId") long empId) {
         CarRestModel carRestModel = (CarRestModel) carMapper.map(carManager.unassignEmployeeFromCar(empId));
         return new ResponseEntity<>(carRestModel, HttpStatus.OK);
     }

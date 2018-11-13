@@ -12,7 +12,6 @@ import pl.lukaszprasek.delegationApp.common.mappers.EmployeeMapper;
 import pl.lukaszprasek.delegationApp.common.mappers.SiteMapperFromDtoToRestModel;
 import pl.lukaszprasek.delegationApp.common.requestMapper.RequestSiteToDtoMapper;
 import pl.lukaszprasek.delegationApp.rest.request.CreateSiteRequest;
-import pl.lukaszprasek.delegationApp.rest.response.CarRestModel;
 import pl.lukaszprasek.delegationApp.rest.response.EmployeeRestModel;
 import pl.lukaszprasek.delegationApp.rest.response.SiteRestModel;
 
@@ -55,7 +54,7 @@ public class SiteController {
         return employeeMapper.mapList(siteManager.showAllEmployeesForGivenSiteId(id));
     }
 
-    @PostMapping(path = "add/site", produces = "application/json")
+    @PostMapping(path = "site/add", produces = "application/json")
     @ApiOperation("Add new site")
     @ResponseStatus(HttpStatus.CREATED)
     public SiteRestModel createSite(@Valid @RequestBody CreateSiteRequest createSiteRequest) {
@@ -63,11 +62,10 @@ public class SiteController {
         return (SiteRestModel) siteMapperFromDtoToRestModel.mapToRest(responseSiteDto);
     }
     @ApiOperation(value = "assign employee to site")
-    @PutMapping(path = "/assignEmployee/{empId}/site/{siteId}/")
+    @PutMapping(path = "/site/{siteId}/assign-employee/{empId}")
     public ResponseEntity<SiteRestModel> assignEmployeeToSite(@PathVariable("empId") Long empId, @PathVariable("siteId") Long siteId) {
         SiteRestModel siteRestModel = (SiteRestModel) siteMapperFromDtoToRestModel.mapToRest(siteManager.assignEmployeeToSite(empId, siteId));
         if (siteRestModel != null) {
-//            SiteRestModel siteRestModel1 = (SiteRestModel) siteMapperFromDtoToRestModel.mapToRest(siteRestModel);
             return new ResponseEntity<>(siteRestModel, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
@@ -75,11 +73,10 @@ public class SiteController {
 
     }
     @ApiOperation(value = "Remove employee from site")
-    @PutMapping(path = "/unassignEmployee/{empId}/site/{siteId}/")
+    @PutMapping(path = "/site/{siteId}/remove-employee/{empId}")
     public ResponseEntity<SiteRestModel> removeEmployeeToSite(@PathVariable("empId") Long empId, @PathVariable("siteId") Long siteId) {
         SiteRestModel siteRestModel = (SiteRestModel) siteMapperFromDtoToRestModel.mapToRest(siteManager.removeEmployeeFromSite(empId, siteId));
         if (siteRestModel != null) {
-//            SiteRestModel siteRestModel1 = (SiteRestModel) siteMapperFromDtoToRestModel.mapToRest(siteRestModel);
             return new ResponseEntity<>(siteRestModel, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.CONFLICT);

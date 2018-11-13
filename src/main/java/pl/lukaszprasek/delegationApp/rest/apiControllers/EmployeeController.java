@@ -43,7 +43,7 @@ public class EmployeeController {
     }
 
     @ApiOperation(value = "Get one employee")
-    @GetMapping(path = "/employees/{id}", produces = "application/json")
+    @GetMapping(path = "/employee/{id}", produces = "application/json")
     public EmployeeRestModel getEmployeeById(@PathVariable("id") Long id) {
         return (EmployeeRestModel) employeeMapper.map(employeeManager.showEmployee(id));
     }
