@@ -42,14 +42,7 @@ public class PassengerServiceImpl implements PassengerService {
             EmployeeEntity employeeEntity = employeeRepository.getOne(empId);
             CarEntity carEntity = carRepository.getOne(carId);
             if (addNewPassenger(employeeEntity, carEntity)) {
-                return new CarDto.Builder()
-                        .withCarId(carEntity.getCarId())
-                        .withOwner(carEntity.getOwner().getEmpId())
-                        .withBrand(carEntity.getBrand())
-                        .withModel(carEntity.getModel())
-                        .withSeatsNumber(carEntity.getSeatsNumber())
-                        .withPassengers(mapPassengerListToLong(carEntity))
-                        .build();
+                return buildCarDto(carEntity);
             }
         }
         return null;
@@ -72,14 +65,7 @@ public class PassengerServiceImpl implements PassengerService {
                 .filter(passengerEntity -> passengerEntity.getEmployeeEntity().getEmpId() == empId).findFirst();
         passengerRepository.delete(passenger.get());
         CarEntity carEntity = carRepository.getOne(carId);
-        return new CarDto.Builder()
-                .withCarId(carEntity.getCarId())
-                .withBrand(carEntity.getBrand())
-                .withModel(carEntity.getModel())
-                .withOwner(carEntity.getOwner().getEmpId())
-                .withSeatsNumber(carEntity.getSeatsNumber())
-                .withPassengers(mapPassengerListToLong(carEntity))
-                .build();
+        return buildCarDto(carEntity);
     }
 
     @Override
@@ -91,5 +77,15 @@ public class PassengerServiceImpl implements PassengerService {
     private List<Long> mapPassengerListToLong(CarEntity carEntity) {
         return carEntity.getPassengerEntities().stream()
                 .map(passengerEntity -> passengerEntity.getPassengerId()).collect(Collectors.toList());
+    }
+    private CarDto buildCarDto (CarEntity carEntity){
+         return new CarDto.Builder()
+                .withCarId(carEntity.getCarId())
+                .withBrand(carEntity.getBrand())
+                .withModel(carEntity.getModel())
+                .withOwner(carEntity.getOwner().getEmpId())
+                .withSeatsNumber(carEntity.getSeatsNumber())
+                .withPassengers(mapPassengerListToLong(carEntity))
+                .build();
     }
 }

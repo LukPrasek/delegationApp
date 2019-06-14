@@ -31,9 +31,9 @@ CREATE TABLE `employees` (
   `employee_position` varchar(255) DEFAULT NULL,
   `site_id` int(10) DEFAULT NULL,
   PRIMARY KEY (`emp_id`),
-  KEY `site_id_idx` (`site_id`),
-  CONSTRAINT `fk_siteId` FOREIGN KEY (`site_id`) REFERENCES `site` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `fk_siteId` (`site_id`),
+  CONSTRAINT `fk_siteId` FOREIGN KEY (`site_id`) REFERENCES `site` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,7 +42,7 @@ CREATE TABLE `employees` (
 
 LOCK TABLES `employees` WRITE;
 /*!40000 ALTER TABLE `employees` DISABLE KEYS */;
-INSERT INTO `employees` VALUES (1,'Luk','Pras','1987-12-31','1987-12-31','DIRECTOR',NULL),(2,'Pawel','Kowalski','1975-02-01','2018-02-01','WORKER',1),(3,'Michal','Nowak','1975-02-01','2018-03-01','WORKER',2),(6,'Kamil','Keska','1975-02-01','2018-03-05','WORKER',2),(14,'Zenon','Malinowski','1975-02-01','2018-03-05','WORKER',2),(15,'Roman','Bieniek','1975-02-01','2018-02-01','WORKER',1),(16,'Romek','Grad','1975-02-01','2018-03-05','SUPERVISOR',1),(17,'Marcin','Kopycki','1975-02-01','2017-05-01','WORKER',1);
+INSERT INTO `employees` VALUES (1,'Lukasz','Nowak','1985-06-12','2019-05-01','WORKER',1),(2,'Kamil','Malinowski','1985-06-20','2019-05-01','DIRECTOR',2),(3,'PAWEŁ','Kierzkowsku','1984-04-17','2019-05-01','WORKER',1),(4,'MICHAŁ','MARUN','1983-05-17','2019-05-01','WORKER',1),(5,'ROBERT','BUDA','1983-02-09','2019-05-01','SUPERVISOR',1);
 /*!40000 ALTER TABLE `employees` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -55,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-11-03 21:33:59
+-- Dump completed on 2019-06-14 21:29:52

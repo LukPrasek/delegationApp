@@ -19,11 +19,11 @@ public class CarEntity {
     @Column(name = "seats_number")
     private int seatsNumber = 5;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne
     @JoinColumn(name = "emp_id")
     private EmployeeEntity owner;
 
-    @OneToMany(mappedBy = "car",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "car")
     @JsonManagedReference
     private List<PassengerEntity> passengerEntities;
 

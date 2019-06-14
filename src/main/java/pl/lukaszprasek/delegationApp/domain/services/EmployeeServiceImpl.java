@@ -19,31 +19,18 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Autowired
     public EmployeeServiceImpl(EmployeeRepository employeeRepository) {
         this.employeeRepository = employeeRepository;
-        }
+    }
 
     @Override
     public List<EmployeeDto> getAllEmployees() {
-        return employeeRepository.findAll().stream().map(employeeEntity -> new EmployeeDto.Builder()
-                .withEmpId(employeeEntity.getEmpId())
-                .withName(employeeEntity.getName()).withSurname(employeeEntity.getSurname())
-                .withBirthday(employeeEntity.getBirthday())
-                .withStartWorkingDay(employeeEntity.getStartWorkingDate())
-                .withEmployeePosition(employeeEntity.getEmployeePosition().toString())
-                .withSiteDto(employeeEntity.getSiteEntity()==null?0:employeeEntity.getSiteEntity().getSiteId())
-                .build()).collect(Collectors.toList());
+        return employeeRepository.findAll().stream().map(employeeEntity -> buildEmployeeDto(employeeEntity)).collect(Collectors.toList());
 
     }
 
     @Override
     public EmployeeDto getEmployeeById(Long id) {
         EmployeeEntity employeeEntity = employeeRepository.getOne(id);
-        return new EmployeeDto.Builder().withEmpId(employeeEntity.getEmpId())
-                .withName(employeeEntity.getName()).withSurname(employeeEntity.getSurname())
-                .withBirthday(employeeEntity.getBirthday())
-                .withStartWorkingDay(employeeEntity.getStartWorkingDate())
-                .withEmployeePosition(employeeEntity.getEmployeePosition().toString())
-                .withSiteDto(employeeEntity.getSiteEntity()==null?0:employeeEntity.getSiteEntity().getSiteId())
-                .build();
+        return buildEmployeeDto(employeeEntity);
     }
 
     @Override
@@ -53,13 +40,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         EmployeeEntity employeeEntity = new EmployeeEntityBuilder(employeeDto.getName(),
                 employeeDto.getSurname(), birthday, startWorkingDate, employeeDto.getEmployeePosition()).build();
         employeeRepository.save(employeeEntity);
-        return new EmployeeDto.Builder().withEmpId(employeeEntity.getEmpId())
-                .withName(employeeEntity.getName())
-                .withSurname(employeeEntity.getSurname())
-                .withBirthday(employeeEntity.getBirthday())
-                .withStartWorkingDay(employeeEntity.getStartWorkingDate())
-                .withEmployeePosition(employeeEntity.getEmployeePosition().toString())
-                .withSiteDto(employeeEntity.getSiteEntity()==null?0:employeeEntity.getSiteEntity().getSiteId()).build();
+        return buildEmployeeDto(employeeEntity);
     }
 
     @Override
@@ -68,6 +49,15 @@ public class EmployeeServiceImpl implements EmployeeService {
         return id;
     }
 
+    private EmployeeDto buildEmployeeDto(EmployeeEntity employeeEntity) {
+        return new EmployeeDto.Builder().withEmpId(employeeEntity.getEmpId())
+                .withName(employeeEntity.getName())
+                .withSurname(employeeEntity.getSurname())
+                .withBirthday(employeeEntity.getBirthday())
+                .withStartWorkingDay(employeeEntity.getStartWorkingDate())
+                .withEmployeePosition(employeeEntity.getEmployeePosition().toString())
+                .withSiteDto(employeeEntity.getSiteEntity() == null ? 0 : employeeEntity.getSiteEntity().getSiteId()).build();
+    }
 }
 
 

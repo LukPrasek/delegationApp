@@ -11,7 +11,7 @@ public class SiteEntity {
     private long siteId;
     private String name;
     private String address;
-    @OneToMany(mappedBy = "siteEntity", cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "siteEntity")
     private List<EmployeeEntity> employeeEntities;
 
     public SiteEntity() {

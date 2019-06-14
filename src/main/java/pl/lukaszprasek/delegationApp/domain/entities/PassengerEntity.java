@@ -13,12 +13,12 @@ public class PassengerEntity {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long passengerId;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne
     @JoinColumn(name = "car_Id")
     @JsonBackReference
     private CarEntity car;
 
-    @OneToOne(cascade = CascadeType.REFRESH)
+    @OneToOne
     @JoinColumn(name = "emp_Id")
     private EmployeeEntity employeeEntity;
 

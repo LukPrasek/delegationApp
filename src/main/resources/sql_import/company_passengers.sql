@@ -27,11 +27,11 @@ CREATE TABLE `passengers` (
   `car_id` bigint(20) DEFAULT NULL,
   `emp_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`passenger_id`),
-  KEY `FKj4sqpv99ypl7w9ae6bavbqm25` (`car_id`),
-  KEY `FKfjr6ej2rd7yjk0oy3by1tpra9` (`emp_id`),
-  CONSTRAINT `FKfjr6ej2rd7yjk0oy3by1tpra9` FOREIGN KEY (`emp_id`) REFERENCES `employees` (`emp_id`),
-  CONSTRAINT `FKj4sqpv99ypl7w9ae6bavbqm25` FOREIGN KEY (`car_id`) REFERENCES `cars` (`car_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `fk_car_in_pas` (`car_id`),
+  KEY `fk_emp_in_pas` (`emp_id`),
+  CONSTRAINT `fk_car_in_pas` FOREIGN KEY (`car_id`) REFERENCES `cars` (`car_id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  CONSTRAINT `fk_emp_in_pas` FOREIGN KEY (`emp_id`) REFERENCES `employees` (`emp_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,6 +40,7 @@ CREATE TABLE `passengers` (
 
 LOCK TABLES `passengers` WRITE;
 /*!40000 ALTER TABLE `passengers` DISABLE KEYS */;
+INSERT INTO `passengers` VALUES (1,2,3);
 /*!40000 ALTER TABLE `passengers` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -52,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-11-03 21:34:00
+-- Dump completed on 2019-06-14 21:29:52

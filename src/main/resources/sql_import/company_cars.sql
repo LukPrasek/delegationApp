@@ -30,8 +30,7 @@ CREATE TABLE `cars` (
   `emp_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`car_id`),
   KEY `fk_empId` (`emp_id`),
-  CONSTRAINT `FK8ydkgia7cs4v00a6ypa169sej` FOREIGN KEY (`emp_id`) REFERENCES `employees` (`emp_id`),
-  CONSTRAINT `fk_empId` FOREIGN KEY (`emp_id`) REFERENCES `employees` (`emp_id`) ON DELETE SET NULL ON UPDATE SET NULL
+  CONSTRAINT `fk_empId` FOREIGN KEY (`emp_id`) REFERENCES `employees` (`emp_id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -41,7 +40,7 @@ CREATE TABLE `cars` (
 
 LOCK TABLES `cars` WRITE;
 /*!40000 ALTER TABLE `cars` DISABLE KEYS */;
-INSERT INTO `cars` VALUES (37,'Toyota','Auris',5,6),(38,'Audi','A1',5,17);
+INSERT INTO `cars` VALUES (1,'Toyota','Auris',5,2),(2,'Audi','A1',5,5);
 /*!40000 ALTER TABLE `cars` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -54,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-11-03 21:33:59
+-- Dump completed on 2019-06-14 21:29:51

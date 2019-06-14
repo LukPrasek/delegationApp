@@ -113,17 +113,21 @@ public class CarServiceImpl implements CarService {
         CarEntity carEntity = carRepository.getOne(carId);
         carEntity.setOwner(null);
         carRepository.save(carEntity);
-        return new CarDto.Builder().withCarId(carEntity.getCarId())
-                .withBrand(carEntity.getBrand())
-                .withModel(carEntity.getModel())
-                .withSeatsNumber(carEntity.getSeatsNumber())
-                .withPassengers(mapPassengerListToLong(carEntity))
-                .build();
+        return buildCarDto(carEntity);
     }
 
     private List<Long> mapPassengerListToLong(CarEntity carEntity) {
         return carEntity.getPassengerEntities().stream()
                 .map(passengerEntity -> passengerEntity.getPassengerId()).collect(Collectors.toList());
+    }
+    private CarDto buildCarDto(CarEntity carEntity){
+       return new CarDto.Builder()
+                .withCarId(carEntity.getCarId())
+                .withBrand(carEntity.getBrand())
+                .withModel(carEntity.getModel())
+                .withSeatsNumber(carEntity.getSeatsNumber())
+                .withPassengers(mapPassengerListToLong(carEntity))
+                .build();
     }
 }
 
